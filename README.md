@@ -1,5 +1,4 @@
 # group_A_Helppy
-# Project Title
 
 One Paragraph of project description goes here
 
