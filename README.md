@@ -73,9 +73,11 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Demi** - *Initial work* - [Demi](https://github.com/demiavalian)
+* **Mariam** - *Initial work* - [Dgebu](https://github.com/Dgebu)
+* **Oleksandr** - *Initial work* - [Oleks Oleks](https://github.com/Shpakovsky94)
+* **Stanislav** - *Initial work* - [Stanislav](https://github.com/StanislavRa)
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
 ## License
 
