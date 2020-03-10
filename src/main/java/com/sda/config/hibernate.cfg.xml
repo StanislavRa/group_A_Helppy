@@ -14,7 +14,7 @@
         <property name="hibernate.connection.password">GeQnlYyf4N</property>
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.hbm2ddl.auto">create-drop</property>
-        <mapping class="com.chamodshehanka.standardShop.entity.Customer"/>
+        <!-- <mapping class="com.chamodshehanka.standardShop.entity.Customer"/> -->
 
     </session-factory>
 </hibernate-configuration>
