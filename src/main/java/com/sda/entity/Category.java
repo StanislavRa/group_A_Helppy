@@ -1,10 +1,14 @@
 package com.sda.entity;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
-@Table(name = "Category")
+@Table(name = "CATEGORY")
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -14,25 +18,35 @@ public class Category {
     @Column(name = "NAME", unique = true, nullable = false)
     private String name;
 
-    @Column(name = "CREATED_DATE", unique = false, nullable = false, length = 100)
-    private Date createdDate;
+    @ManyToOne
+    @JoinColumn(name = "FK_SUPER_CATEGORY")
+    public Category superCategory;
 
-    @Column(name = "IS_CREATED", unique = false, nullable = false)
-    private boolean isCreated;
+    @OneToMany(mappedBy="superCategory", cascade = CascadeType.ALL)
+    public List<Category> subCategories;
 
-    public Category() {}
+    @Column
+    @CreationTimestamp
+    private LocalDateTime CREATED_ON;
 
-    public Category(String name, Date createdDate, boolean isCreated) {
-        this.name = name;
-        this.createdDate = createdDate;
-        this.isCreated = isCreated;
+    @Column
+    @UpdateTimestamp
+    private LocalDateTime UPDATED_ON;
+
+    public Category() {
     }
 
-    public long getId() {
+    public Category(Category superCategory, String name) {
+        this.superCategory = superCategory;
+        this.name = name;
+        //this.subCategories = new ArrayList<>();
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -44,19 +58,35 @@ public class Category {
         this.name = name;
     }
 
-    public Date getCreatedDate() {
-        return createdDate;
+    public Category getSuperCategory() {
+        return superCategory;
     }
 
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
+    public void setSuperCategory(Category superCategory) {
+        this.superCategory = superCategory;
     }
 
-    public boolean isCreated() {
-        return isCreated;
+    public List<Category> getSubCategories() {
+        return subCategories;
     }
 
-    public void setCreated(boolean created) {
-        isCreated = created;
+    public void setSubCategories(List<Category> subCategories) {
+        this.subCategories = subCategories;
+    }
+
+    public LocalDateTime getCREATED_ON() {
+        return CREATED_ON;
+    }
+
+    public void setCREATED_ON(LocalDateTime CREATED_ON) {
+        this.CREATED_ON = CREATED_ON;
+    }
+
+    public LocalDateTime getUPDATED_ON() {
+        return UPDATED_ON;
+    }
+
+    public void setUPDATED_ON(LocalDateTime UPDATED_ON) {
+        this.UPDATED_ON = UPDATED_ON;
     }
 }
