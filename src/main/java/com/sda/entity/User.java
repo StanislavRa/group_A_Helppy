@@ -1,6 +1,7 @@
 package com.sda.entity;
 
 import javax.persistence.*;
+import java.util.*;
 
 /**
  * @author StanislavR
@@ -20,6 +21,7 @@ public class User {
     private String login;
     @Column(name = "PASSWORD", length = 60, nullable = false)
     private String password;
+
 
     public User() {
     }

@@ -14,6 +14,7 @@
         <property name="hibernate.connection.password">zahFiew0Rili4caighuNop5teegue6ae</property>
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.hbm2ddl.auto">create-drop</property>
+        <mapping class="com.sda.entity.Advertisement"/>
         <mapping class="com.sda.entity.Address"/>
         <mapping class="com.sda.entity.Category"/>
         <mapping class="com.sda.entity.User"/>
