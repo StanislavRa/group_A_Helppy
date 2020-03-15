@@ -2,6 +2,7 @@ package com.sda.dao.implementation;
 
 import com.sda.dao.Dao;
 import com.sda.entity.Address;
+import com.sda.entity.Customer;
 import com.sda.util.SessionUtil;
 import org.hibernate.Session;
 
@@ -14,7 +15,8 @@ public class AddressDao extends SessionUtil implements Dao<Address> {
 
     @Override
     public Address get(Long id) {
-        return null;
+        openTransactionSession();
+        return getSession().get(Address.class, id);
     }
 
     @Override

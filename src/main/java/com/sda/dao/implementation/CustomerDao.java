@@ -1,40 +1,36 @@
 package com.sda.dao.implementation;
 
 import com.sda.dao.Dao;
-import com.sda.entity.Address;
-import com.sda.entity.Category;
-import com.sda.util.HibernateUtil;
+import com.sda.entity.Customer;
+import com.sda.entity.User;
 import com.sda.util.SessionUtil;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 import java.util.List;
 
 /**
  * @author StanislavR
  */
-public class CategoryDao extends SessionUtil implements Dao<Category> {
-
+public class CustomerDao extends SessionUtil implements Dao<Customer> {
     @Override
-    public Category get(Long id) {
+    public Customer get(Long id) {
         openTransactionSession();
-        return getSession().get(Category.class, id);
-
+        return getSession().get(Customer.class, id);
     }
 
     @Override
-    public List<Category> getAll() {
+    public List<Customer> getAll() {
         return null;
     }
 
     @Override
-    public void save(Category category) {
+    public void save(Customer customer) {
 
         try  {
             // open session with a transaction
             openTransactionSession();
             Session session = getSession();
-            session.save(category);
+            session.save(customer);
 
             // close session with a transaction
             closeTransactionSession();
@@ -50,12 +46,12 @@ public class CategoryDao extends SessionUtil implements Dao<Category> {
     }
 
     @Override
-    public void update(Category category) {
+    public void update(Customer customer) {
 
     }
 
     @Override
-    public void delete(Category category) {
+    public void delete(Customer customer) {
 
     }
 }
