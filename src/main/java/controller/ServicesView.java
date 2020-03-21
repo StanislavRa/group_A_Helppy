@@ -3,74 +3,85 @@ package controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 
 public class ServicesView {
 
     @FXML
-    private CheckBox categoryCheckBox;
+    private Text logoText;
 
     @FXML
-    private CheckBox locationCheckBox;
+    private Button myAdsButton;
+
+    @FXML
+    private Button allAdsButton;
+
+    @FXML
+    private ComboBox<?> categoryComboBox;
+
+    @FXML
+    private ComboBox<?> locationComboBox;
 
     @FXML
     private TextField priceFromTextField;
 
     @FXML
-    private TableColumn<?, ?> locationColumn;
+    private TextField priceToTextField;
 
     @FXML
-    private TableColumn<?, ?> categoryColumn;
+    private DatePicker startDatePicker;
 
     @FXML
-    private TableColumn<?, ?> subjectColumn;
-
-    @FXML
-    private Button seeServicesButton;
+    private DatePicker endDatePicker;
 
     @FXML
     private TableView<?> mainTableView;
 
     @FXML
-    private Button addServicesButton;
+    private TableColumn<?, ?> subjectColumn;
 
     @FXML
-    private Button logInButton;
-
-    @FXML
-    private TextField priceToTextField;
+    private TableColumn<?, ?> categoryColumn;
 
     @FXML
     private TableColumn<?, ?> priceColumn;
 
     @FXML
-    private TableColumn<?, ?> descriptionColumn;
+    private TableColumn<?, ?> locationColumn;
 
     @FXML
-    void addServicesButtonPushed(ActionEvent event) {
+    private TableColumn<?, ?> startDateColumn;
+
+    @FXML
+    private TableColumn<?, ?> endDateColumn;
+
+    @FXML
+    void logoTextPushed(ActionEvent event) {
 
     }
 
     @FXML
-    void seeServicesButtonPushed(ActionEvent event) {
+    void myAdsButtonPushed(ActionEvent event) {
 
     }
 
     @FXML
-    void logInButtonPushed(ActionEvent event) {
+    void allAdsButtonPushed(ActionEvent event) {
 
     }
 
     @FXML
-    void categoryCheckBoxPushed(ActionEvent event) {
+    void categoryComboBoxPushed(ActionEvent event) {
 
     }
 
     @FXML
-    void locationCheckBoxPushed(ActionEvent event) {
+    void locationComboBoxPushed(ActionEvent event) {
 
     }
 
@@ -84,4 +95,13 @@ public class ServicesView {
 
     }
 
+    @FXML
+    void startDatePickerPushed(ActionEvent event) {
+
+    }
+
+    @FXML
+    void endDatePickerPushed(ActionEvent event) {
+
+    }
 }

@@ -3,39 +3,31 @@ package controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.text.Text;
 
 public class HomePage {
 
     @FXML
-    private Button exitButton;
+    private Text logoText;
 
     @FXML
-    private Button addServicesButton;
+    private Button myAdsButton;
 
     @FXML
-    private Button logInButton;
+    private Button allAdsButton;
 
     @FXML
-    private Button seeServicesButton;
-
-    @FXML
-    void seeServicesButtonPushed(ActionEvent event) {
+    void logoTextPushed(ActionEvent event) {
 
     }
 
     @FXML
-    void addServicesButtonPushed(ActionEvent event) {
+    void myAdsButtonPushed(ActionEvent event) {
 
     }
 
     @FXML
-    void logInButtonPushed(ActionEvent event) {
+    void allAdsButtonPushed(ActionEvent event) {
 
     }
-
-    @FXML
-    void exitButtonPushed(ActionEvent event) {
-
-    }
-
 }
