@@ -15,7 +15,7 @@ import java.net.URL;
 import java.sql.Date;
 import java.util.ResourceBundle;
 
-public class MyAdsController implements Initializable {
+public class MyAdsController extends GeneralController implements Initializable {
 
     @FXML
     private Label fullNameLabel;
@@ -32,10 +32,8 @@ public class MyAdsController implements Initializable {
     @FXML
     private TableColumn<Advertisement, Date> endDateTableColumn;
 
-    private Customer customer;
-
     public MyAdsController(Customer customer) {
-        this.customer = customer;
+        super(customer);
     }
 
     @Override
@@ -46,7 +44,6 @@ public class MyAdsController implements Initializable {
         setUpTableColumns();
 
         myAdsTable.setItems(FXCollections.observableArrayList(customer.getUserAdvertisements()));
-
     }
 
     public void setUpTableColumns() {
