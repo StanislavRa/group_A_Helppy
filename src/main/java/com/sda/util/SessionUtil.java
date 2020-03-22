@@ -19,7 +19,7 @@ public class SessionUtil {
 		return HibernateUtil.getSessionFactory().openSession();
 	}
 
-	public Session openTransactionSession() {
+	public Session openTransactionAndSession() {
 		session = openSession();
 		transaction = session.beginTransaction();
 		return session;
@@ -29,7 +29,7 @@ public class SessionUtil {
 		session.close();
 	}
 
-	public void closeTransactionSession() {
+	public void closeTransactionAndSession() {
 		transaction.commit();
 		closeSession();
 	}

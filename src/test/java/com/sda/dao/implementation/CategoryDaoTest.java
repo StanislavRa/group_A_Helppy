@@ -4,6 +4,7 @@ import com.sda.entity.Category;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.logging.Logger;
 
 /**
@@ -19,17 +20,20 @@ public class CategoryDaoTest {
 
         CategoryDao categoryDao = new CategoryDao();
 
-        Category rentSuperCategory = new Category(null,"Rent");
+        //Category rentSuperCategory = new Category(null,"Caring");
 
+        Category rentSuperCategory = new Category("Photo");
+       Category rentSubCategory1 = new Category(rentSuperCategory,"Nanny");
+
+        Category rentSubCategory2 = new Category(rentSuperCategory,"Pet Caring");
+
+
+        rentSuperCategory.setSubCategories(Arrays.asList(rentSubCategory1, rentSubCategory2));
         categoryDao.save(rentSuperCategory);
-        Category rentSubCategory1 = new Category(rentSuperCategory,"Car Rent");
-        categoryDao.save(rentSubCategory1);
-        Category rentSubCategory2 = new Category(rentSuperCategory,"Apartment Rent");
-        categoryDao.save(rentSubCategory2);
 
-        Assert.assertEquals("Rent",categoryDao.get(2L).getSuperCategory().getName());
+
         Assert.assertEquals(2, categoryDao.get(1L).getSubCategories().size());
-        Assert.assertEquals("Car Rent",categoryDao.get(1L).getSubCategories().get(0).getName());
+
 
 
 

@@ -1,13 +1,14 @@
 package com.sda.dao.implementation;
 
 import com.sda.dao.Dao;
-import com.sda.entity.Address;
 import com.sda.entity.Category;
-import com.sda.util.HibernateUtil;
 import com.sda.util.SessionUtil;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 /**
@@ -17,27 +18,36 @@ public class CategoryDao extends SessionUtil implements Dao<Category> {
 
     @Override
     public Category get(Long id) {
-        openTransactionSession();
+        openTransactionAndSession();
         return getSession().get(Category.class, id);
 
     }
 
     @Override
     public List<Category> getAll() {
-        return null;
+        openTransactionAndSession();
+        Session session = getSession();
+
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        CriteriaQuery<Category> cq = cb.createQuery(Category.class);
+        Root<Category> rootEntry = cq.from(Category.class);
+        CriteriaQuery<Category> all = cq.select(rootEntry);
+
+        TypedQuery<Category> allQuery = session.createQuery(all);
+        return allQuery.getResultList();
     }
 
     @Override
     public void save(Category category) {
 
-        try  {
+        try {
             // open session with a transaction
-            openTransactionSession();
+            openTransactionAndSession();
             Session session = getSession();
             session.save(category);
 
             // close session with a transaction
-            closeTransactionSession();
+            closeTransactionAndSession();
 
         } catch (Exception e) {
 
@@ -57,5 +67,18 @@ public class CategoryDao extends SessionUtil implements Dao<Category> {
     @Override
     public void delete(Category category) {
 
+    }
+
+    public List<Category> getAllSuperCategories() {
+        openTransactionAndSession();
+        Session session = getSession();
+
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        CriteriaQuery<Category> cq = cb.createQuery(Category.class);
+        Root<Category> rootEntry = cq.from(Category.class);
+        CriteriaQuery<Category> all = cq.select(rootEntry);
+
+        TypedQuery<Category> allQuery = session.createQuery(all);
+        return allQuery.getResultList();
     }
 }

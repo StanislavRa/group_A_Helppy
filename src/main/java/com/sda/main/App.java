@@ -1,21 +1,23 @@
 package com.sda.main;
 
-import com.sda.dao.implementation.AddressDao;
-import com.sda.dao.implementation.CategoryDao;
-import com.sda.entity.Address;
-import com.sda.entity.Category;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 /**
  * Hello world!
  *
  */
-public class App 
-{
-    public static void main( String[] args ) {
+public class App extends Application {
 
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        Parent root = FXMLLoader.load(getClass().getResource("/views/signInView.fxml"));
+        primaryStage.setTitle("My First App");
+        primaryStage.setScene(new Scene(root, 700, 435));
+        primaryStage.show();
+        //Runtime.getRuntime().addShutdownHook(new Thread(this::shutdown));
     }
 }

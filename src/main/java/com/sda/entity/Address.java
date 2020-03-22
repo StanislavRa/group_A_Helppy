@@ -5,24 +5,24 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.Objects;
 
-/**
- * @author StanislavR
- */
 
 @Entity
 @Table(name = "ADDRESS")
 public class Address {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID", unique = true, nullable = false, length = 100)
     private Long id;
+
     @Column(name = "COUNTRY", length = 60, nullable = false)
     private String country;
+
     @Column(name = "CITY", length = 60, nullable = false)
     private String city;
+
     @Column(name = "STREET", length = 60)
     private String street;
 
@@ -74,17 +74,10 @@ public class Address {
         return CREATED_ON;
     }
 
-    public void setCREATED_ON(LocalDateTime CREATED_ON) {
-        this.CREATED_ON = CREATED_ON;
-    }
-
     public LocalDateTime getUPDATED_ON() {
         return UPDATED_ON;
     }
 
-    public void setUPDATED_ON(LocalDateTime UPDATED_ON) {
-        this.UPDATED_ON = UPDATED_ON;
-    }
 
     @Override
     public String toString() {

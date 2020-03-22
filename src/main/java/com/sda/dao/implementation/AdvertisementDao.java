@@ -1,11 +1,14 @@
 package com.sda.dao.implementation;
 
 import com.sda.dao.Dao;
-import com.sda.entity.Address;
 import com.sda.entity.Advertisement;
 import com.sda.util.SessionUtil;
 import org.hibernate.Session;
 
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 /**
@@ -14,25 +17,34 @@ import java.util.List;
 public class AdvertisementDao extends SessionUtil implements Dao<Advertisement> {
     @Override
     public Advertisement get(Long id) {
-        openTransactionSession();
+        openTransactionAndSession();
         return getSession().get(Advertisement.class, id);
     }
 
     @Override
     public List<Advertisement> getAll() {
-        return null;
+        openTransactionAndSession();
+        Session session = getSession();
+
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        CriteriaQuery<Advertisement> cq = cb.createQuery(Advertisement.class);
+        Root<Advertisement> rootEntry = cq.from(Advertisement.class);
+        CriteriaQuery<Advertisement> all = cq.select(rootEntry);
+
+        TypedQuery<Advertisement> allQuery = session.createQuery(all);
+        return allQuery.getResultList();
     }
 
     @Override
     public void save(Advertisement advertisement) {
-        try  {
+        try {
             // open session with a transaction
-            openTransactionSession();
+            openTransactionAndSession();
             Session session = getSession();
             session.save(advertisement);
 
             // close session with a transaction
-            closeTransactionSession();
+            closeTransactionAndSession();
 
         } catch (Exception e) {
 
@@ -41,7 +53,6 @@ public class AdvertisementDao extends SessionUtil implements Dao<Advertisement> 
             }
             e.printStackTrace();
         }
-
     }
 
     @Override

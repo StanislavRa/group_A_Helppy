@@ -11,7 +11,7 @@ import java.util.List;
 @Table(name = "CATEGORY")
 public class Category {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", unique = true, nullable = false)
     private Long id;
 
@@ -38,6 +38,11 @@ public class Category {
 
     public Category(Category superCategory, String name) {
         this.superCategory = superCategory;
+        this.name = name;
+        //this.subCategories = new ArrayList<>();
+    }
+
+    public Category(String name) {
         this.name = name;
         //this.subCategories = new ArrayList<>();
     }

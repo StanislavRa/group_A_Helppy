@@ -2,7 +2,6 @@ package com.sda.entity;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -10,15 +9,37 @@ import java.util.List;
  */
 @Entity
 @Table(name = "CUSTOMER")
-public class Customer extends User{
-    @Column(name = "FULL_NAME", length = 60, nullable = false)
+
+@NamedNativeQueries({
+        @NamedNativeQuery(
+                name = "Customer_GetByFullName",
+                query = "select * from CUSTOMER customer " +
+                        "left join USER as user " +
+                        "on user.id = customer.id " +
+                        "where customer.FULL_NAME=:fullName",
+                resultClass = Customer.class),
+        @NamedNativeQuery(
+                name = "Customer_GetByLogin",
+                query = "select * from CUSTOMER customer " +
+                        "left join USER as user " +
+                        "on user.id = customer.id " +
+                        "where user.LOGIN=:login",
+                resultClass = Customer.class)
+})
+
+public class Customer extends User {
+    @Column(name = "FULL_NAME", nullable = false, length = 60)
     private String fullName;
 
-    @OneToMany
-    @JoinColumn(name = "customer_advertisement", nullable = true)
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<Advertisement> userAdvertisements = new ArrayList<>();
 
     public Customer() {
+    }
+
+    public Customer(String login, String password, String fullName) {
+        super(login, password);
+        this.fullName = fullName;
     }
 
     public String getFullName() {
@@ -28,7 +49,6 @@ public class Customer extends User{
     public void setFullName(String fullName) {
         this.fullName = fullName;
     }
-    
 
     public List<Advertisement> getUserAdvertisements() {
         return userAdvertisements;
@@ -36,5 +56,13 @@ public class Customer extends User{
 
     public void setUserAdvertisements(List<Advertisement> userAdvertisements) {
         this.userAdvertisements = userAdvertisements;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "fullName='" + fullName + '\'' +
+                ", userAdvertisements=" + userAdvertisements +
+                '}';
     }
 }

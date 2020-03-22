@@ -1,29 +1,32 @@
 package com.sda.entity;
 
 import javax.persistence.*;
-import java.util.*;
 
-/**
- * @author StanislavR
- */
+
 @Entity
 @Table(name = "USER")
-@Inheritance(
-        strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.JOINED)
 
-public class User {
+public abstract class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID", unique = true, nullable = false, length = 100)
     private Long id;
 
-    @Column(name = "LOGIN", length = 60, nullable = false)
+    @Column(name = "LOGIN", unique = true, nullable = false, length = 60)
     private String login;
-    @Column(name = "PASSWORD", length = 60, nullable = false)
+
+    @Column(name = "PASSWORD", nullable = false, length = 60)
     private String password;
 
 
     public User() {
+    }
+
+    public User(String login, String password) {
+        this.login = login;
+        this.password = password;
     }
 
     public Long getId() {

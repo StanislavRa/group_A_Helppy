@@ -11,7 +11,6 @@ public class HibernateUtil {
             // Create the SessionFactory from standard (hibernate.cfg.xml)
             // config file.
             sessionFactory = new Configuration().configure().buildSessionFactory();
-            //sessionFactory = new Configuration().configure("/com/sda/config/hibernate.cfg.xml").buildSessionFactory();
         } catch (Exception ex) {
             // Log the exception.
             ex.printStackTrace();
