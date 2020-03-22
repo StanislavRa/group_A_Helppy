@@ -24,6 +24,7 @@ public class SignUpController extends GeneralController {
     @FXML
     private TextField signUpFullNameTextField;
 
+
     public SignUpController(Customer customer) {
         super(customer);
     }
@@ -44,7 +45,6 @@ public class SignUpController extends GeneralController {
 
             Customer newCustomer = new Customer(loginText, loginPassword, fullName);
 
-            CustomerDao customerDao = new CustomerDao();
             customerDao.save(newCustomer);
 
             changeScreen(event, "/views/signInView.fxml");
@@ -54,9 +54,7 @@ public class SignUpController extends GeneralController {
         }
     }
 
-
     private Customer customerFromLogin(String loginText) {
-        CustomerDao customerDao = new CustomerDao();
         return customerDao.getByLogin(loginText);
     }
 }

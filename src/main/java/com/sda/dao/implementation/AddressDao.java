@@ -12,6 +12,10 @@ import java.util.List;
 
 public class AddressDao extends SessionUtil implements Dao<Address> {
 
+    public AddressDao(String hibernateConfigurationFilePath) {
+        super(hibernateConfigurationFilePath);
+    }
+
     @Override
     public Address get(Long id) {
 

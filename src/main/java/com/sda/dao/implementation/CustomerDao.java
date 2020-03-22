@@ -13,6 +13,10 @@ import java.util.List;
 
 public class CustomerDao extends SessionUtil implements Dao<Customer> {
 
+    public CustomerDao(String hibernateConfigurationFilePath) {
+        super(hibernateConfigurationFilePath);
+    }
+
     @Override
     public Customer get(Long id) {
 

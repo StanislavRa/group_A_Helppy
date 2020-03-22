@@ -18,7 +18,7 @@ public class AdvertisementDaoTest {
     @Test
     public void shouldSaveAdvertisement() throws ParseException {
 
-        CustomerDao customerDao = new CustomerDao();
+        CustomerDao customerDao = new CustomerDao("/com/sda/config/hibernateTest.cfg.xml");
 
         Customer customer = new Customer();
         customer.setLogin("Pjotr");

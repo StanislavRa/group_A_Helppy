@@ -18,7 +18,7 @@ public class CategoryDaoTest {
 
         log.info("...shouldSaveCategoryWithSubcategory...");
 
-        CategoryDao categoryDao = new CategoryDao();
+        CategoryDao categoryDao = new CategoryDao("/com/sda/config/hibernateTest.cfg.xml");
 
         //Category rentSuperCategory = new Category(null,"Caring");
 
@@ -38,7 +38,7 @@ public class CategoryDaoTest {
     @Test
     public void shouldUpdateCategoryName() {
 
-        CategoryDao categoryDao = new CategoryDao();
+        CategoryDao categoryDao = new CategoryDao("/com/sda/config/hibernateTest.cfg.xml");
         Category category = categoryDao.get(1L);
 
         String newCategoryName = "Renting";
@@ -55,7 +55,7 @@ public class CategoryDaoTest {
     @Test
     public void shouldDeleteCategory() {
 
-        CategoryDao categoryDao = new CategoryDao();
+        CategoryDao categoryDao = new CategoryDao("/com/sda/config/hibernateTest.cfg.xml");
         Category category = categoryDao.get(6L);
 
         categoryDao.delete(category);

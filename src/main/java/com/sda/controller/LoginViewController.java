@@ -26,6 +26,7 @@ public class LoginViewController extends GeneralController implements Initializa
     @FXML
     private Button signUpButton;
 
+
     public LoginViewController(Customer customer) {
         super(customer);
     }
@@ -38,7 +39,6 @@ public class LoginViewController extends GeneralController implements Initializa
     }
 
     private Customer customerFromLogin(String loginText) {
-        CustomerDao customerDao = new CustomerDao();
         return customerDao.getByLogin(loginText);
     }
 
@@ -69,7 +69,5 @@ public class LoginViewController extends GeneralController implements Initializa
         }
         return null;
     }
-
-
 }
 

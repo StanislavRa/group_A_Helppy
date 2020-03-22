@@ -20,11 +20,11 @@ public class AddressDaoTest {
         log.info("...shouldSaveAddressWithCreatedAndUpdatedTimeStamp...");
 
         Address address = new Address();
-        address.setCountry("USA");
-        address.setCity("NY");
-        address.setStreet("12 Avenue");
+        address.setCountry("Estonia");
+        address.setCity("Tallinn");
+        address.setStreet("Raekoja Plats");
 
-        AddressDao addressDao = new AddressDao();
+        AddressDao addressDao = new AddressDao("hibernateTest.cfg.xml");
 
         addressDao.save(address);
 

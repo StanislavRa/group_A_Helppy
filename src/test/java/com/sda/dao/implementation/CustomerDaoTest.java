@@ -24,7 +24,7 @@ public class CustomerDaoTest {
     @Test
     public void shouldSaveCustomer() {
 
-        CustomerDao customerDao = new CustomerDao();
+        CustomerDao customerDao = new CustomerDao("/com/sda/config/hibernate.cfg.xml");
 
         Customer customerOlga = new Customer();
         customerOlga.setLogin("customer1");
@@ -82,7 +82,7 @@ public class CustomerDaoTest {
     @Transactional
 
     public void shouldGetCustomerByLoginAndPass() {
-        CustomerDao customerDao = new CustomerDao();
+        CustomerDao customerDao = new CustomerDao("hibernateTest.cfg.xml");
 
         Customer customer = new Customer();
         String login = "JohnLove88";
@@ -100,7 +100,7 @@ public class CustomerDaoTest {
 
     @Test
     public void shouldDeleteCustomer() {
-        CustomerDao customerDao = new CustomerDao();
+        CustomerDao customerDao = new CustomerDao("hibernateTest.cfg.xml");
 
         Customer customer = customerDao.get(6L);
 
