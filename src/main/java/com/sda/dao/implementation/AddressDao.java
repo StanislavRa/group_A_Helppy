@@ -62,7 +62,7 @@ public class AddressDao extends SessionUtil implements Dao<Address> {
             // open session with a transaction
             openTransactionAndSession();
             Session session = getSession();
-            session.update(address);
+            session.merge(address);
 
             // close session with a transaction
             closeTransactionAndSession();
@@ -81,7 +81,7 @@ public class AddressDao extends SessionUtil implements Dao<Address> {
 
         try {
             // open session with a transaction
-            openTransactionAndSession();
+            //openTransactionAndSession();
             Session session = getSession();
             session.delete(address);
 

@@ -59,7 +59,7 @@ public class AdvertisementDao extends SessionUtil implements Dao<Advertisement> 
             // open session with a transaction
             openTransactionAndSession();
             Session session = getSession();
-            session.update(advertisement);
+            session.merge(advertisement);
 
             // close session with a transaction
             closeTransactionAndSession();
@@ -79,7 +79,7 @@ public class AdvertisementDao extends SessionUtil implements Dao<Advertisement> 
 
         try {
             // open session with a transaction
-            openTransactionAndSession();
+            //openTransactionAndSession();
             Session session = getSession();
             session.delete(advertisement);
 

@@ -63,7 +63,7 @@ public class CustomerDao extends SessionUtil implements Dao<Customer> {
             // open session with a transaction
             openTransactionAndSession();
             Session session = getSession();
-            session.update(customer);
+            session.merge(customer);
 
             // close session with a transaction
             closeTransactionAndSession();
@@ -82,7 +82,7 @@ public class CustomerDao extends SessionUtil implements Dao<Customer> {
 
         try {
             // open session with a transaction
-            openTransactionAndSession();
+            //openTransactionAndSession();
             Session session = getSession();
             session.delete(customer);
 

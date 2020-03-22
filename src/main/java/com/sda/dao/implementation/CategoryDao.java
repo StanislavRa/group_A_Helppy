@@ -62,7 +62,7 @@ public class CategoryDao extends SessionUtil implements Dao<Category> {
             // open session with a transaction
             openTransactionAndSession();
             Session session = getSession();
-            session.update(category);
+            session.merge(category);
 
             // close session with a transaction
             closeTransactionAndSession();
@@ -81,9 +81,9 @@ public class CategoryDao extends SessionUtil implements Dao<Category> {
 
         try {
             // open session with a transaction
-            openTransactionAndSession();
+            //openTransactionAndSession();
             Session session = getSession();
-            session.delete(category);
+            session.remove(category);
 
             // close session with a transaction
             closeTransactionAndSession();

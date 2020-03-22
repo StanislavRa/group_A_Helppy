@@ -95,8 +95,17 @@ public class CustomerDaoTest {
 
         customerDao.save(customer);
 
-        //customerDao.closeTransactionSession();
-
         Assert.assertEquals(fullName,customerDao.getByLogin(login).getFullName());
+    }
+
+    @Test
+    public void shouldDeleteCustomer() {
+        CustomerDao customerDao = new CustomerDao();
+
+        Customer customer = customerDao.get(6L);
+
+        customerDao.delete(customer);
+
+        Assert.assertNull(customerDao.get(6L));
     }
 }

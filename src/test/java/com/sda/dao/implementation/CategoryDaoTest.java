@@ -33,9 +33,36 @@ public class CategoryDaoTest {
 
 
         Assert.assertEquals(2, categoryDao.get(1L).getSubCategories().size());
+    }
 
+    @Test
+    public void shouldUpdateCategoryName() {
 
+        CategoryDao categoryDao = new CategoryDao();
+        Category category = categoryDao.get(1L);
 
+        String newCategoryName = "Renting";
+
+        category.setName(newCategoryName);
+
+        categoryDao.update(category);
+
+        Category updatedCategory = categoryDao.get(1L);
+
+        Assert.assertEquals(newCategoryName,updatedCategory.getName());
+    }
+
+    @Test
+    public void shouldDeleteCategory() {
+
+        CategoryDao categoryDao = new CategoryDao();
+        Category category = categoryDao.get(6L);
+
+        categoryDao.delete(category);
+
+        Category deletedCategory = categoryDao.get(6L);
+
+        Assert.assertNull(deletedCategory);
 
     }
 }
