@@ -10,7 +10,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
-public class ServicesView {
+public class SeeAllController {
 
     @FXML
     private Text logoText;
