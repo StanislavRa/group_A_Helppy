@@ -4,27 +4,24 @@ import com.sda.dao.Dao;
 import com.sda.entity.Category;
 import com.sda.util.SessionUtil;
 import org.hibernate.Session;
-
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
-/**
- * @author StanislavR
- */
 public class CategoryDao extends SessionUtil implements Dao<Category> {
 
     @Override
     public Category get(Long id) {
+
         openTransactionAndSession();
         return getSession().get(Category.class, id);
-
     }
 
     @Override
     public List<Category> getAll() {
+
         openTransactionAndSession();
         Session session = getSession();
 
@@ -56,17 +53,48 @@ public class CategoryDao extends SessionUtil implements Dao<Category> {
             }
             e.printStackTrace();
         }
-
     }
 
     @Override
     public void update(Category category) {
 
+        try {
+            // open session with a transaction
+            openTransactionAndSession();
+            Session session = getSession();
+            session.update(category);
+
+            // close session with a transaction
+            closeTransactionAndSession();
+
+        } catch (Exception e) {
+
+            if (getTransaction() != null) {
+                getTransaction().rollback();
+            }
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void delete(Category category) {
 
+        try {
+            // open session with a transaction
+            openTransactionAndSession();
+            Session session = getSession();
+            session.delete(category);
+
+            // close session with a transaction
+            closeTransactionAndSession();
+
+        } catch (Exception e) {
+
+            if (getTransaction() != null) {
+                getTransaction().rollback();
+            }
+            e.printStackTrace();
+        }
     }
 
     public List<Category> getAllSuperCategories() {

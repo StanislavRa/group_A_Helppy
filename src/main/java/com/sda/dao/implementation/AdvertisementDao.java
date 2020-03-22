@@ -4,17 +4,14 @@ import com.sda.dao.Dao;
 import com.sda.entity.Advertisement;
 import com.sda.util.SessionUtil;
 import org.hibernate.Session;
-
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
-/**
- * @author StanislavR
- */
 public class AdvertisementDao extends SessionUtil implements Dao<Advertisement> {
+
     @Override
     public Advertisement get(Long id) {
         openTransactionAndSession();
@@ -58,10 +55,44 @@ public class AdvertisementDao extends SessionUtil implements Dao<Advertisement> 
     @Override
     public void update(Advertisement advertisement) {
 
+        try {
+            // open session with a transaction
+            openTransactionAndSession();
+            Session session = getSession();
+            session.update(advertisement);
+
+            // close session with a transaction
+            closeTransactionAndSession();
+
+        } catch (Exception e) {
+
+            if (getTransaction() != null) {
+                getTransaction().rollback();
+            }
+            e.printStackTrace();
+        }
+
     }
 
     @Override
     public void delete(Advertisement advertisement) {
+
+        try {
+            // open session with a transaction
+            openTransactionAndSession();
+            Session session = getSession();
+            session.delete(advertisement);
+
+            // close session with a transaction
+            closeTransactionAndSession();
+
+        } catch (Exception e) {
+
+            if (getTransaction() != null) {
+                getTransaction().rollback();
+            }
+            e.printStackTrace();
+        }
 
     }
 }

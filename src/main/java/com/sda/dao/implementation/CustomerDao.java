@@ -11,12 +11,11 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
-/**
- * @author StanislavR
- */
 public class CustomerDao extends SessionUtil implements Dao<Customer> {
+
     @Override
     public Customer get(Long id) {
+
         openTransactionAndSession();
         return getSession().get(Customer.class, id);
     }
@@ -34,7 +33,6 @@ public class CustomerDao extends SessionUtil implements Dao<Customer> {
 
         TypedQuery<Customer> allQuery = session.createQuery(all);
         return allQuery.getResultList();
-
     }
 
     @Override
