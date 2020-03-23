@@ -1,6 +1,5 @@
 package com.sda.controller;
 
-import com.sda.dao.implementation.CustomerDao;
 import com.sda.entity.Customer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

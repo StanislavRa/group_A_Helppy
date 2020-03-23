@@ -1,12 +1,6 @@
 package com.sda.controller;
 
-import com.sda.dao.implementation.AddressDao;
-import com.sda.dao.implementation.AdvertisementDao;
-import com.sda.dao.implementation.CategoryDao;
 import com.sda.dao.implementation.CustomerDao;
-import com.sda.entity.Address;
-import com.sda.entity.Advertisement;
-import com.sda.entity.Category;
 import com.sda.entity.Customer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
