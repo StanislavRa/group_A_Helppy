@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LogInViewController">
+   <children>
+      <HBox layoutX="992.0" layoutY="14.0" spacing="14.0">
+         <children>
+            <Button fx:id="myAdsButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#myAdsButtonPushed" prefHeight="45.0" prefWidth="130.0" style="-fx-background-color: rgb(0, 204, 102); -fx-background-radius: 35;" text="My Ads" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </Button>
+            <Button fx:id="allAdsButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#allAdsButtonPushed" prefHeight="45.0" prefWidth="130.0" style="-fx-background-color: rgb(0, 204, 102); -fx-background-radius: 35;" text="All Ads" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </Button>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </HBox>
+      <Separator layoutY="72.0" prefWidth="1280.0" />
+      <Text fx:id="logoText" blendMode="SRC_ATOP" boundsType="VISUAL" fill="#00cc66" layoutX="17.0" layoutY="48.0" onMouseClicked="#logoTextMouseClicked" strokeType="OUTSIDE" strokeWidth="0.0" text="Helppy" wrappingWidth="122.3828125">
+         <font>
+            <Font name="Brush Script MT Italic" size="52.0" />
+         </font>
+      </Text>
+      <Pane layoutX="441.0" layoutY="150.0" prefHeight="554.0" prefWidth="400.0" style="-fx-effect: dropshadow(gaussian, black, 6, 0.6, 0, 0); -fx-border-color: black; -fx-border-width: 0.09; -fx-border-radius: 20;">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <children>
+            <Pane layoutX="57.0" layoutY="151.0" prefHeight="357.0" prefWidth="287.0">
+               <children>
+                  <PasswordField fx:id="passwordPasswordField" blendMode="SRC_ATOP" layoutY="62.0" onAction="#passwordPasswordFieldPushed" prefHeight="50.0" prefWidth="287.0" promptText="Password" style="-fx-background-radius: 35;">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </PasswordField>
+                  <TextField fx:id="userNameTextField" blendMode="SRC_ATOP" onAction="#userNameTextFieldPushed" prefHeight="50.0" prefWidth="287.0" promptText="Username" style="-fx-background-radius: 35;">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </TextField>
+                  <Button fx:id="signInButton" blendMode="SRC_ATOP" layoutY="155.0" mnemonicParsing="false" onAction="#signInButtonPushed" prefHeight="50.0" prefWidth="287.0" style="-fx-background-color: rgb(0, 204, 102); -fx-background-radius: 35;" text="SIGN IN" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                  </Button>
+                  <Text blendMode="SRC_ATOP" layoutX="66.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Don't have an account?" />
+                  <Text fx:id="signUpNowText" blendMode="SRC_ATOP" fill="#00cc66" layoutX="92.0" layoutY="352.0" onMouseClicked="#signUpNowTextMouseClicked" strokeType="OUTSIDE" strokeWidth="0.0" text="SIGN UP NOW">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Text>
+               </children>
+            </Pane>
+            <Pane blendMode="SRC_ATOP" prefHeight="103.0" prefWidth="400.0" style="-fx-background-color: rgb(0, 204, 102); -fx-background-radius: 20 20 0 0;">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <children>
+                  <Text blendMode="SRC_ATOP" fill="WHITE" layoutX="144.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign In">
+                     <font>
+                        <Font name="System Bold" size="34.0" />
+                     </font>
+                  </Text>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+   </children>
+</Pane>

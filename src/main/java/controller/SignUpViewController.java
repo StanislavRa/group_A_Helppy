@@ -7,7 +7,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
-public class LogInViewController {
+public class SignUpViewController {
 
     @FXML
     private TextField userNameTextField;
@@ -19,16 +19,19 @@ public class LogInViewController {
     private Text logoText;
 
     @FXML
+    private Text signInText;
+
+    @FXML
     private PasswordField passwordPasswordField;
 
     @FXML
-    private Text signUpNowText;
+    private TextField fullNameTextField;
 
     @FXML
     private Button myAdsButton;
 
     @FXML
-    private Button signInButton;
+    private Button signUpButton;
 
     @FXML
     void myAdsButtonPushed(ActionEvent event) {
@@ -41,12 +44,12 @@ public class LogInViewController {
     }
 
     @FXML
-    void logoTextMouseClicked(ActionEvent event) {
+    void passwordPasswordFieldPushed(ActionEvent event) {
 
     }
 
     @FXML
-    void passwordPasswordFieldPushed(ActionEvent event) {
+    void logoTextMouseClicked(ActionEvent event) {
 
     }
 
@@ -56,12 +59,18 @@ public class LogInViewController {
     }
 
     @FXML
-    void signInButtonPushed(ActionEvent event) {
+    void signUpButtonPushed(ActionEvent event) {
+
+    }
+
+
+    @FXML
+    void signInTextMouseClicked(ActionEvent event) {
 
     }
 
     @FXML
-    void signUpNowTextMouseClicked(ActionEvent event) {
+    void fullNameTextFieldPushed(ActionEvent event) {
 
     }
 
