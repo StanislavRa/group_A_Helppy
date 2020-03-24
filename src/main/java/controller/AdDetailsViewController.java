@@ -21,22 +21,7 @@ public class AdDetailsViewController {
     private Button myAdsButton;
 
     @FXML
-    private Text addressText;
-
-    @FXML
-    private Text categoryText;
-
-    @FXML
-    private Text endDateText;
-
-    @FXML
     private Button allAdsButton;
-
-    @FXML
-    private Text adTypeText;
-
-    @FXML
-    private Text startDateText;
 
     @FXML
     private Label startDateLabel;
@@ -51,10 +36,7 @@ public class AdDetailsViewController {
     private Label adTypeLabel;
 
     @FXML
-    private Text priceText;
-
-    @FXML
-    private Label addressLable;
+    private Label addressLabel;
 
     @FXML
     private Label descriptionLabel;

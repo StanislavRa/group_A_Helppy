@@ -36,7 +36,7 @@
          <children>
             <VBox spacing="5.0">
                <children>
-                  <Text fx:id="adTypeText" strokeType="OUTSIDE" strokeWidth="0.0" text="Ad Type">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ad Type">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -53,7 +53,7 @@
             </VBox>
             <VBox layoutX="11.0" layoutY="211.0" spacing="5.0">
                <children>
-                  <Text fx:id="categoryText" strokeType="OUTSIDE" strokeWidth="0.0" text="Category">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Category">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -70,7 +70,7 @@
             </VBox>
             <VBox layoutX="11.0" layoutY="401.0" spacing="5.0">
                <children>
-                  <Text fx:id="priceText" strokeType="OUTSIDE" strokeWidth="0.0" text="Price">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Price">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -87,7 +87,7 @@
             </VBox>
             <VBox layoutX="11.0" layoutY="449.0" spacing="5.0">
                <children>
-                  <Text fx:id="startDateText" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Date">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Start Date">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -104,7 +104,7 @@
             </VBox>
             <VBox layoutX="11.0" layoutY="479.0" spacing="5.0">
                <children>
-                  <Text fx:id="endDateText" strokeType="OUTSIDE" strokeWidth="0.0" text="End Date">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="End Date">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -121,12 +121,12 @@
             </VBox>
             <VBox layoutX="11.0" layoutY="314.0" spacing="5.0">
                <children>
-                  <Text fx:id="addressText" strokeType="OUTSIDE" strokeWidth="0.0" text="Address">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Address">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <Label fx:id="addressLable" text="Label">
+                  <Label fx:id="addressLabel" text="Label">
                      <font>
                         <Font size="18.0" />
                      </font>
