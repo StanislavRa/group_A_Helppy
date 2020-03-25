@@ -10,7 +10,7 @@
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdDetailsViewController">
    <children>
       <Separator layoutY="72.0" prefWidth="1280.0" />
-      <Text fx:id="logoText" boundsType="VISUAL" fill="RED" layoutX="17.0" layoutY="48.0" onMouseClicked="#logoTextPushed" strokeType="OUTSIDE" strokeWidth="0.0" text="Helppy" wrappingWidth="122.3828125">
+      <Text fx:id="logoText" boundsType="VISUAL" fill="RED" layoutX="17.0" layoutY="48.0" onMouseClicked="#logoTextMouseClicked" strokeType="OUTSIDE" strokeWidth="0.0" text="Helppy" wrappingWidth="122.3828125">
          <font>
             <Font name="Brush Script MT Italic" size="52.0" />
          </font>

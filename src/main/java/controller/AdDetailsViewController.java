@@ -33,7 +33,7 @@ public class AdDetailsViewController extends Models{
     private Label descriptionLabel;
 
     @Override
-    public void logoTextPushed(ActionEvent event) {
+    public void logoTextMouseClicked(ActionEvent event) {
 
     }
 

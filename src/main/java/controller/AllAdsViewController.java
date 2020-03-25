@@ -82,7 +82,7 @@ public class AllAdsViewController extends Models{
     }
 
     @Override
-    public void logoTextPushed(ActionEvent event) {
+    public void logoTextMouseClicked(ActionEvent event) {
 
     }
 

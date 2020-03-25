@@ -101,7 +101,7 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Text fx:id="logoText" boundsType="VISUAL" fill="RED" layoutX="17.0" layoutY="45.0" onMouseClicked="#logoTextPushed" strokeType="OUTSIDE" strokeWidth="0.0" text="Helppy" wrappingWidth="122.3828125">
+      <Text fx:id="logoText" boundsType="VISUAL" fill="RED" layoutX="17.0" layoutY="45.0" onMouseClicked="#logoTextMouseClicked" strokeType="OUTSIDE" strokeWidth="0.0" text="Helppy" wrappingWidth="122.3828125">
          <font>
             <Font name="Brush Script MT Italic" size="52.0" />
          </font>
