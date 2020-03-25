@@ -2,11 +2,9 @@ package controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.text.Text;
 
-public class AdDetailsViewController extends Models{
+public class Demi_AdDetailsViewController extends Demi_Models {
 
     @FXML
     private Label categoryLabel;

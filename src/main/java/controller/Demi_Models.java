@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 
-public abstract class Models {
+public abstract class Demi_Models {
 
     @FXML
     protected Text logoText;

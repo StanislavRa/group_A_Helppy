@@ -7,22 +7,19 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
-public class SignUpViewController extends Models{
+public class Demi_LogInViewController extends Demi_Models {
 
     @FXML
     private TextField userNameTextField;
 
     @FXML
-    private Text signInText;
-
-    @FXML
     private PasswordField passwordPasswordField;
 
     @FXML
-    private TextField fullNameTextField;
+    private Text signUpNowText;
 
     @FXML
-    private Button signUpButton;
+    private Button signInButton;
 
     @FXML
     void passwordPasswordFieldPushed(ActionEvent event) {
@@ -35,18 +32,12 @@ public class SignUpViewController extends Models{
     }
 
     @FXML
-    void signUpButtonPushed(ActionEvent event) {
-
-    }
-
-
-    @FXML
-    void signInTextMouseClicked(ActionEvent event) {
+    void signInButtonPushed(ActionEvent event) {
 
     }
 
     @FXML
-    void fullNameTextFieldPushed(ActionEvent event) {
+    void signUpNowTextMouseClicked(ActionEvent event) {
 
     }
 

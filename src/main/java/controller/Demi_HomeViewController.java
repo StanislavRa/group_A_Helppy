@@ -1,11 +1,8 @@
 package controller;
 
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.text.Text;
 
-public class HomeViewController extends Models{
+public class Demi_HomeViewController extends Demi_Models {
 
     @Override
     public void logoTextMouseClicked(ActionEvent event) {

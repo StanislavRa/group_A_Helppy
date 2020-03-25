@@ -2,15 +2,13 @@ package controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.text.Text;
 
-public class AllAdsViewController extends Models{
+public class Demi_AllAdsViewController extends Demi_Models {
 
     @FXML
     private ComboBox<?> categoryComboBox;
