@@ -10,16 +10,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
-public class AllAdsViewController {
-
-    @FXML
-    private Text logoText;
-
-    @FXML
-    private Button myAdsButton;
-
-    @FXML
-    private Button allAdsButton;
+public class AllAdsViewController extends Models{
 
     @FXML
     private ComboBox<?> categoryComboBox;
@@ -61,21 +52,6 @@ public class AllAdsViewController {
     private TableColumn<?, ?> endDateColumn;
 
     @FXML
-    void logoTextPushed(ActionEvent event) {
-
-    }
-
-    @FXML
-    void myAdsButtonPushed(ActionEvent event) {
-
-    }
-
-    @FXML
-    void allAdsButtonPushed(ActionEvent event) {
-
-    }
-
-    @FXML
     void categoryComboBoxPushed(ActionEvent event) {
 
     }
@@ -102,6 +78,21 @@ public class AllAdsViewController {
 
     @FXML
     void endDatePickerPushed(ActionEvent event) {
+
+    }
+
+    @Override
+    public void logoTextPushed(ActionEvent event) {
+
+    }
+
+    @Override
+    public void myAdsButtonPushed(ActionEvent event) {
+
+    }
+
+    @Override
+    public void allAdsButtonPushed(ActionEvent event) {
 
     }
 }

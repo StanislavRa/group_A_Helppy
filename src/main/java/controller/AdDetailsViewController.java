@@ -6,22 +6,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.text.Text;
 
-public class AdDetailsViewController {
-
-    @FXML
-    private Text logoText;
+public class AdDetailsViewController extends Models{
 
     @FXML
     private Label categoryLabel;
 
     @FXML
     private Label priceLabel;
-
-    @FXML
-    private Button myAdsButton;
-
-    @FXML
-    private Button allAdsButton;
 
     @FXML
     private Label startDateLabel;
@@ -41,18 +32,18 @@ public class AdDetailsViewController {
     @FXML
     private Label descriptionLabel;
 
-    @FXML
-    void logoTextPushed(ActionEvent event) {
+    @Override
+    public void logoTextPushed(ActionEvent event) {
 
     }
 
-    @FXML
-    void myAdsButtonPushed(ActionEvent event) {
+    @Override
+    public void myAdsButtonPushed(ActionEvent event) {
 
     }
 
-    @FXML
-    void allAdsButtonPushed(ActionEvent event) {
+    @Override
+    public void allAdsButtonPushed(ActionEvent event) {
 
     }
 

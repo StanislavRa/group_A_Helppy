@@ -5,29 +5,20 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 
-public class HomeViewController {
+public class HomeViewController extends Models{
 
-    @FXML
-    private Text logoText;
-
-    @FXML
-    private Button myAdsButton;
-
-    @FXML
-    private Button allAdsButton;
-
-    @FXML
-    void logoTextPushed(ActionEvent event) {
+    @Override
+    public void logoTextPushed(ActionEvent event) {
 
     }
 
-    @FXML
-    void myAdsButtonPushed(ActionEvent event) {
+    @Override
+    public void myAdsButtonPushed(ActionEvent event) {
 
     }
 
-    @FXML
-    void allAdsButtonPushed(ActionEvent event) {
+    @Override
+    public void allAdsButtonPushed(ActionEvent event) {
 
     }
 }

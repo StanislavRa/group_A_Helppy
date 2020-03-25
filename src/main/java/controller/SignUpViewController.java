@@ -7,16 +7,10 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
-public class SignUpViewController {
+public class SignUpViewController extends Models{
 
     @FXML
     private TextField userNameTextField;
-
-    @FXML
-    private Button allAdsButton;
-
-    @FXML
-    private Text logoText;
 
     @FXML
     private Text signInText;
@@ -28,28 +22,10 @@ public class SignUpViewController {
     private TextField fullNameTextField;
 
     @FXML
-    private Button myAdsButton;
-
-    @FXML
     private Button signUpButton;
 
     @FXML
-    void myAdsButtonPushed(ActionEvent event) {
-
-    }
-
-    @FXML
-    void allAdsButtonPushed(ActionEvent event) {
-
-    }
-
-    @FXML
     void passwordPasswordFieldPushed(ActionEvent event) {
-
-    }
-
-    @FXML
-    void logoTextMouseClicked(ActionEvent event) {
 
     }
 
@@ -74,4 +50,18 @@ public class SignUpViewController {
 
     }
 
+    @Override
+    public void logoTextPushed(ActionEvent event) {
+
+    }
+
+    @Override
+    public void myAdsButtonPushed(ActionEvent event) {
+
+    }
+
+    @Override
+    public void allAdsButtonPushed(ActionEvent event) {
+
+    }
 }
