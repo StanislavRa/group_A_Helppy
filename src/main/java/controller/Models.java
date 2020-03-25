@@ -17,12 +17,18 @@ public abstract class Models {
     protected Button allAdsButton;
 
     @FXML
-    public abstract void logoTextMouseClicked(ActionEvent event);
+    public void logoTextMouseClicked(ActionEvent event) {
+
+    }
 
     @FXML
-    public abstract void myAdsButtonPushed(ActionEvent event);
+    public void myAdsButtonPushed(ActionEvent event) {
+
+    }
 
     @FXML
-    public abstract void allAdsButtonPushed(ActionEvent event);
+    public void allAdsButtonPushed(ActionEvent event) {
+
+    }
 
 }
