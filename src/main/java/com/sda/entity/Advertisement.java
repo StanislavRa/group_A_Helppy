@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.Objects;
 
 
 @Entity
@@ -18,13 +19,13 @@ public class Advertisement {
     @Column(name = "ID", unique = true, nullable = false, length = 100)
     private Long id;
 
-    @Column(name = "SUBJECT", unique = true, nullable = false)
+    @Column(name = "SUBJECT", unique = true, nullable = false, length = 100)
     private String subject;
 
-    @Column(name = "DESCRIPTION", unique = true, nullable = false)
+    @Column(name = "DESCRIPTION", unique = true, nullable = false, length = 300)
     private String description;
 
-    @Column(name = "PRICE", nullable = false)
+    @Column(name = "PRICE", nullable = false, length = 100)
     private BigDecimal price;
 
     @Column(name = "START_DATE")
@@ -43,11 +44,11 @@ public class Advertisement {
 
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "STATE", nullable = false, updatable = false)
+    @Column(name = "STATE", nullable = false, updatable = false, length = 50)
     private ServiceState serviceState;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "TYPE", nullable = false, updatable = false)
+    @Column(name = "TYPE", nullable = false, updatable = false, length = 50)
     private ServiceType serviceType;
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -86,6 +87,7 @@ public class Advertisement {
             this.serviceState = ServiceState.ACTIVE;
         } else this.serviceState = ServiceState.INACTIVE;
     }
+
 
     public Long getId() {
         return id;
@@ -191,7 +193,7 @@ public class Advertisement {
         this.customer = customer;
     }
 
-    public enum  ServiceType {
+    public enum ServiceType {
         OFFER("Offer"),
         REQUEST("Request");
         private String type;
@@ -205,7 +207,8 @@ public class Advertisement {
             return type;
         }
     }
-    public enum  ServiceState {
+
+    public enum ServiceState {
         ACTIVE("Active"),
         INACTIVE("Inactive");
         String state;
@@ -218,5 +221,28 @@ public class Advertisement {
         public String toString() {
             return state;
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Advertisement that = (Advertisement) o;
+        return Objects.equals(getSubject(), that.getSubject()) &&
+                Objects.equals(getDescription(), that.getDescription()) &&
+                Objects.equals(getStartDate(), that.getStartDate()) &&
+                Objects.equals(getEndDate(), that.getEndDate()) &&
+                Objects.equals(getCREATED_ON(), that.getCREATED_ON()) &&
+                Objects.equals(getUPDATED_ON(), that.getUPDATED_ON()) &&
+                getServiceState() == that.getServiceState() &&
+                getServiceType() == that.getServiceType() &&
+                Objects.equals(getCategory(), that.getCategory()) &&
+                Objects.equals(getAddress(), that.getAddress()) &&
+                Objects.equals(getCustomer(), that.getCustomer());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getSubject(), getDescription(), getStartDate(), getEndDate(), getCREATED_ON(), getUPDATED_ON(), getServiceState(), getServiceType(), getCategory(), getAddress(), getCustomer());
     }
 }

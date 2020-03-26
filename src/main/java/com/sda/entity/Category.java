@@ -6,16 +6,18 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "CATEGORY")
 public class Category {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID", unique = true, nullable = false)
+    @Column(name = "ID", unique = true, nullable = false, length = 100)
     private Long id;
 
-    @Column(name = "NAME", unique = true, nullable = false)
+    @Column(name = "NAME", unique = true, nullable = false, length = 100)
     private String name;
 
     @ManyToOne
@@ -93,5 +95,27 @@ public class Category {
 
     public void setUPDATED_ON(LocalDateTime UPDATED_ON) {
         this.UPDATED_ON = UPDATED_ON;
+    }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "name='" + name + '\'' +
+                ", superCategory=" + superCategory +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Category category = (Category) o;
+        return Objects.equals(getName(), category.getName()) &&
+                Objects.equals(getSuperCategory(), category.getSuperCategory());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), getSuperCategory());
     }
 }

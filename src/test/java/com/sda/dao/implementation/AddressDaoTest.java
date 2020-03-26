@@ -109,11 +109,10 @@ public class AddressDaoTest {
         Address addressTest1 = new Address("Estonia", "Tallinn", "Parnu mnt");
         addressDao.save(addressTest1);
 
+        Address shouldGetAddressById = addressDao.get(1L);
 
-        addressDao.save(addressTest1);
-
-        Assert.assertNotNull(addressTest1.getCREATED_ON());
-        Assert.assertNotNull(addressTest1.getUPDATED_ON());
+        Assert.assertNotNull(shouldGetAddressById.getCREATED_ON().toString());
+        Assert.assertNotNull(shouldGetAddressById.getUPDATED_ON().toString());
 
     }
 

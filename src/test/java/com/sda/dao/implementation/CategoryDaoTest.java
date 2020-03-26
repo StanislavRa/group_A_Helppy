@@ -34,8 +34,6 @@ public class CategoryDaoTest {
         Assert.assertEquals("Car Rent",categoryDao.get(1L).getSubCategories().get(0).getName());
     }
 
-  /*
-    //Not working, still be in process
     @Test
     public void shouldGetCategoryById() {
 
@@ -44,10 +42,14 @@ public class CategoryDaoTest {
         Category rentSuperCategory = new Category(null, "Rent");
         categoryDao.save(rentSuperCategory);
 
+        Category rentSubCategory1 = new Category(rentSuperCategory,"Car Rent");
+        categoryDao.save(rentSubCategory1);
+
         Category shouldGetCategoryById = categoryDao.get(1L);
 
-        Assert.assertEquals(shouldGetCategoryById, rentSuperCategory);
-    }*/
+        Assert.assertEquals(shouldGetCategoryById,rentSuperCategory );
+
+    }
 
     @Test
     public void shouldGetAllCategory() {
@@ -122,10 +124,11 @@ public class CategoryDaoTest {
         Category rentSuperCategory = new Category(null, "Rent");
         categoryDao.save(rentSuperCategory);
 
-
         categoryDao.save(rentSuperCategory);
 
-        Assert.assertNotNull(rentSuperCategory.getCREATED_ON());
-        Assert.assertNotNull(rentSuperCategory.getUPDATED_ON());
+        Category shouldGetCategoryById = categoryDao.get(1L);
+
+        Assert.assertNotNull(shouldGetCategoryById.getCREATED_ON().toString());
+        Assert.assertNotNull(shouldGetCategoryById.getUPDATED_ON().toString());
     }
 }

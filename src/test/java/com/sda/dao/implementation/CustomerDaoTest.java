@@ -1,9 +1,14 @@
 package com.sda.dao.implementation;
 
+import com.sda.entity.Advertisement;
+import com.sda.entity.Category;
 import com.sda.entity.Customer;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -16,6 +21,8 @@ public class CustomerDaoTest {
 
     Logger log = Logger.getLogger(AddressDaoTest.class.getName());
     CustomerDao customerDao = new CustomerDao("hibernateTest.cfg.xml");
+    AdvertisementDao advertisementDao = new AdvertisementDao("hibernateTest.cfg.xml");
+
 
     @Test
     public void shouldSaveCustomer() {
@@ -34,25 +41,40 @@ public class CustomerDaoTest {
 
     }
 
-/*
-    //Not working, still be in process
+
     @Test
-    public void shouldGetCustomerById() {
+    public void shouldGetCustomerById() throws ParseException {
 
-        log.info("...shouldGetCustomerById...");
+        Customer customer = new Customer();
+        customer.setLogin("Pjotr");
+        customer.setPassword("123456");
+        customer.setFullName("Petr III");
 
-        Customer customerOlga = new Customer();
-        customerOlga.setLogin("customer1");
-        customerOlga.setPassword("pass");
-        customerOlga.setFullName("Olga");
-
-        customerDao.save(customerOlga);
-
+        customerDao.save(customer);
         Customer shouldGetCustomerById = customerDao.get(1L);
 
-        Assert.assertEquals(shouldGetCustomerById, customerOlga);
+        String startDateString1 = "31/12/1998";
+        Date startDate1 = new SimpleDateFormat("dd/MM/yyyy").parse(startDateString1);
 
-    }*/
+        String endDateString1 = "31/12/1998";
+        Date endDate1 = new SimpleDateFormat("dd/MM/yyyy").parse(endDateString1);
+
+        Advertisement advertisement1 = new Advertisement(
+                "Clean Fast",
+                "blablabla",
+                "2.5",
+                startDate1,
+                endDate1,
+                "OFFER",
+                new Category("CLEANING"),
+                shouldGetCustomerById);
+        advertisement1.setServiceState(Advertisement.ServiceState.INACTIVE);
+
+        advertisementDao.save(advertisement1);
+
+
+        Assert.assertEquals(shouldGetCustomerById, customer);
+    }
 
 
     @Test
