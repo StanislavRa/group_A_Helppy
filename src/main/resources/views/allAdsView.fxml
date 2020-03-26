@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.media.*?>
+<?import javafx.scene.input.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sda.controller.allAdsViewController">
+   <children>
+      <HBox layoutX="992.0" layoutY="14.0" spacing="14.0">
+         <children>
+            <Button fx:id="myAdsButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#myAdsButtonPushed" prefHeight="45.0" prefWidth="130.0" style="-fx-background-color: rgb(0, 204, 102); -fx-background-radius: 35;" text="My Ads" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="allAdsButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#allAdsButtonPushed" prefHeight="45.0" prefWidth="130.0" style="-fx-background-color: rgb(0, 204, 102); -fx-background-radius: 35;" text="All Ads" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Button>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </HBox>
+      <VBox layoutX="14.0" layoutY="89.0" prefHeight="365.0" prefWidth="238.0" spacing="30.0">
+         <children>
+            <GridPane vgap="10.0">
+              <columnConstraints>
+                <ColumnConstraints minWidth="10.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Text blendMode="SRC_ATOP" boundsType="VISUAL" strokeType="OUTSIDE" strokeWidth="0.0" text="Category" GridPane.valignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Text>
+                  <ComboBox fx:id="categoryComboBox" blendMode="SRC_ATOP" onAction="#categoryComboBoxPushed" prefWidth="200.0" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                  </ComboBox>
+                  <RadioButton fx:id="categoryRadioButton" mnemonicParsing="false" onAction="#categoryRadioButtonPushed" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                     <padding>
+                        <Insets left="15.0" />
+                     </padding>
+                     <toggleGroup>
+                        <ToggleGroup fx:id="radioButtonToggleGroup" />
+                     </toggleGroup>
+                  </RadioButton>
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </GridPane>
+            <GridPane vgap="10.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Text boundsType="VISUAL" strokeType="OUTSIDE" strokeWidth="0.0" text="Location">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Text>
+                  <ComboBox fx:id="locationComboBox" onAction="#locationComboBoxPushed" prefWidth="200.0" GridPane.rowIndex="1" />
+                  <RadioButton fx:id="locationRadioButton" mnemonicParsing="false" onAction="#locationRadioButtonPushed" toggleGroup="$radioButtonToggleGroup" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <padding>
+                        <Insets left="15.0" />
+                     </padding>
+                  </RadioButton>
+               </children>
+            </GridPane>
+            <GridPane vgap="10.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Text boundsType="VISUAL" strokeType="OUTSIDE" strokeWidth="0.0" text="Price">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="priceFromTextField" onAction="#priceFromTextFieldPushed" prefWidth="200.0" promptText="From" GridPane.rowIndex="1">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                  </TextField>
+                  <TextField fx:id="priceToTextField" onAction="#priceToTextFieldPushed" prefWidth="200.0" promptText="To" GridPane.rowIndex="2" />
+                  <RadioButton fx:id="priceRadioButton" blendMode="SRC_ATOP" mnemonicParsing="false" onAction="#priceRadioButtonPushed" toggleGroup="$radioButtonToggleGroup" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <padding>
+                        <Insets left="15.0" />
+                     </padding>
+                  </RadioButton>
+               </children>
+            </GridPane>
+            <GridPane vgap="10.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Text boundsType="VISUAL" strokeType="OUTSIDE" strokeWidth="0.0" text="Date">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Text>
+                  <DatePicker fx:id="startDatePicker" editable="false" onAction="#startDatePickerPushed" prefWidth="200.0" promptText="Start Date" GridPane.rowIndex="1" />
+                  <DatePicker fx:id="endDatePicker" editable="false" onAction="#endDatePickerPushed" prefWidth="200.0" promptText="End Date" GridPane.rowIndex="2" />
+                  <RadioButton fx:id="dateRadioButton" blendMode="SRC_ATOP" mnemonicParsing="false" onAction="#dateRadioButtonPushed" toggleGroup="$radioButtonToggleGroup" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <padding>
+                        <Insets left="15.0" />
+                     </padding>
+                  </RadioButton>
+               </children>
+            </GridPane>
+            <HBox alignment="CENTER">
+               <children>
+                  <Button fx:id="findButton" mnemonicParsing="false" onAction="#findButtonPushed" prefHeight="30.0" prefWidth="101.0" style="-fx-background-color: rgb(0, 204, 102); -fx-background-radius: 35;" text="Find">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </VBox>
+      <TableView fx:id="mainTableView" layoutX="261.0" layoutY="89.0" prefHeight="682.0" prefWidth="1005.0">
+        <columns>
+          <TableColumn fx:id="subjectColumn" prefWidth="-1.0" text="Subject" />
+          <TableColumn fx:id="categoryColumn" minWidth="0.0" prefWidth="-1.0" text="Category" />
+            <TableColumn fx:id="priceColumn" prefWidth="-1.0" text="Price" />
+            <TableColumn fx:id="locationColumn" prefWidth="-1.0" text="Location" />
+            <TableColumn fx:id="startDateColumn" prefWidth="-1.0" text="Start Date" />
+            <TableColumn fx:id="endDateColumn" prefWidth="-1.0" text="End Date" />
+        </columns>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <Text fx:id="logoText" boundsType="VISUAL" fill="#00cc66" layoutX="17.0" layoutY="48.0" onMouseClicked="#logoTextMouseClicked" strokeType="OUTSIDE" strokeWidth="0.0" text="Helppy" wrappingWidth="122.3828125">
+         <font>
+            <Font name="Brush Script MT Italic" size="52.0" />
+         </font>
+      </Text>
+      <Separator layoutY="72.0" prefWidth="1280.0" />
+   </children>
+</Pane>
