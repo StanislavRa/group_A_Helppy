@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.*?>
-<?import java.lang.*?>
+<?import javafx.scene.paint.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sda.controller.signUpViewController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sda.controller.logInViewController">
    <children>
       <HBox layoutX="992.0" layoutY="14.0" spacing="14.0">
          <children>
@@ -42,29 +43,23 @@
          </cursor>
       </Text>
       <Pane layoutX="441.0" layoutY="150.0" prefHeight="554.0" prefWidth="400.0" style="-fx-effect: dropshadow(gaussian, black, 6, 0.6, 0, 0); -fx-border-color: black; -fx-border-width: 0.09; -fx-border-radius: 20;">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
          <children>
             <Pane layoutX="57.0" layoutY="151.0" prefHeight="357.0" prefWidth="287.0">
                <children>
-                  <VBox layoutX="-1.0" layoutY="12.0" spacing="10.0">
-                     <children>
-                        <TextField fx:id="fullNameTextField" blendMode="SRC_ATOP" layoutX="-1.0" layoutY="12.0" onAction="#fullNameTextFieldPushed" prefHeight="50.0" prefWidth="287.0" promptText="Full Name" style="-fx-background-radius: 35;">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </TextField>
-                        <TextField fx:id="userNameTextField" blendMode="SRC_ATOP" layoutY="62.0" onAction="#userNameTextFieldPushed" prefHeight="50.0" prefWidth="287.0" promptText="Username" style="-fx-background-radius: 35;">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </TextField>
-                        <PasswordField fx:id="passwordPasswordField" blendMode="SRC_ATOP" layoutY="124.0" onAction="#passwordPasswordFieldPushed" prefHeight="50.0" prefWidth="287.0" promptText="Password" style="-fx-background-radius: 35;">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </PasswordField>
-                     </children>
-                  </VBox>
-                  <Button fx:id="signUpButton" blendMode="SRC_ATOP" layoutY="217.0" mnemonicParsing="false" onAction="#signUpButtonPushed" prefHeight="50.0" prefWidth="287.0" style="-fx-background-color: rgb(0, 204, 102); -fx-background-radius: 35;" text="SIGN UP" textFill="WHITE">
+                  <PasswordField fx:id="passwordPasswordField" blendMode="SRC_ATOP" layoutY="62.0" onAction="#passwordPasswordFieldPushed" prefHeight="50.0" prefWidth="287.0" promptText="Password" style="-fx-background-radius: 35;">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </PasswordField>
+                  <TextField fx:id="userNameTextField" blendMode="SRC_ATOP" onAction="#userNameTextFieldPushed" prefHeight="50.0" prefWidth="287.0" promptText="Username" style="-fx-background-radius: 35;">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </TextField>
+                  <Button fx:id="signInButton" blendMode="SRC_ATOP" layoutY="155.0" mnemonicParsing="false" onAction="#signInButtonPushed" prefHeight="50.0" prefWidth="287.0" style="-fx-background-color: rgb(0, 204, 102); -fx-background-radius: 35;" text="SIGN IN" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="17.0" />
                      </font>
@@ -72,14 +67,14 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Text blendMode="SRC_ATOP" layoutX="96.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Have an account?" />
-                  <Button fx:id="signInButton" blendMode="SRC_ATOP" layoutX="105.0" layoutY="331.0" mnemonicParsing="false" onAction="#signInButtonPushed" style="-fx-background-color: transparent;" text="SIGN IN" textFill="#00cc66">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
+                  <Text blendMode="SRC_ATOP" layoutX="81.0" layoutY="320.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Don't have an account?" />
+                  <Button fx:id="signUpNowButton" blendMode="SRC_ATOP" layoutX="81.0" layoutY="331.0" mnemonicParsing="false" onAction="#signUpNowButtonPushed" style="-fx-background-color: transparent;" text="SIGN UP NOW" textFill="#00cc66">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                </children>
             </Pane>
@@ -88,7 +83,7 @@
                   <Insets />
                </opaqueInsets>
                <children>
-                  <Text blendMode="SRC_ATOP" fill="WHITE" layoutX="137.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign Up">
+                  <Text blendMode="SRC_ATOP" fill="WHITE" layoutX="144.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign In">
                      <font>
                         <Font name="System Bold" size="34.0" />
                      </font>
@@ -96,9 +91,6 @@
                </children>
             </Pane>
          </children>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
       </Pane>
    </children>
 </Pane>

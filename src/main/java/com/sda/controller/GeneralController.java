@@ -3,10 +3,13 @@ package com.sda.controller;
 import com.sda.dao.implementation.CustomerDao;
 import com.sda.entity.Customer;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -15,6 +18,15 @@ import java.io.IOException;
  * @author StanislavR
  */
 public abstract class GeneralController {
+
+    @FXML
+    protected Text logoText;
+
+    @FXML
+    protected Button myAdsButton;
+
+    @FXML
+    protected Button allAdsButton;
 
     protected Customer customer;
     CustomerDao customerDao = new CustomerDao("hibernate.cfg.xml");
@@ -61,6 +73,21 @@ public abstract class GeneralController {
         window.show();
 
         return loader;
+    }
+
+    @FXML
+    public void logoTextMouseClicked(ActionEvent event) {
+
+    }
+
+    @FXML
+    public void myAdsButtonPushed(ActionEvent event) {
+
+    }
+
+    @FXML
+    public void allAdsButtonPushed(ActionEvent event) {
+
     }
 
     public Customer getCustomer() {

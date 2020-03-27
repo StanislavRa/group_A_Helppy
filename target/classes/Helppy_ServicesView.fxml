@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.media.*?>
+<?import javafx.scene.input.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ServicesView">
+   <children>
+      <HBox layoutX="218.0" layoutY="20.0" spacing="14.0">
+         <children>
+            <Button fx:id="addServicesButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#addServicesButtonPushed" style="-fx-background-color: springgreen; -fx-border-color: black;" text="Add Services">
+               <font>
+                  <Font name="System Bold Italic" size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="seeServicesButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#seeServicesButtonPushed" style="-fx-background-color: springgreen; -fx-border-color: black;" text="See Services">
+               <font>
+                  <Font name="System Bold Italic" size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="logInButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#logInButtonPushed" style="-fx-background-color: springgreen; -fx-border-color: black;" text="Log-in">
+               <font>
+                  <Font name="System Bold Italic" size="18.0" />
+               </font>
+            </Button>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </HBox>
+      <Separator layoutY="79.0" prefWidth="600.0" />
+      <VBox layoutX="14.0" layoutY="89.0" spacing="15.0">
+         <children>
+            <VBox spacing="5.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Category">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Text>
+                  <CheckBox fx:id="categoryCheckBox" mnemonicParsing="false" onAction="#categoryCheckBoxPushed" text="CheckBox" />
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding></VBox>
+            <VBox spacing="5.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Location">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Text>
+                  <CheckBox fx:id="locationCheckBox" mnemonicParsing="false" onAction="#locationCheckBoxPushed" text="CheckBox" />
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding></VBox>
+            <VBox prefWidth="110.0" spacing="5.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Price">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font></Text>
+                  <TextField fx:id="priceFromTextField" onAction="#priceFromTextFieldPushed" promptText="From" />
+                  <TextField fx:id="priceToTextField" onAction="#priceToTextFieldPushed" promptText="To" />
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding></VBox>
+         </children>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </VBox>
+      <TableView fx:id="mainTableView" layoutX="149.0" layoutY="100.0" prefHeight="254.0" prefWidth="420.0">
+        <columns>
+          <TableColumn fx:id="subjectColumn" prefWidth="82.0" text="Subject" />
+            <TableColumn fx:id="descriptionColumn" prefWidth="74.0" text="Description" />
+          <TableColumn fx:id="categoryColumn" prefWidth="82.0" text="Category" />
+            <TableColumn fx:id="priceColumn" prefWidth="73.0" text="Price" />
+            <TableColumn fx:id="locationColumn" prefWidth="91.0" text="Location" />
+        </columns>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </TableView>
+   </children>
+</Pane>

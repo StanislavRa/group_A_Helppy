@@ -26,10 +26,6 @@ import java.util.ResourceBundle;
 
 public class MyAdsController extends GeneralController implements Initializable {
 
-
-
-
-
         @FXML
         private Text logoText;
 
@@ -107,8 +103,7 @@ public class MyAdsController extends GeneralController implements Initializable 
 
         }
 
-        @FXML
-        void allAdsButtonPushed(ActionEvent event) {
+        public void allAdsButtonPushed(ActionEvent event) {
 
         }
 
@@ -157,8 +152,7 @@ public class MyAdsController extends GeneralController implements Initializable 
 
         }
 
-        @FXML
-        void logoTextMouseClicked(MouseEvent event) {
+        public void logoTextMouseClicked(MouseEvent event) {
 
         }
 

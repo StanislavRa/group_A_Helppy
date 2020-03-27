@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sda.controller.homeViewController">
+   <children>
+      <HBox layoutX="964.0" layoutY="13.0" prefHeight="41.0" spacing="14.0">
+         <children>
+            <Button fx:id="myAdsButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#myAdsButtonPushed" prefHeight="45.0" style="-fx-background-color: rgb(0, 204, 102); -fx-background-radius: 35;" text="Log In / My Ads" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="allAdsButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#allAdsButtonPushed" prefHeight="45.0" prefWidth="130.0" style="-fx-background-color: rgb(0, 204, 102); -fx-background-radius: 35;" text="All Ads" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Button>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </HBox>
+      <Separator layoutY="72.0" prefWidth="1280.0" />
+      <Text fx:id="logoText" boundsType="VISUAL" fill="#00cc66" layoutX="17.0" layoutY="47.0" onMouseClicked="#logoTextMouseClicked" strokeType="OUTSIDE" strokeWidth="0.0" text="Helppy" wrappingWidth="122.3828125">
+         <font>
+            <Font name="Brush Script MT Italic" size="52.0" />
+         </font>
+      </Text>
+   </children>
+</Pane>

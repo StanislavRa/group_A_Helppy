@@ -6,12 +6,12 @@ import com.sda.entity.Customer;
 /**
  * @author StanislavR
  */
-public class DetailsController extends GeneralController {
+public class adDetailsViewController extends GeneralController {
 
-    public DetailsController(Customer customer) {
+    public adDetailsViewController(Customer customer) {
         super(customer);
     }
 
-    public DetailsController() {
+    public adDetailsViewController() {
     }
 }
