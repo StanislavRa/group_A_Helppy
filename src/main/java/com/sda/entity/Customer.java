@@ -3,6 +3,7 @@ package com.sda.entity;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author StanislavR
@@ -28,6 +29,7 @@ import java.util.List;
 })
 
 public class Customer extends User {
+
     @Column(name = "FULL_NAME", nullable = false, length = 60)
     private String fullName;
 
@@ -64,5 +66,20 @@ public class Customer extends User {
                 "fullName='" + fullName + '\'' +
                 ", userAdvertisements=" + userAdvertisements +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Customer)) return false;
+        Customer customer = (Customer) o;
+        return Objects.equals(getFullName(), customer.getFullName()) &&
+                Objects.equals(getLogin(), customer.getLogin())&&
+                Objects.equals(getPassword(), customer.getPassword());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getFullName(), getLogin(), getPassword());
     }
 }
