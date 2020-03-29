@@ -1,49 +1,172 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!--<?import com.gluonhq.charm.glisten.control.TextField?>-->
-
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: #2E3348;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <AnchorPane layoutX="-5.0" layoutY="111.0" prefHeight="290.0" prefWidth="706.0" style="-fx-background-color: fafafa;">
-         <children>
-            <GridPane layoutX="226.0" layoutY="23.0">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Full Name" />
-                  <Label fx:id="fullNameLabel" prefHeight="17.0" prefWidth="103.0" text="fullName" GridPane.columnIndex="1" />
-               </children>
-            </GridPane>
-            <TableView fx:id="myAdsTable" layoutX="89.0" layoutY="53.0" prefHeight="175.0" prefWidth="489.0">
-              <columns>
-                <TableColumn fx:id="subjectTableColumn" prefWidth="143.0" text="Subject" />
-                  <TableColumn fx:id="priceTableColumn" prefWidth="55.0" text="Price" />
-                  <TableColumn fx:id="stateTableColumn" prefWidth="86.0" text="State" />
-                  <TableColumn fx:id="startDateTableColumn" prefWidth="100.0" text="Start Date" />
-                  <TableColumn fx:id="endDateTableColumn" prefWidth="104.0" text="End Date" />
-              </columns>
-            </TableView>
-         </children>
-      </AnchorPane>
-      <Label layoutX="204.0" layoutY="49.0" prefHeight="34.0" prefWidth="178.0" text="My Ads" textFill="#8c8989">
-         <font>
-            <Font name="Britannic Bold" size="33.0" />
-         </font>
-      </Label>
-   </children>
-</AnchorPane>
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sda.controller.MyAdsController">
+    <children>
+        <SplitPane dividerPositions="0.1, 0.2, 0.65, 0.7" orientation="VERTICAL" prefHeight="800.0" prefWidth="1280.0">
+            <items>
+                <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                    <children>
+                        <HBox layoutX="992.0" layoutY="14.0" spacing="14.0">
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
+                        </HBox>
+                        <Text fx:id="logoText" blendMode="SRC_ATOP" boundsType="VISUAL" fill="#00cc66" layoutX="17.0" layoutY="48.0" onMouseClicked="#logoTextOnMouseClicked" strokeType="OUTSIDE" strokeWidth="0.0" text="Helppy" wrappingWidth="122.3828125">
+                            <font>
+                                <Font name="Brush Script MT Italic" size="52.0" />
+                            </font>
+                        </Text>
+                        <Button fx:id="allAdsButton" alignment="CENTER" contentDisplay="CENTER" layoutX="1128.0" layoutY="14.0" mnemonicParsing="false" onAction="#allAdsButtonPushed" prefHeight="45.0" prefWidth="130.0" style="-fx-background-color: rgb(0, 204, 102); -fx-background-radius: 35;" text="All Ads" textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="17.0" />
+                            </font>
+                        </Button>
+                  <HBox layoutX="260.0" layoutY="14.0" prefHeight="41.0" prefWidth="200.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Hello," wrappingWidth="68.240234375" />
+                        <Label fx:id="fullNameLabel" prefHeight="21.0" prefWidth="119.0" text="Full Name" />
+                     </children>
+                  </HBox>
+                    </children>
+                </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                    <children>
+                        <VBox prefHeight="38.0" prefWidth="1280.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <children>
+                                <MenuBar prefHeight="52.0" prefWidth="1278.0" VBox.vgrow="NEVER">
+                                    <menus>
+                                        <Menu mnemonicParsing="false" text="Category">
+                                            <graphic>
+                                                <ComboBox fx:id="categoryComboBox" accessibleRole="CHECK_BOX" prefWidth="150.0" promptText="Choose Category" />
+                                            </graphic>
+                                        </Menu>
+                                        <Menu mnemonicParsing="false" text="Start Date">
+                                            <graphic>
+                                                <DatePicker fx:id="startDatePicker" />
+                                            </graphic>
+                                        </Menu>
+                                        <Menu mnemonicParsing="false" text="End Date">
+                                            <graphic>
+                                                <DatePicker fx:id="endDatePicker" />
+                                            </graphic>
+                                        </Menu>
+                                        <Menu mnemonicParsing="false" text="EUR">
+                                            <graphic>
+                                                <TextField fx:id="priceTextField" prefHeight="25.0" prefWidth="104.0" promptText="Price" />
+                                            </graphic>
+                                        </Menu>
+                                        <Menu mnemonicParsing="false" text="Address">
+                                            <graphic>
+                                                <ComboBox fx:id="locationComboBox" accessibleRole="CHECK_BOX" prefWidth="150.0" promptText="Choose Location" />
+                                            </graphic>
+                                        </Menu>
+                                    </menus>
+                                </MenuBar>
+                            </children>
+                        </VBox>
+                        <VBox layoutX="475.0" layoutY="-21.0" prefHeight="41.0" prefWidth="1278.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="31.0">
+                            <children>
+                                <SplitPane dividerPositions="0.5" prefHeight="41.0" prefWidth="200.0">
+                                    <items>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                            <children>
+                                                <RadioButton fx:id="offerServiceRadioButton" contentDisplay="CENTER" layoutX="270.0" layoutY="12.0" mnemonicParsing="false" text="Offer Service" textAlignment="CENTER">
+                                                    <toggleGroup>
+                                                        <ToggleGroup fx:id="serviceType" />
+                                                    </toggleGroup>
+                                                </RadioButton>
+                                            </children>
+                                        </AnchorPane>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                            <children>
+                                                <RadioButton fx:id="requestServiceRadioButton" contentDisplay="CENTER" layoutX="265.0" layoutY="12.0" mnemonicParsing="false" text="Request Service" textAlignment="CENTER" toggleGroup="$serviceType" />
+                                            </children>
+                                        </AnchorPane>
+                                    </items>
+                                    <VBox.margin>
+                                        <Insets />
+                                    </VBox.margin>
+                                </SplitPane>
+                            </children>
+                        </VBox>
+                    </children>
+                </AnchorPane>
+                <AnchorPane prefHeight="571.0" prefWidth="1278.0">
+                    <children>
+                        <VBox prefHeight="305.0" prefWidth="1278.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <children>
+                                <TextField fx:id="subjectTextField" prefHeight="41.0" prefWidth="1278.0" promptText="Add subject" VBox.vgrow="NEVER" />
+                                <TextArea fx:id="descriptionTextField" prefHeight="308.0" prefWidth="1278.0" promptText="Add full description" />
+                            </children>
+                        </VBox>
+                    </children>
+                </AnchorPane>
+                <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                    <children>
+                        <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <children>
+                                <ButtonBar prefHeight="34.0" prefWidth="996.0">
+                                    <buttons>
+                                        <Button fx:id="createButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Create" textAlignment="CENTER" />
+                                        <Button fx:id="updateButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Update" textAlignment="CENTER" />
+                                        <Button fx:id="deleteButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Delete" textAlignment="CENTER" />
+                                        <Button fx:id="detailsButtonClicked" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Details" textAlignment="CENTER" />
+                                    </buttons>
+                                    <VBox.margin>
+                                        <Insets />
+                                    </VBox.margin>
+                                    <opaqueInsets>
+                                        <Insets />
+                                    </opaqueInsets>
+                                    <padding>
+                                        <Insets right="475.0" />
+                                    </padding>
+                                </ButtonBar>
+                            </children>
+                            <opaqueInsets>
+                                <Insets right="2000.0" />
+                            </opaqueInsets>
+                        </VBox>
+                    </children>
+                </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                    <children>
+                        <TableView fx:id="serviceTable" layoutX="370.0" layoutY="71.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <columns>
+                                <TableColumn fx:id="categoryTableColumn" maxWidth="180.0" prefWidth="180.0" resizable="false" text="Category" />
+                                <TableColumn fx:id="startDateTableColumn" maxWidth="180.0" prefWidth="180.0" resizable="false" text="Start Date" />
+                                <TableColumn fx:id="endDateTableColumn" maxWidth="180.0" prefWidth="180.0" resizable="false" text="End Date" />
+                                <TableColumn fx:id="priceDateTableColumn" maxWidth="180.0" minWidth="3.0" prefWidth="180.0" resizable="false" text="Price" />
+                                <TableColumn fx:id="addressDateTableColumn" maxWidth="180.0" prefWidth="180.0" resizable="false" text="Address" />
+                                <TableColumn fx:id="serviceTypeDateTableColumn" maxWidth="180.0" prefWidth="180.0" resizable="false" text="ServiceType" />
+                                <TableColumn fx:id="subjectDateTableColumn" prefWidth="200.0" text="Subject" />
+                            </columns>
+                        </TableView>
+                    </children>
+                </AnchorPane>
+            </items>
+        </SplitPane>
+    </children>
+</Pane>

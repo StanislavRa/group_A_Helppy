@@ -3,6 +3,7 @@ package com.sda.entity;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author StanislavR
@@ -24,10 +25,18 @@ import java.util.List;
                         "left join USER as user " +
                         "on user.id = customer.id " +
                         "where user.LOGIN=:login",
+                resultClass = Customer.class),
+        @NamedNativeQuery(
+                name = "Customer_GetByLoginAndPassword",
+                query = "select * from CUSTOMER customer " +
+                        "left join USER as user " +
+                        "on user.id = customer.id " +
+                        "where user.LOGIN=:login and user.PASSWORD=:password",
                 resultClass = Customer.class)
 })
 
 public class Customer extends User {
+
     @Column(name = "FULL_NAME", nullable = false, length = 60)
     private String fullName;
 
@@ -64,5 +73,20 @@ public class Customer extends User {
                 "fullName='" + fullName + '\'' +
                 ", userAdvertisements=" + userAdvertisements +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Customer)) return false;
+        Customer customer = (Customer) o;
+        return Objects.equals(getFullName(), customer.getFullName()) &&
+                Objects.equals(getLogin(), customer.getLogin())&&
+                Objects.equals(getPassword(), customer.getPassword());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getFullName(), getLogin(), getPassword());
     }
 }

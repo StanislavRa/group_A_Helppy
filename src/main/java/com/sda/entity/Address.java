@@ -38,6 +38,12 @@ public class Address {
     public Address() {
     }
 
+    public Address(String country, String city, String street) {
+        this.country = country;
+        this.city = city;
+        this.street = street;
+    }
+
     public Long getId() {
         return id;
     }
