@@ -25,6 +25,13 @@ import java.util.Objects;
                         "left join USER as user " +
                         "on user.id = customer.id " +
                         "where user.LOGIN=:login",
+                resultClass = Customer.class),
+        @NamedNativeQuery(
+                name = "Customer_GetByLoginAndPassword",
+                query = "select * from CUSTOMER customer " +
+                        "left join USER as user " +
+                        "on user.id = customer.id " +
+                        "where user.LOGIN=:login and user.PASSWORD=:password",
                 resultClass = Customer.class)
 })
 
