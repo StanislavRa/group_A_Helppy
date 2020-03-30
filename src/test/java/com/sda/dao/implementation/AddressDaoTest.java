@@ -15,7 +15,8 @@ import java.util.logging.Logger;
 public class AddressDaoTest {
 
     Logger log = Logger.getLogger(AddressDaoTest.class.getName());
-    AddressDao addressDao = new AddressDao("hibernateTest.cfg.xml");
+    //   AddressDao addressDao = new AddressDao("hibernateTest.cfg.xml");
+    AddressDao addressDao = new AddressDao("oleksHibernateTest.cfg.xml");
 
     @Test
     public void shouldSaveAddress() {
@@ -126,7 +127,7 @@ public class AddressDaoTest {
         addressDao.save(addressTest1);
 
         Address addressTest2 = new Address("Estonia", "Tallinn", "Parnu mnt");
-        addressDao.save(addressTest1);
+        addressDao.save(addressTest2);
 
         Address addressGet1 = addressDao.get(1L);
         Address addressGet2 = addressDao.get(2L);

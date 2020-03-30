@@ -38,7 +38,7 @@
             <Insets />
          </opaqueInsets>
       </HBox>
-      <VBox layoutX="14.0" layoutY="89.0" prefHeight="365.0" prefWidth="238.0" spacing="30.0">
+      <VBox layoutX="14.0" layoutY="89.0" prefHeight="505.0" prefWidth="238.0" spacing="30.0">
          <children>
             <GridPane vgap="10.0">
               <columnConstraints>
@@ -153,6 +153,36 @@
                   </RadioButton>
                </children>
             </GridPane>
+            <GridPane layoutX="15.0" layoutY="15.0" vgap="10.0">
+               <columnConstraints>
+                  <ColumnConstraints minWidth="10.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Text blendMode="SRC_ATOP" boundsType="VISUAL" strokeType="OUTSIDE" strokeWidth="0.0" text="Service Type" GridPane.valignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Text>
+                  <ComboBox fx:id="serviceTypeComboBox" blendMode="SRC_ATOP" prefWidth="200.0" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                  </ComboBox>
+                  <RadioButton fx:id="serviceTypeRadioButton" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                     <padding>
+                        <Insets left="15.0" />
+                     </padding>
+                     <toggleGroup>
+                        <ToggleGroup fx:id="radioButtonToggleGroup1" />
+                     </toggleGroup>
+                  </RadioButton>
+               </children>
+            </GridPane>
             <HBox alignment="CENTER">
                <children>
                   <Button fx:id="findButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="101.0" style="-fx-background-color: rgb(0, 204, 102); -fx-background-radius: 35;" text="Find">
@@ -175,6 +205,7 @@
             <TableColumn fx:id="locationColumn" prefWidth="-1.0" text="Location" />
             <TableColumn fx:id="startDateColumn" prefWidth="-1.0" text="Start Date" />
             <TableColumn fx:id="endDateColumn" prefWidth="-1.0" text="End Date" />
+            <TableColumn fx:id="serviceTypeColumn" prefWidth="-1.0" text="Request / Offer" />
         </columns>
          <opaqueInsets>
             <Insets />

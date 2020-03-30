@@ -1,5 +1,6 @@
 package com.sda.dao.implementation;
 
+import com.sda.entity.Address;
 import com.sda.entity.Advertisement;
 import com.sda.entity.Category;
 import com.sda.entity.Customer;
@@ -20,8 +21,9 @@ import java.util.logging.Logger;
 public class CustomerDaoTest {
 
     Logger log = Logger.getLogger(AddressDaoTest.class.getName());
-    CustomerDao customerDao = new CustomerDao("hibernateTest.cfg.xml");
-    AdvertisementDao advertisementDao = new AdvertisementDao("hibernateTest.cfg.xml");
+    CustomerDao customerDao = new CustomerDao("oleksHibernateTest.cfg.xml");
+    AdvertisementDao advertisementDao = new AdvertisementDao("oleksHibernateTest.cfg.xml");
+    AddressDao addressDao = new AddressDao("oleksHibernateTest.cfg.xml");
 
 
     @Test
@@ -51,6 +53,11 @@ public class CustomerDaoTest {
         customer.setFullName("Petr III");
 
         customerDao.save(customer);
+
+        //create address
+        Address addressTest1 = new Address("Estonia", "Tallinn", "Parnu mnt");
+        addressDao.save(addressTest1);
+
         Customer shouldGetCustomerById = customerDao.get(1L);
 
         String startDateString1 = "31/12/1998";
@@ -152,29 +159,4 @@ public class CustomerDaoTest {
         Customer shouldBeDeletedCustomer = customerDao.get(2L);
         Assert.assertNull(shouldBeDeletedCustomer);
     }
-
-
-    /*
-    //Not working, still be in process
-    @Test
-    @Transactional
-
-    public void shouldGetCustomerByLoginAndPass() {
-
-        log.info("...shouldGetCustomerByLoginAndPass...");
-
-        Customer customer = new Customer();
-        String login = "JohnLove88";
-        String password = "qwerty123456";
-        String fullName = "John Smith";
-
-        customer.setLogin(login);
-        customer.setPassword(password);
-        customer.setFullName(fullName);
-
-        customerDao.save(customer);
-
-        Assert.assertEquals(fullName,customerDao.getByLogin(login).getFullName());
-    }
-*/
 }
