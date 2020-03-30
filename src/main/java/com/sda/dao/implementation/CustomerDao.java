@@ -116,6 +116,25 @@ public class CustomerDao extends SessionUtil implements Dao<Customer> {
         if (!query.list().isEmpty()) {
             customer = query.getSingleResult();
         }
+        closeTransactionAndSession();
+
+        return customer;
+    }
+
+    public Customer getByLoginAndPassword(String login, String password) {
+
+        Customer customer = null;
+
+        // open session with a transaction
+        openTransactionAndSession();
+        Session session = getSession();
+
+        Query<Customer> query = session.createNamedQuery("Customer_GetByLoginAndPassword", Customer.class);
+        query.setParameter("login", login).setParameter("password",password);
+        if (!query.list().isEmpty()) {
+            customer = query.getSingleResult();
+        }
+        closeTransactionAndSession();
 
         return customer;
     }

@@ -1,15 +1,14 @@
 package com.sda.controller;
 
-import com.sda.dao.implementation.CustomerDao;
 import com.sda.entity.Customer;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.text.Text;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -19,74 +18,50 @@ import java.io.IOException;
  */
 public abstract class GeneralController {
 
-    @FXML
-    protected Text logoText;
-
-    @FXML
-    protected Button myAdsButton;
-
-    @FXML
-    protected Button allAdsButton;
-
     protected Customer customer;
-    CustomerDao customerDao = new CustomerDao("hibernate.cfg.xml");
 
-    public GeneralController(Customer customer) {
-        this.customer = customer;
-    }
-
-    public GeneralController() {
-    }
-
-    protected FXMLLoader changeScreen(ActionEvent event, String viewName) throws IOException {
+    protected FXMLLoader changeScreen(Event event, String viewName) {
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource(viewName));
-        Parent tableViewParent = loader.load();
+        try {
+            Parent tableViewParent = loader.load();
+            Scene tableViewScene = new Scene(tableViewParent);
+            //This line gets the Stage information
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-        Scene tableViewScene = new Scene(tableViewParent);
-
-        //This line gets the Stage information
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        window.setScene(tableViewScene);
-        window.show();
-
-        return loader;
-    }
-
-    protected FXMLLoader changeScreenWithController(ActionEvent event, String viewName, GeneralController controller) throws IOException {
-
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource(viewName));
-
-        // Set it in the FXMLLoader
-        loader.setController(controller);
-
-        Parent tableViewParent = loader.load();
-
-        Scene tableViewScene = new Scene(tableViewParent);
-
-        //This line gets the Stage information
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene(tableViewScene);
-        window.show();
+            window.setScene(tableViewScene);
+            window.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         return loader;
     }
 
     @FXML
-    public void logoTextMouseClicked(ActionEvent event) {
+    void allAdsButtonPushed(ActionEvent event) {
 
+        AllAdsViewController allAdsViewController = changeScreen(event, "/views/allAdsView.fxml").getController();
+        allAdsViewController.setCustomer(customer);
     }
 
     @FXML
-    public void myAdsButtonPushed(ActionEvent event) {
+    void myAdsButtonPushed(ActionEvent event) {
 
+        if (customer != null) {
+            MyAdsController controller = (changeScreen(event, "/views/myAdsView.fxml").getController());
+            controller.setCustomer(customer);
+            controller.initData();
+        } else {
+            changeScreen(event, "/views/loginView.fxml");
+        }
     }
 
     @FXML
-    public void allAdsButtonPushed(ActionEvent event) {
+    void logoTextOnMouseClicked(MouseEvent event) {
+        HomeViewController homeViewController = changeScreen(event, "/views/homeView.fxml").getController();
+        homeViewController.setCustomer(customer);
 
     }
 

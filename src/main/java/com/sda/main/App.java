@@ -14,9 +14,9 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/views/signInView.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/views/homeView.fxml"));
         primaryStage.setTitle("My First App");
-        primaryStage.setScene(new Scene(root, 700, 435));
+        primaryStage.setScene(new Scene(root, 1280, 800));
         primaryStage.show();
         //Runtime.getRuntime().addShutdownHook(new Thread(this::shutdown));
     }

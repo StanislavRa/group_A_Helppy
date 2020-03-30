@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.*?>
-<?import javafx.scene.paint.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.text.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sda.controller.logInViewController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sda.controller.LogInViewController">
    <children>
       <HBox layoutX="992.0" layoutY="14.0" spacing="14.0">
          <children>
@@ -34,7 +37,7 @@
          </opaqueInsets>
       </HBox>
       <Separator layoutY="72.0" prefWidth="1280.0" />
-      <Text fx:id="logoText" blendMode="SRC_ATOP" boundsType="VISUAL" fill="#00cc66" layoutX="17.0" layoutY="48.0" onMouseClicked="#logoTextMouseClicked" strokeType="OUTSIDE" strokeWidth="0.0" text="Helppy" wrappingWidth="122.3828125">
+      <Text fx:id="logoText" blendMode="SRC_ATOP" boundsType="VISUAL" fill="#00cc66" layoutX="17.0" layoutY="48.0" onMouseClicked="#logoTextOnMouseClicked" strokeType="OUTSIDE" strokeWidth="0.0" text="Helppy" wrappingWidth="122.3828125">
          <font>
             <Font name="Brush Script MT Italic" size="52.0" />
          </font>
@@ -49,12 +52,12 @@
          <children>
             <Pane layoutX="57.0" layoutY="151.0" prefHeight="357.0" prefWidth="287.0">
                <children>
-                  <PasswordField fx:id="passwordPasswordField" blendMode="SRC_ATOP" layoutY="62.0" onAction="#passwordPasswordFieldPushed" prefHeight="50.0" prefWidth="287.0" promptText="Password" style="-fx-background-radius: 35;">
+                  <PasswordField fx:id="passwordPasswordField" blendMode="SRC_ATOP" layoutY="62.0" prefHeight="50.0" prefWidth="287.0" promptText="Password" style="-fx-background-radius: 35;">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </PasswordField>
-                  <TextField fx:id="userNameTextField" blendMode="SRC_ATOP" onAction="#userNameTextFieldPushed" prefHeight="50.0" prefWidth="287.0" promptText="Username" style="-fx-background-radius: 35;">
+                  <TextField fx:id="userNameTextField" blendMode="SRC_ATOP" prefHeight="50.0" prefWidth="287.0" promptText="Username" style="-fx-background-radius: 35;">
                      <font>
                         <Font size="20.0" />
                      </font>

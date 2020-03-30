@@ -11,5 +11,15 @@ C:/Users/Stanislavr/OneDrive/Documents/Private/Java/IdeaProjects/group_A_Helppy/
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://trescoronas.ee:3306/helppy?createDatabaseIfNotExist=true</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="hibernateTest.cfg.xml/Hibernate" uuid="56104780-96a9-4430-8096-6489d8b6e645">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>Hibernate
+
+C:/Users/Stanislavr/OneDrive/Documents/Private/Java/IdeaProjects/group_A_Helppy/src/main/resources/hibernateTest.cfg.xml</remarks>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://remotemysql.com:3306/bwzugyvX5F?createDatabaseIfNotExist=true</jdbc-url>
+    </data-source>
   </component>
 </project>
