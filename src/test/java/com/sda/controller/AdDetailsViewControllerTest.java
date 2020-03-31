@@ -16,8 +16,8 @@ public class AdDetailsViewControllerTest {
 
     @Test
     public void shouldCreateAdvertisementDao() throws ParseException {
-        AdvertisementDao advertisementDao = new AdvertisementDao("hibernate_demi.xml");
-        CustomerDao customerDao = new CustomerDao("hibernate_demi.xml");
+        AdvertisementDao advertisementDao = new AdvertisementDao("hibernateDemi.cfg.xml");
+        CustomerDao customerDao = new CustomerDao("hibernateDemi.cfg.xml");
 
         Customer customer = new Customer();
         customer.setLogin("Pjotr");

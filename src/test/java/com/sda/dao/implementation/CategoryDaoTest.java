@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 
 public class CategoryDaoTest {
     Logger log = Logger.getLogger(AddressDaoTest.class.getName());
-    CategoryDao categoryDao = new CategoryDao("hibernateTest.cfg.xml");
+    CategoryDao categoryDao = new CategoryDao("hibernateDemi.cfg.xml");
 
     @Test
     public void shouldSaveCategoryWithSubcategory() {

@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 public class AddressDaoTest {
 
     Logger log = Logger.getLogger(AddressDaoTest.class.getName());
-    AddressDao addressDao = new AddressDao("hibernateTest.cfg.xml");
+    AddressDao addressDao = new AddressDao("hibernateDemi.cfg.xml");
 
     @Test
     public void shouldSaveAddress() {

@@ -20,8 +20,8 @@ import java.util.logging.Logger;
 public class CustomerDaoTest {
 
     Logger log = Logger.getLogger(AddressDaoTest.class.getName());
-    CustomerDao customerDao = new CustomerDao("hibernateTest.cfg.xml");
-    AdvertisementDao advertisementDao = new AdvertisementDao("hibernateTest.cfg.xml");
+    CustomerDao customerDao = new CustomerDao("hibernateDemi.cfg.xml");
+    AdvertisementDao advertisementDao = new AdvertisementDao("hibernateDemi.cfg.xml");
 
 
     @Test

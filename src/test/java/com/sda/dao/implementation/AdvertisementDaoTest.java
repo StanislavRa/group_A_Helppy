@@ -20,9 +20,9 @@ import java.util.logging.Logger;
 public class AdvertisementDaoTest {
 
     Logger log = Logger.getLogger(AddressDaoTest.class.getName());
-    CustomerDao customerDao = new CustomerDao("hibernateTest.cfg.xml");
-    AdvertisementDao advertisementDao = new AdvertisementDao("hibernateTest.cfg.xml");
-    CategoryDao categoryDao = new CategoryDao("hibernateTest.cfg.xml");
+    CustomerDao customerDao = new CustomerDao("hibernateDemi.cfg.xml");
+    AdvertisementDao advertisementDao = new AdvertisementDao("hibernateDemi.cfg.xml");
+    CategoryDao categoryDao = new CategoryDao("hibernateDemi.cfg.xml");
 
     @Test
     public void shouldSaveAdvertisement() throws ParseException {
