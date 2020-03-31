@@ -56,6 +56,4 @@ public class AdDetailsViewController extends GeneralController {
         String formattedDate = formatter.format(date);
         return formattedDate;
     }
-
-
 }

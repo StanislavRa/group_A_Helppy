@@ -117,7 +117,7 @@ public class AllAdsViewController extends GeneralController implements Initializ
     public void initialize(URL location, ResourceBundle resources) {
         setUpTableColumns();
         //load data
-        AdvertisementDao advertisementDao = new AdvertisementDao("oleksHibernateTest.cfg.xml");
+        AdvertisementDao advertisementDao = new AdvertisementDao("hibernateDemi.cfg.xml");
         List<Advertisement> getAllAdvertisements =  advertisementDao.getAll();
         ObservableList<Advertisement> advertisementObservableList = FXCollections.observableArrayList(getAllAdvertisements);
 
@@ -133,5 +133,12 @@ public class AllAdsViewController extends GeneralController implements Initializ
         startDateColumn.setCellValueFactory(new PropertyValueFactory<>("startDate"));
         endDateColumn.setCellValueFactory(new PropertyValueFactory<>("endDate"));
         serviceTypeColumn.setCellValueFactory(new PropertyValueFactory<>("serviceType"));
+    }
+
+    @FXML
+    void seeDetailsButtonPushed(ActionEvent event) {
+
+        AdDetailsViewController controller = (changeScreen(event, "/views/adDetailsView.fxml").getController());
+        controller.initData(mainTableView.getSelectionModel().getSelectedItem());
     }
 }
