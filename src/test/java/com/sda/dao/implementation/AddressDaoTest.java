@@ -23,7 +23,7 @@ public class AddressDaoTest {
 
         log.info("...shouldSaveAddress...");
 
-        Address addressTest1 = new Address("Estonia", "Tallinn", "Parnu mnt");
+        Address addressTest1 = new Address("Tallinn");
         addressDao.save(addressTest1);
 
         Assert.assertNotNull(addressDao.get(1L));
@@ -34,7 +34,7 @@ public class AddressDaoTest {
 
         log.info("...shouldGetAddressById...");
 
-        Address addressTest1 = new Address("Estonia", "Tallinn", "Parnu mnt");
+        Address addressTest1 = new Address("Tallinn");
         addressDao.save(addressTest1);
 
         Address shouldGetAddressById = addressDao.get(1L);
@@ -47,10 +47,10 @@ public class AddressDaoTest {
 
         log.info("...shouldGetAllAddresses...");
 
-        Address addressTest1 = new Address("Estonia", "Tallinn", "Parnu mnt");
+        Address addressTest1 = new Address("Tallinn");
         addressDao.save(addressTest1);
 
-        Address addressTest2 = new Address("Estonia", "Tallinn", "Lardi");
+        Address addressTest2 = new Address("Tartu");
         addressDao.save(addressTest2);
 
         List<Address> getAllAddresses =  addressDao.getAll();
@@ -64,7 +64,7 @@ public class AddressDaoTest {
 
         log.info("...shouldUpdateAddressCity...");
 
-        Address addressTest1 = new Address("Estonia", "Tallinn", "Parnu mnt");
+        Address addressTest1 = new Address("Tallinn");
         addressDao.save(addressTest1);
 
         Address address = addressDao.get(1L);
@@ -85,13 +85,11 @@ public class AddressDaoTest {
 
         log.info("...shouldDeleteAddress...");
 
-
-        Address addressTest1 = new Address("Estonia", "Tallinn", "Parnu mnt");
+        Address addressTest1 = new Address("Tallinn");
         addressDao.save(addressTest1);
 
-        Address addressTest2 = new Address("Estonia", "Tallinn", "Lardi");
+        Address addressTest2 = new Address("Tartu");
         addressDao.save(addressTest2);
-
 
         Address shouldBeSavedAddress = addressDao.get(2L);
         Assert.assertNotNull(shouldBeSavedAddress);
@@ -107,7 +105,7 @@ public class AddressDaoTest {
 
         log.info("...shouldSaveAddressWithCreatedAndUpdatedTimeStamp...");
 
-        Address addressTest1 = new Address("Estonia", "Tallinn", "Parnu mnt");
+        Address addressTest1 = new Address("Tallinn");
         addressDao.save(addressTest1);
 
         Address shouldGetAddressById = addressDao.get(1L);
@@ -122,11 +120,10 @@ public class AddressDaoTest {
 
         log.info("...shouldGetEqualObjects...");
 
-
-        Address addressTest1 = new Address("Estonia", "Tallinn", "Parnu mnt");
+        Address addressTest1 = new Address("Tallinn");
         addressDao.save(addressTest1);
 
-        Address addressTest2 = new Address("Estonia", "Tallinn", "Parnu mnt");
+        Address addressTest2 = new Address("Tartu");
         addressDao.save(addressTest2);
 
         Address addressGet1 = addressDao.get(1L);

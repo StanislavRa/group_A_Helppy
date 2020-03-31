@@ -220,5 +220,6 @@
          </font>
       </Text>
       <Separator layoutY="72.0" prefWidth="1280.0" />
+
    </children>
 </Pane>

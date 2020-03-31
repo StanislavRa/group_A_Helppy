@@ -40,7 +40,7 @@ public class AdvertisementDaoTest {
         Assert.assertNotNull(customerDao.get(1L));
 
         //create address
-        Address addressTest1 = new Address("Estonia", "Tallinn", "Parnu mnt");
+        Address addressTest1 = new Address("Tallinn");
         addressDao.save(addressTest1);
 
         String startDateString1 = "31/12/1998";
@@ -98,7 +98,7 @@ public class AdvertisementDaoTest {
         customerDao.save(customer);
 
         //create address
-        Address addressTest1 = new Address("Estonia", "Tallinn", "Parnu mnt");
+        Address addressTest1 = new Address("Tallinn");
         addressDao.save(addressTest1);
 
         Category rentSuperCategory = new Category(null, "Rent");
@@ -149,7 +149,7 @@ public class AdvertisementDaoTest {
         customerDao.save(customer);
 
         //create address
-        Address addressTest1 = new Address("Estonia", "Tallinn", "Parnu mnt");
+        Address addressTest1 = new Address("Tallinn");
         addressDao.save(addressTest1);
 
         String startDateString1 = "31/12/1998";
@@ -207,7 +207,7 @@ public class AdvertisementDaoTest {
         customerDao.save(customer);
 
         //create address
-        Address addressTest1 = new Address("Estonia", "Tallinn", "Parnu mnt");
+        Address addressTest1 = new Address("Tallinn");
         addressDao.save(addressTest1);
 
         String startDateString1 = "31/12/1998";
@@ -258,7 +258,7 @@ public class AdvertisementDaoTest {
         customerDao.save(customer);
 
         //create address
-        Address addressTest1 = new Address("Estonia", "Tallinn", "Parnu mnt");
+        Address addressTest1 = new Address("Tallinn");
         addressDao.save(addressTest1);
 
         String startDateString1 = "31/12/1998";
@@ -302,7 +302,7 @@ public class AdvertisementDaoTest {
         customerDao.save(customer);
 
         //create address
-        Address addressTest1 = new Address("Estonia", "Tallinn", "Parnu mnt");
+        Address addressTest1 = new Address("Tallinn");
         addressDao.save(addressTest1);
 
         //create dates

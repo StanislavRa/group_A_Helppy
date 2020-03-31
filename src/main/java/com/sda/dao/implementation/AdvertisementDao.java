@@ -75,7 +75,6 @@ public class AdvertisementDao extends SessionUtil implements Dao<Advertisement> 
             }
             e.printStackTrace();
         }
-
     }
 
     @Override
@@ -97,6 +96,7 @@ public class AdvertisementDao extends SessionUtil implements Dao<Advertisement> 
             }
             e.printStackTrace();
         }
-
     }
+
+
 }

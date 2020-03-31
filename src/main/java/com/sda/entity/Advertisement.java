@@ -55,11 +55,11 @@ public class Advertisement {
     @JoinColumn(name = "FK_CATEGORY_ID")
     private Category category;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "FK_ADDRESS_ID")
     private Address address;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "FK_CUSTOMER_ID")
     private Customer customer;
 

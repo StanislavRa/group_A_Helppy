@@ -17,14 +17,8 @@ public class Address {
     @Column(name = "ID", unique = true, nullable = false, length = 100)
     private Long id;
 
-    @Column(name = "COUNTRY", length = 60, nullable = false)
-    private String country;
-
     @Column(name = "CITY", length = 60, nullable = false)
     private String city;
-
-    @Column(name = "STREET", length = 60)
-    private String street;
 
     @Column
     @CreationTimestamp
@@ -38,10 +32,8 @@ public class Address {
     public Address() {
     }
 
-    public Address(String country, String city, String street) {
-        this.country = country;
+    public Address(String city) {
         this.city = city;
-        this.street = street;
     }
 
     public Long getId() {
@@ -52,13 +44,6 @@ public class Address {
         this.id = id;
     }
 
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
 
     public String getCity() {
         return city;
@@ -68,13 +53,6 @@ public class Address {
         this.city = city;
     }
 
-    public String getStreet() {
-        return street;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
-    }
 
     public LocalDateTime getCREATED_ON() {
         return CREATED_ON;
@@ -88,9 +66,10 @@ public class Address {
     @Override
     public String toString() {
         return "Address{" +
-                "country='" + country + '\'' +
+                "id=" + id +
                 ", city='" + city + '\'' +
-                ", street='" + street + '\'' +
+                ", CREATED_ON=" + CREATED_ON +
+                ", UPDATED_ON=" + UPDATED_ON +
                 '}';
     }
 
@@ -99,13 +78,11 @@ public class Address {
         if (this == o) return true;
         if (!(o instanceof Address)) return false;
         Address address = (Address) o;
-        return Objects.equals(getCountry(), address.getCountry()) &&
-                Objects.equals(getCity(), address.getCity()) &&
-                Objects.equals(getStreet(), address.getStreet());
+        return Objects.equals(getCity(), address.getCity());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getCountry(), getCity(), getStreet());
+        return Objects.hash(getCity());
     }
 }
