@@ -98,6 +98,8 @@ public class AllAdsViewController extends GeneralController {
         String endDateString1 = "31/12/1998";
         Date endDate1 = new SimpleDateFormat("dd/MM/yyyy").parse(endDateString1);
 
+
+
         Advertisement advertisement1 = new Advertisement(
                 "Clean Fast",
                 "blablabla",
