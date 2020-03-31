@@ -39,12 +39,12 @@ public class AdDetailsViewController extends GeneralController {
 
     public void initData(Advertisement advertisement)  {
         subjectLabel.setText(advertisement.getSubject());
-        categoryLabel.setText(advertisement.getCategory().toString());
+        categoryLabel.setText(String.valueOf(advertisement.getCategory()));
         startDateLabel.setText(advertisement.getStartDate().toString());
         endDateLabel.setText(advertisement.getEndDate().toString());
         addressLabel.setText(advertisement.getAddress().toString());
         adTypeLabel.setText(advertisement.getServiceType().toString());
-        priceLabel.setText(String.valueOf(advertisement.getPrice()));
+        priceLabel.setText(advertisement.getPrice().toString()/*String.valueOf(advertisement.getPrice())*/);
         descriptionLabel.setText(advertisement.getDescription());
         userFullNameLabel.setText(advertisement.getCustomer().getFullName());
     }

@@ -8,8 +8,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 /**
@@ -90,7 +93,7 @@ public class AllAdsViewController extends GeneralController {
 
         // create new advertisement
         String startDateString1 = "31/12/1998";
-        Date startDate1 = new SimpleDateFormat("dd/MM/yyyy").parse(startDateString1);
+        Date startDate1 = new SimpleDateFormat("dd/MM/yy").parse(startDateString1);
 
         String endDateString1 = "31/12/1998";
         Date endDate1 = new SimpleDateFormat("dd/MM/yyyy").parse(endDateString1);
