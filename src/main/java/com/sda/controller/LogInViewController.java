@@ -29,7 +29,7 @@ public class LogInViewController extends GeneralController {
 
         if (!loginText.isEmpty() && !loginPassword.isEmpty()) {
 
-            CustomerDao customerDao = new CustomerDao("hibernate.cfg.xml");
+            CustomerDao customerDao = new CustomerDao("hibernateDemi.cfg.xml");
             customer = customerDao.getByLoginAndPassword(loginText, loginPassword);
 
             if (customer != null) {

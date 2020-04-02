@@ -21,7 +21,7 @@ public class SignUpViewController extends GeneralController {
     void signUpButtonPushed(ActionEvent event) {
 
         String loginText = userNameTextField.getText().trim();
-        CustomerDao customerDao = new CustomerDao("hibernate.cfg.xml");
+        CustomerDao customerDao = new CustomerDao("hibernateDemi.cfg.xml");
         Customer customer = customerDao.getByLogin(loginText);
 
         if (customer == null) {
