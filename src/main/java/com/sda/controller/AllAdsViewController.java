@@ -1,7 +1,9 @@
 package com.sda.controller;
 
 import com.sda.dao.implementation.AdvertisementDao;
+import com.sda.entity.Address;
 import com.sda.entity.Advertisement;
+import com.sda.entity.Category;
 import com.sda.entity.Customer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,6 +14,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.scene.text.Text;
@@ -136,9 +141,11 @@ public class AllAdsViewController extends GeneralController implements Initializ
     }
 
     @FXML
-    void seeDetailsButtonPushed(ActionEvent event) {
+    void seeDetailsButtonPushed(ActionEvent event) throws ParseException {
 
-        AdDetailsViewController controller = (changeScreen(event, "/views/adDetailsView.fxml").getController());
-        controller.initData(mainTableView.getSelectionModel().getSelectedItem());
+//        AdDetailsViewController controller = (changeScreen(event, "/views/adDetailsView.fxml").getController());
+//        controller.initData(mainTableView.getSelectionModel().getSelectedItem());
+
+
     }
 }
