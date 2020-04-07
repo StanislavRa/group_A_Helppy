@@ -10,6 +10,15 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "CATEGORY")
+
+@NamedNativeQueries({
+
+        @NamedNativeQuery(
+                name = "Category_GetAll",
+                query = "select * from CATEGORY category ",
+                resultClass = Category.class)
+})
+
 public class Category {
 
     @Id

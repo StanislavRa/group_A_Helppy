@@ -1,14 +1,10 @@
 package com.sda.controller;
 
-import com.sda.dao.implementation.AddressDao;
-import com.sda.dao.implementation.AdvertisementDao;
-import com.sda.dao.implementation.CategoryDao;
-import com.sda.dao.implementation.CustomerDao;
+import com.sda.dao.implementation.*;
 import com.sda.entity.Advertisement;
-import com.sda.entity.Category;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -26,7 +22,8 @@ import java.util.ResourceBundle;
 /**
  * @author StanislavR
  */
-public class AllAdsViewController extends GeneralController implements Initializable {
+
+public class AllAdsViewController extends GeneralController<Advertisement> implements Initializable {
 
     @FXML
     private TableView<Advertisement> mainTableView;
@@ -47,11 +44,16 @@ public class AllAdsViewController extends GeneralController implements Initializ
     private ToggleGroup radioButtonToggleGroup;
 
     @FXML
-    private ComboBox<String> locationComboBox;
+    private ComboBox<String> countryComboBox;
 
     @FXML
-    private RadioButton locationRadioButton;
+    private RadioButton countryRadioButton;
 
+    @FXML
+    private ComboBox<String> cityComboBox;
+
+    @FXML
+    private RadioButton cityRadioButton;
     @FXML
     private TextField priceFromTextField;
 
@@ -77,11 +79,10 @@ public class AllAdsViewController extends GeneralController implements Initializ
     private RadioButton serviceTypeRadioButton;
 
     @FXML
-    private ToggleGroup radioButtonToggleGroup1;
-
-    @FXML
     private Button findButton;
 
+
+    //javafx columns creation
     @FXML
     private TableColumn<Advertisement, String> subjectColumn;
 
@@ -92,7 +93,10 @@ public class AllAdsViewController extends GeneralController implements Initializ
     private TableColumn<Advertisement, String> priceColumn;
 
     @FXML
-    private TableColumn<Advertisement, String> locationColumn;
+    private TableColumn<Advertisement, String> countryColumn;
+
+    @FXML
+    private TableColumn<Advertisement, String> cityColumn;
 
     @FXML
     private TableColumn<Advertisement, String> startDateColumn;
@@ -106,126 +110,125 @@ public class AllAdsViewController extends GeneralController implements Initializ
     @FXML
     private Text logoText;
 
-    //create Dao classes
-    CustomerDao customerDao = new CustomerDao("oleksHibernateTest.cfg.xml");
-    AdvertisementDao advertisementDao = new AdvertisementDao("oleksHibernateTest.cfg.xml");
-    CategoryDao categoryDao = new CategoryDao("oleksHibernateTest.cfg.xml");
-    AddressDao addressDao = new AddressDao("oleksHibernateTest.cfg.xml");
-
-
-  /*  public AllAdsViewController(Customer customer) {
-        super(customer);
-    }*/
-
-    public AllAdsViewController() {
-    }
-
+   String connectionToDatabaseCreate  = "oleksHibernateCreateTest.cfg.xml";
+   String connectionToDatabaseValidate  = "oleksHibernateValidateTest.cfg.xml";
 
     @FXML
-    void findButtonPushed() {
+    void findButtonPushed(ActionEvent event) {
 
         if (categoryRadioButton.isSelected()) {
-            mainTableView.setItems(findAdvertisementByCategory(categoryComboBox.getValue()));
+            mainTableView.setItems(findActiveAdvertisementByCategory(categoryComboBox.getValue()));
         }
-        if (locationRadioButton.isSelected()){
-            mainTableView.setItems(findAdvertisementByLocation(locationComboBox.getValue()));
+        if (countryRadioButton.isSelected()){
+            mainTableView.setItems(findActiveAdvertisementByCountry(countryComboBox.getValue()));
+        }
+        if (cityRadioButton.isSelected()){
+            mainTableView.setItems(findActiveAdvertisementByCity(cityComboBox.getValue()));
         }
         if (priceRadioButton.isSelected()) {
-            mainTableView.setItems(findAdvertisementByPrice(new BigDecimal(String.valueOf(priceFromTextField)),
-                                                            new BigDecimal(String.valueOf(priceToTextField))));
+            mainTableView.setItems(findActiveAdvertisementByPrice(new BigDecimal(priceFromTextField.getText()),
+                                                            new BigDecimal((priceToTextField.getText()))));
         }
         if (dateRadioButton.isSelected()) {
-            mainTableView.setItems(findAdvertisementByDate(java.sql.Date.valueOf(startDatePicker.getValue()),
-                                                            java.sql.Date.valueOf(endDatePicker.getValue())));
+            mainTableView.setItems(findActiveAdvertisementByDate(parser.convertToDateViaSqlDate(startDatePicker.getValue()),
+                                                           parser.convertToDateViaSqlDate(endDatePicker.getValue())));
         }
         if (serviceTypeRadioButton.isSelected()) {
-            mainTableView.setItems(findAdvertisementByServiceType(serviceTypeComboBox.getValue()));
+            mainTableView.setItems(findActiveAdvertisementByServiceType(serviceTypeComboBox.getValue()));
         }
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        setUpTableColumns();
-        mainTableView.setItems(getAdvertisementsListFromDatabase());
-        locationComboBox.getItems().addAll(String.valueOf(addressDao.getAll()));
-        categoryComboBox.getItems().addAll(getAllCategoriesNames(categoryDao.getAll()));
-        serviceTypeComboBox.getItems().addAll(getAllServiceTypes());
+        //create Dao classes
+        CustomerDao customerDao = new CustomerDao(connectionToDatabaseValidate);
+        AdvertisementDao advertisementDao = new AdvertisementDao(connectionToDatabaseValidate);
+        CategoryDao categoryDao = new CategoryDao(connectionToDatabaseValidate);
+        AddressDao addressDao = new AddressDao(connectionToDatabaseValidate);
+        AddressCountryDao addressCountryDao = new AddressCountryDao(connectionToDatabaseValidate);
+        AddressCityDao addressCityDao = new AddressCityDao(connectionToDatabaseValidate);
 
+        //set Up Table Columns and ComboBoxes
+        setUpTableColumns();
+        mainTableView.setItems(convertFromListToObservableList(advertisementDao.getAllActiveList()));
+        countryComboBox.getItems().addAll(addressCountryDao.getAllAddressCountyList());
+        cityComboBox.getItems().addAll(addressCityDao.getAllAddressCitiesList());
+        categoryComboBox.getItems().addAll((categoryDao.getAllCategoriesList()));
+        serviceTypeComboBox.getItems().addAll(advertisementDao.getAllServiceTypes());
     }
 
     public void setUpTableColumns() {
 
         //set up the columns in the table
         subjectColumn.setCellValueFactory(new PropertyValueFactory<>("subject"));
-        subjectColumn.getStyleClass().add("first-name-col");
         categoryColumn.setCellValueFactory(value ->
                 new SimpleStringProperty(value.getValue().getCategory().getName()));
         priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
-        locationColumn.setCellValueFactory(value ->
-                new SimpleStringProperty(value.getValue().getAddress().getCity()));
+        countryColumn.setCellValueFactory(value ->
+                new SimpleStringProperty(value.getValue().getAddress().getCountry().getCountry()));
+        cityColumn.setCellValueFactory(value ->
+                new SimpleStringProperty(value.getValue().getAddress().getCity().getCity()));
         startDateColumn.setCellValueFactory(new PropertyValueFactory<>("startDate"));
         endDateColumn.setCellValueFactory(new PropertyValueFactory<>("endDate"));
         serviceTypeColumn.setCellValueFactory(new PropertyValueFactory<>("serviceType"));
     }
 
-    public ObservableList<Advertisement> getAdvertisementsListFromDatabase() {
+
+    public ObservableList<Advertisement> findActiveAdvertisementByCategory(String category) {
+
+        AdvertisementDao advertisementDao = new AdvertisementDao(connectionToDatabaseValidate);
+
         //load data
-        List<Advertisement> getAllAdvertisements =  advertisementDao.getAll();
-        return FXCollections.observableArrayList(getAllAdvertisements);
-    }
-   public List<String> getAllCategoriesNames(List<Category> categories) {
-        List<String> listOfSubcategories = new ArrayList<>();
-        for (Category o : categories){
-            listOfSubcategories.add(o.getName());
-            }
-        return listOfSubcategories;
-    }
-
-    public List<String> getAllServiceTypes() {
-        List<String> listOfServiceTypes = new ArrayList<>();
-            listOfServiceTypes.add(Advertisement.ServiceType.OFFER.name());
-            listOfServiceTypes.add(Advertisement.ServiceType.REQUEST.name());
-            return listOfServiceTypes;
-    }
-
-    public List<String> getAllServiceStates() {
-        List<String> listOfServiceStates = new ArrayList<>();
-            listOfServiceStates.add(Advertisement.ServiceState.INACTIVE.name());
-            listOfServiceStates.add(Advertisement.ServiceState.ACTIVE.name());
-            return listOfServiceStates;
-    }
-
-
-    public ObservableList<Advertisement> findAdvertisementByCategory(String category) {
-        //load data
-        List<Advertisement> getAllAdvertisementsList =  advertisementDao.getAll();
+        List<Advertisement> getAllAdvertisementsList =  advertisementDao.getAllActiveList();
         List<Advertisement> getAllAdvertisementsByCategory = new ArrayList<>();
 
         for (Advertisement advertisement : getAllAdvertisementsList) {
-            if (advertisement.getAddress().getCity().equals(category)) {
+            if (advertisement.getCategory().toString().equals(category)) {
                 getAllAdvertisementsByCategory.add(advertisement);
             }
         }
-        return FXCollections.observableArrayList(getAllAdvertisementsByCategory);
+        return convertFromListToObservableList(getAllAdvertisementsByCategory);
     }
 
-    public ObservableList<Advertisement> findAdvertisementByLocation(String address) {
+    public ObservableList<Advertisement> findActiveAdvertisementByCity(String city) {
+
+        AdvertisementDao advertisementDao = new AdvertisementDao(connectionToDatabaseValidate);
+
         //load data
-        List<Advertisement> getAllAdvertisementsList =  advertisementDao.getAll();
-        List<Advertisement> getAllAdvertisementsByLocation = new ArrayList<>();
+        List<Advertisement> getAllAdvertisementsList =  advertisementDao.getAllActiveList();
+        List<Advertisement> getAllAdvertisementsByCity = new ArrayList<>();
 
         for (Advertisement advertisement : getAllAdvertisementsList) {
-            if (advertisement.getAddress().getCity().equals(address)) {
-                getAllAdvertisementsByLocation.add(advertisement);
+            if (advertisement.getAddress().getCity().getCity().equals(city)) {
+                getAllAdvertisementsByCity.add(advertisement);
             }
         }
-        return FXCollections.observableArrayList(getAllAdvertisementsByLocation);
+        return convertFromListToObservableList(getAllAdvertisementsByCity);
     }
 
-    public ObservableList<Advertisement> findAdvertisementByPrice(BigDecimal bigDecimalBottomRate, BigDecimal bigDecimalTopRate) {
+    public ObservableList<Advertisement> findActiveAdvertisementByCountry(String country) {
+
+        AdvertisementDao advertisementDao = new AdvertisementDao(connectionToDatabaseValidate);
+
         //load data
-        List<Advertisement> getAllAdvertisementsList =  advertisementDao.getAll();
+        List<Advertisement> getAllAdvertisementsList =  advertisementDao.getAllActiveList();
+        List<Advertisement> getAllAdvertisementsByCountry = new ArrayList<>();
+
+        for (Advertisement advertisement : getAllAdvertisementsList) {
+            if (advertisement.getAddress().getCountry().getCountry().equals(country)) {
+                getAllAdvertisementsByCountry.add(advertisement);
+            }
+        }
+        return convertFromListToObservableList(getAllAdvertisementsByCountry);
+    }
+
+    public ObservableList<Advertisement> findActiveAdvertisementByPrice(BigDecimal bigDecimalBottomRate, BigDecimal bigDecimalTopRate) {
+
+        AdvertisementDao advertisementDao = new AdvertisementDao(connectionToDatabaseValidate);
+
+        //load data
+        List<Advertisement> getAllAdvertisementsList =  advertisementDao.getAllActiveList();
         List<Advertisement> getAllAdvertisementsByPrice = new ArrayList<>();
 
         for (Advertisement advertisement : getAllAdvertisementsList) {
@@ -233,12 +236,15 @@ public class AllAdsViewController extends GeneralController implements Initializ
                 getAllAdvertisementsByPrice.add(advertisement);
             }
         }
-        return FXCollections.observableArrayList(getAllAdvertisementsByPrice);
+        return convertFromListToObservableList(getAllAdvertisementsByPrice);
     }
 
-    public ObservableList<Advertisement> findAdvertisementByDate(Date startDate, Date endDate) {
+    public ObservableList<Advertisement> findActiveAdvertisementByDate(Date startDate, Date endDate) {
+
+        AdvertisementDao advertisementDao = new AdvertisementDao(connectionToDatabaseValidate);
+
         //load data
-        List<Advertisement> getAllAdvertisementsList =  advertisementDao.getAll();
+        List<Advertisement> getAllAdvertisementsList =  advertisementDao.getAllActiveList();
         List<Advertisement> getAllAdvertisementsByDate = new ArrayList<>();
 
         for (Advertisement advertisement : getAllAdvertisementsList) {
@@ -246,19 +252,21 @@ public class AllAdsViewController extends GeneralController implements Initializ
                 getAllAdvertisementsByDate.add(advertisement);
             }
         }
-        return FXCollections.observableArrayList(getAllAdvertisementsByDate);
+        return convertFromListToObservableList(getAllAdvertisementsByDate);
     }
 
-    public ObservableList<Advertisement> findAdvertisementByServiceType(String serviceType) {
+    public ObservableList<Advertisement> findActiveAdvertisementByServiceType(String serviceType) {
+
+        AdvertisementDao advertisementDao = new AdvertisementDao(connectionToDatabaseValidate);
         //load data
-        List<Advertisement> getAllAdvertisementsList =  advertisementDao.getAll();
+        List<Advertisement> getAllAdvertisementsList =  advertisementDao.getAllActiveList();
         List<Advertisement> getAllAdvertisementsByServiceTypeList = new ArrayList<>();
 
         for (Advertisement advertisement : getAllAdvertisementsList) {
-            if (advertisement.getServiceType().toString().equals(serviceType)) {
+            if (parser.compareTwoStrings(advertisement.getServiceType().toString(),serviceType)) {
                 getAllAdvertisementsByServiceTypeList.add(advertisement);
             }
         }
-        return FXCollections.observableArrayList(getAllAdvertisementsByServiceTypeList);
+        return convertFromListToObservableList(getAllAdvertisementsByServiceTypeList);
     }
 }

@@ -1,7 +1,7 @@
 package com.sda.dao.implementation;
 
 import com.sda.dao.Dao;
-import com.sda.entity.Category;
+import com.sda.entity.AddressCountry;
 import com.sda.util.SessionUtil;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -13,42 +13,42 @@ import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryDao extends SessionUtil implements Dao<Category> {
+public class AddressCountryDao extends SessionUtil implements Dao<AddressCountry> {
 
-    public CategoryDao(String hibernateConfigurationFilePath) {
+    public AddressCountryDao(String hibernateConfigurationFilePath) {
         super(hibernateConfigurationFilePath);
     }
 
     @Override
-    public Category get(Long id) {
+    public AddressCountry get(Long id) {
 
         openTransactionAndSession();
-        return getSession().get(Category.class, id);
+        return getSession().get(AddressCountry.class, id);
     }
 
     @Override
-    public List<Category> getAll() {
+    public List<AddressCountry> getAll() {
 
         openTransactionAndSession();
         Session session = getSession();
 
         CriteriaBuilder cb = session.getCriteriaBuilder();
-        CriteriaQuery<Category> cq = cb.createQuery(Category.class);
-        Root<Category> rootEntry = cq.from(Category.class);
-        CriteriaQuery<Category> all = cq.select(rootEntry);
+        CriteriaQuery<AddressCountry> cq = cb.createQuery(AddressCountry.class);
+        Root<AddressCountry> rootEntry = cq.from(AddressCountry.class);
+        CriteriaQuery<AddressCountry> all = cq.select(rootEntry);
 
-        TypedQuery<Category> allQuery = session.createQuery(all);
+        TypedQuery<AddressCountry> allQuery = session.createQuery(all);
         return allQuery.getResultList();
     }
 
     @Override
-    public void save(Category category) {
+    public void save(AddressCountry addressCountry) {
 
         try {
             // open session with a transaction
             openTransactionAndSession();
             Session session = getSession();
-            session.save(category);
+            session.save(addressCountry);
 
             // close session with a transaction
             closeTransactionAndSession();
@@ -63,13 +63,13 @@ public class CategoryDao extends SessionUtil implements Dao<Category> {
     }
 
     @Override
-    public void update(Category category) {
+    public void update(AddressCountry addressCountry) {
 
         try {
             // open session with a transaction
             openTransactionAndSession();
             Session session = getSession();
-            session.merge(category);
+            session.merge(addressCountry);
 
             // close session with a transaction
             closeTransactionAndSession();
@@ -84,13 +84,13 @@ public class CategoryDao extends SessionUtil implements Dao<Category> {
     }
 
     @Override
-    public void delete(Category category) {
+    public void delete(AddressCountry addressCountry) {
 
         try {
             // open session with a transaction
             //openTransactionAndSession();
             Session session = getSession();
-            session.remove(category);
+            session.delete(addressCountry);
 
             // close session with a transaction
             closeTransactionAndSession();
@@ -104,19 +104,15 @@ public class CategoryDao extends SessionUtil implements Dao<Category> {
         }
     }
 
-
-    public List<String> getAllCategoriesList() {
+    public List<String> getAllAddressCountyList() {
         openTransactionAndSession();
         Session session = getSession();
 
-        Query<Category> getAllCategoryList = session.createNamedQuery("Category_GetAll", Category.class);
-        List<String> listOfSubcategories = new ArrayList<>();
-        for (Category o : getAllCategoryList.getResultList()) {
-            if (o.getSuperCategory() == null) {
-                listOfSubcategories.add(o.getName());
-            }
+        Query<AddressCountry> getAllAddressCountriesList = session.createNamedQuery("AddressCountry_GetAll", AddressCountry.class);
+        List<String> listOfCityNames = new ArrayList<>();
+        for (AddressCountry a : getAllAddressCountriesList.getResultList()){
+            listOfCityNames.add(a.getCountry());
         }
-        return listOfSubcategories;
+        return listOfCityNames;
     }
-
 }

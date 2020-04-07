@@ -83,13 +83,39 @@
                 <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Text boundsType="VISUAL" strokeType="OUTSIDE" strokeWidth="0.0" text="Location">
+                  <Text boundsType="VISUAL" strokeType="OUTSIDE" strokeWidth="0.0" text="Country">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Text>
-                  <ComboBox fx:id="locationComboBox" prefWidth="200.0" GridPane.rowIndex="1" />
-                  <RadioButton fx:id="locationRadioButton" mnemonicParsing="false" toggleGroup="$radioButtonToggleGroup" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <ComboBox fx:id="countryComboBox" prefWidth="200.0" GridPane.rowIndex="1" />
+                  <RadioButton fx:id="countryRadioButton" mnemonicParsing="false" toggleGroup="$radioButtonToggleGroup" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <padding>
+                        <Insets left="15.0" />
+                     </padding>
+                  </RadioButton>
+               </children>
+            </GridPane>
+            <GridPane layoutX="15.0" layoutY="95.0" vgap="10.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Text boundsType="VISUAL" strokeType="OUTSIDE" strokeWidth="0.0" text="City">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Text>
+                  <ComboBox fx:id="cityComboBox" prefWidth="200.0" GridPane.rowIndex="1" />
+                  <RadioButton fx:id="cityRadioButton" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="radioButtonToggleGroup1" />
+                     </toggleGroup>
                      <padding>
                         <Insets left="15.0" />
                      </padding>
@@ -173,19 +199,16 @@
                         <Insets />
                      </GridPane.margin>
                   </ComboBox>
-                  <RadioButton fx:id="serviceTypeRadioButton" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                  <RadioButton fx:id="serviceTypeRadioButton" mnemonicParsing="false" toggleGroup="$radioButtonToggleGroup" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <padding>
                         <Insets left="15.0" />
                      </padding>
-                     <toggleGroup>
-                        <ToggleGroup fx:id="radioButtonToggleGroup1" />
-                     </toggleGroup>
                   </RadioButton>
                </children>
             </GridPane>
             <HBox alignment="CENTER">
                <children>
-                  <Button fx:id="findButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="101.0" style="-fx-background-color: rgb(0, 204, 102); -fx-background-radius: 35;" text="Find">
+                  <Button fx:id="findButton" mnemonicParsing="false" onAction="#findButtonPushed" prefHeight="30.0" prefWidth="101.0" style="-fx-background-color: rgb(0, 204, 102); -fx-background-radius: 35;" text="Find">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -202,7 +225,8 @@
           <TableColumn fx:id="subjectColumn" prefWidth="-1.0" text="Subject" />
           <TableColumn fx:id="categoryColumn" minWidth="0.0" prefWidth="-1.0" text="Category" />
             <TableColumn fx:id="priceColumn" prefWidth="-1.0" text="Price" />
-            <TableColumn fx:id="locationColumn" prefWidth="-1.0" text="Location" />
+            <TableColumn fx:id="countryColumn" prefWidth="-1.0" text="Country" />
+            <TableColumn fx:id="cityColumn" prefWidth="-1.0" text="City" />
             <TableColumn fx:id="startDateColumn" prefWidth="-1.0" text="Start Date" />
             <TableColumn fx:id="endDateColumn" prefWidth="-1.0" text="End Date" />
             <TableColumn fx:id="serviceTypeColumn" prefWidth="-1.0" text="Request / Offer" />

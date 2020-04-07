@@ -12,6 +12,21 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "ADVERTISEMENT")
+
+@NamedNativeQueries({
+        @NamedNativeQuery(
+                name = "Advertisement_GetAll",
+                query = "select * from ADVERTISEMENT advertisement ",
+                resultClass = Advertisement.class),
+
+        @NamedNativeQuery(
+                name = "Advertisement_GetAllByState",
+                query = "select * from ADVERTISEMENT advertisement " +
+                        "where advertisement.STATE=:state",
+                resultClass = Advertisement.class),
+
+})
+
 public class Advertisement {
 
     @Id
@@ -71,7 +86,7 @@ public class Advertisement {
                          String price,
                          Date startDate,
                          Date endDate,
-                         String serviceType,
+                         ServiceType serviceType,
                          Category category,
                          Customer customer) {
         this.subject = subject;
@@ -79,7 +94,7 @@ public class Advertisement {
         this.price = new BigDecimal(price);
         this.startDate = startDate;
         this.endDate = endDate;
-        this.serviceType = ServiceType.valueOf(serviceType);
+        this.serviceType = serviceType;
         this.category = category;
         this.customer = customer;
 
@@ -87,7 +102,6 @@ public class Advertisement {
             this.serviceState = ServiceState.ACTIVE;
         } else this.serviceState = ServiceState.INACTIVE;
     }
-
 
     public Long getId() {
         return id;
@@ -193,6 +207,7 @@ public class Advertisement {
         this.customer = customer;
     }
 
+
     public enum ServiceType {
         OFFER("Offer"),
         REQUEST("Request");
@@ -232,8 +247,6 @@ public class Advertisement {
                 Objects.equals(getDescription(), that.getDescription()) &&
                 Objects.equals(getStartDate(), that.getStartDate()) &&
                 Objects.equals(getEndDate(), that.getEndDate()) &&
-                Objects.equals(getCREATED_ON(), that.getCREATED_ON()) &&
-                Objects.equals(getUPDATED_ON(), that.getUPDATED_ON()) &&
                 getServiceState() == that.getServiceState() &&
                 getServiceType() == that.getServiceType() &&
                 Objects.equals(getCategory(), that.getCategory()) &&
@@ -243,6 +256,6 @@ public class Advertisement {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getSubject(), getDescription(), getStartDate(), getEndDate(), getCREATED_ON(), getUPDATED_ON(), getServiceState(), getServiceType(), getCategory(), getAddress(), getCustomer());
+        return Objects.hash(getSubject(), getDescription(), getStartDate(), getEndDate(), getServiceState(), getServiceType(), getCategory(), getAddress(), getCustomer());
     }
 }

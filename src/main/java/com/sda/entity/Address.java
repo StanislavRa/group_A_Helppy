@@ -10,6 +10,14 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "ADDRESS")
+
+@NamedNativeQueries({
+        @NamedNativeQuery(
+                name = "Address_GetAll",
+                query = "select * from ADDRESS address ",
+                resultClass = Address.class)
+})
+
 public class Address {
 
     @Id
@@ -17,8 +25,13 @@ public class Address {
     @Column(name = "ID", unique = true, nullable = false, length = 100)
     private Long id;
 
-    @Column(name = "CITY", length = 60, nullable = false)
-    private String city;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "FK_COUNTRY")
+    private AddressCountry country;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "FK_CITY")
+    private AddressCity city;
 
     @Column
     @CreationTimestamp
@@ -32,7 +45,8 @@ public class Address {
     public Address() {
     }
 
-    public Address(String city) {
+    public Address(AddressCountry country, AddressCity city) {
+        this.country = country;
         this.city = city;
     }
 
@@ -44,15 +58,21 @@ public class Address {
         this.id = id;
     }
 
+    public AddressCountry getCountry() {
+        return country;
+    }
 
-    public String getCity() {
+    public void setCountry(AddressCountry country) {
+        this.country = country;
+    }
+
+    public AddressCity getCity() {
         return city;
     }
 
-    public void setCity(String city) {
+    public void setCity(AddressCity city) {
         this.city = city;
     }
-
 
     public LocalDateTime getCREATED_ON() {
         return CREATED_ON;
@@ -62,12 +82,12 @@ public class Address {
         return UPDATED_ON;
     }
 
-
     @Override
     public String toString() {
         return "Address{" +
                 "id=" + id +
-                ", city='" + city + '\'' +
+                ", country=" + country +
+                ", city=" + city +
                 ", CREATED_ON=" + CREATED_ON +
                 ", UPDATED_ON=" + UPDATED_ON +
                 '}';
@@ -76,13 +96,14 @@ public class Address {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Address)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         Address address = (Address) o;
-        return Objects.equals(getCity(), address.getCity());
+        return getCountry().equals(address.getCountry()) &&
+                getCity().equals(address.getCity());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getCity());
+        return Objects.hash(getCountry(), getCity());
     }
 }

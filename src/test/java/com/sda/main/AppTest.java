@@ -11,19 +11,7 @@ import javafx.stage.Stage;
  * Unit test for simple App.
  */
 
-public class AppTest extends Application {
+public class AppTest {
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-
-   /*     System.setProperty("prism.lcdtext", "false");
-        System.setProperty("prism.subpixeltext", "false");*/
-
-        Parent root = FXMLLoader.load(getClass().getResource("/views/allAdsView.fxml"));
-        primaryStage.setTitle("My First App");
-        primaryStage.setScene(new Scene(root, 1280, 800));
-        primaryStage.show();
-        //Runtime.getRuntime().addShutdownHook(new Thread(this::shutdown));
-    }
 }
 

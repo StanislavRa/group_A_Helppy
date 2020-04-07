@@ -1,6 +1,11 @@
 package com.sda.controller;
 
+import com.sda.dao.implementation.AdvertisementDao;
+import com.sda.entity.Advertisement;
 import com.sda.entity.Customer;
+import com.sda.parser.Parser;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -12,13 +17,16 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @author StanislavR
  */
-public abstract class GeneralController {
+public abstract class GeneralController <T>{
 
     protected Customer customer;
+    protected Parser parser = new Parser();
+
 
     protected FXMLLoader changeScreen(Event event, String viewName) {
 
@@ -71,5 +79,10 @@ public abstract class GeneralController {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+
+    public ObservableList<T> convertFromListToObservableList(List<T> list){
+        return FXCollections.observableArrayList(list);
     }
 }

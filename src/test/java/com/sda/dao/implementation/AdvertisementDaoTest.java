@@ -1,9 +1,6 @@
 package com.sda.dao.implementation;
 
-import com.sda.entity.Address;
-import com.sda.entity.Advertisement;
-import com.sda.entity.Category;
-import com.sda.entity.Customer;
+import com.sda.entity.*;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -20,11 +17,17 @@ import java.util.logging.Logger;
 
 public class AdvertisementDaoTest {
 
-    Logger log = Logger.getLogger(AddressDaoTest.class.getName());
-    CustomerDao customerDao = new CustomerDao("oleksHibernateTest.cfg.xml");
-    AdvertisementDao advertisementDao = new AdvertisementDao("oleksHibernateTest.cfg.xml");
-    CategoryDao categoryDao = new CategoryDao("oleksHibernateTest.cfg.xml");
-    AddressDao addressDao = new AddressDao("oleksHibernateTest.cfg.xml");
+    Logger log = Logger.getLogger(AdvertisementDaoTest.class.getName());
+
+    String connectionToDatabaseCreate  = "oleksHibernateCreateTest.cfg.xml";
+    String connectionToDatabaseValidate  = "oleksHibernateValidateTest.cfg.xml";
+
+    CustomerDao customerDao = new CustomerDao(connectionToDatabaseCreate);
+    AdvertisementDao advertisementDao = new AdvertisementDao(connectionToDatabaseCreate);
+    CategoryDao categoryDao = new CategoryDao(connectionToDatabaseCreate);
+    AddressDao addressDao = new AddressDao(connectionToDatabaseCreate);
+    AddressCountryDao addressCountryDao = new AddressCountryDao(connectionToDatabaseCreate);
+    AddressCityDao addressCityDao = new AddressCityDao(connectionToDatabaseCreate);
 
     @Test
     public void shouldSaveAdvertisement() throws ParseException {
@@ -40,7 +43,9 @@ public class AdvertisementDaoTest {
         Assert.assertNotNull(customerDao.get(1L));
 
         //create address
-        Address addressTest1 = new Address("Tallinn");
+        AddressCountry addressCountryTest1 = new AddressCountry("Estonia");
+        AddressCity addressCityTest1 = new AddressCity("Tallinn");
+        Address addressTest1 = new Address(addressCountryTest1, addressCityTest1);
         addressDao.save(addressTest1);
 
         String startDateString1 = "31/12/1998";
@@ -61,7 +66,7 @@ public class AdvertisementDaoTest {
                 "2.5",
                 startDate1,
                 endDate1,
-                "OFFER",
+                Advertisement.ServiceType.OFFER,
                 new Category("CLEANING"),
                 customer);
         advertisement1.setServiceState(Advertisement.ServiceState.INACTIVE);
@@ -72,7 +77,7 @@ public class AdvertisementDaoTest {
                 "103.3",
                 startDate2,
                 endDate2,
-                "REQUEST",
+                Advertisement.ServiceType.REQUEST,
                 new Category("RENTING"),
                 customer);
         advertisement2.setServiceState(Advertisement.ServiceState.INACTIVE);
@@ -98,7 +103,9 @@ public class AdvertisementDaoTest {
         customerDao.save(customer);
 
         //create address
-        Address addressTest1 = new Address("Tallinn");
+        AddressCountry addressCountryTest1 = new AddressCountry("Estonia");
+        AddressCity addressCityTest1 = new AddressCity("Tallinn");
+        Address addressTest1 = new Address(addressCountryTest1, addressCityTest1);
         addressDao.save(addressTest1);
 
         Category rentSuperCategory = new Category(null, "Rent");
@@ -121,7 +128,7 @@ public class AdvertisementDaoTest {
                 "2.5",
                 startDate1,
                 endDate1,
-                "OFFER",
+                Advertisement.ServiceType.OFFER,
                 rentSubCategory1,
                 customer);
 
@@ -149,7 +156,9 @@ public class AdvertisementDaoTest {
         customerDao.save(customer);
 
         //create address
-        Address addressTest1 = new Address("Tallinn");
+        AddressCountry addressCountryTest1 = new AddressCountry("Estonia");
+        AddressCity addressCityTest1 = new AddressCity("Tallinn");
+        Address addressTest1 = new Address(addressCountryTest1, addressCityTest1);
         addressDao.save(addressTest1);
 
         String startDateString1 = "31/12/1998";
@@ -170,7 +179,7 @@ public class AdvertisementDaoTest {
                 "2.5",
                 startDate1,
                 endDate1,
-                "OFFER",
+                Advertisement.ServiceType.OFFER,
                 new Category("CLEANING"),
                 customer);
         advertisement1.setServiceState(Advertisement.ServiceState.INACTIVE);
@@ -181,7 +190,7 @@ public class AdvertisementDaoTest {
                 "103.3",
                 startDate2,
                 endDate2,
-                "REQUEST",
+                Advertisement.ServiceType.REQUEST,
                 new Category("RENTING"),
                 customer);
         advertisement2.setServiceState(Advertisement.ServiceState.INACTIVE);
@@ -207,7 +216,9 @@ public class AdvertisementDaoTest {
         customerDao.save(customer);
 
         //create address
-        Address addressTest1 = new Address("Tallinn");
+        AddressCountry addressCountryTest1 = new AddressCountry("Estonia");
+        AddressCity addressCityTest1 = new AddressCity("Tallinn");
+        Address addressTest1 = new Address(addressCountryTest1, addressCityTest1);
         addressDao.save(addressTest1);
 
         String startDateString1 = "31/12/1998";
@@ -223,7 +234,7 @@ public class AdvertisementDaoTest {
                 "2.5",
                 startDate1,
                 endDate1,
-                "OFFER",
+                Advertisement.ServiceType.OFFER,
                 new Category("CLEANING"),
                 customer);
         advertisement1.setServiceState(Advertisement.ServiceState.INACTIVE);
@@ -258,7 +269,9 @@ public class AdvertisementDaoTest {
         customerDao.save(customer);
 
         //create address
-        Address addressTest1 = new Address("Tallinn");
+        AddressCountry addressCountryTest1 = new AddressCountry("Estonia");
+        AddressCity addressCityTest1 = new AddressCity("Tallinn");
+        Address addressTest1 = new Address(addressCountryTest1, addressCityTest1);
         addressDao.save(addressTest1);
 
         String startDateString1 = "31/12/1998";
@@ -274,7 +287,7 @@ public class AdvertisementDaoTest {
                 "2.5",
                 startDate1,
                 endDate1,
-                "OFFER",
+                Advertisement.ServiceType.OFFER,
                 new Category("CLEANING"),
                 customer);
         advertisement1.setServiceState(Advertisement.ServiceState.INACTIVE);
@@ -302,7 +315,9 @@ public class AdvertisementDaoTest {
         customerDao.save(customer);
 
         //create address
-        Address addressTest1 = new Address("Tallinn");
+        AddressCountry addressCountryTest1 = new AddressCountry("Estonia");
+        AddressCity addressCityTest1 = new AddressCity("Tallinn");
+        Address addressTest1 = new Address(addressCountryTest1, addressCityTest1);
         addressDao.save(addressTest1);
 
         //create dates
@@ -325,7 +340,7 @@ public class AdvertisementDaoTest {
                 "2.5",
                 startDate1,
                 endDate1,
-                "OFFER",
+                Advertisement.ServiceType.OFFER,
                 new Category("CLEANING"),
                 customer);
         advertisement1.setServiceState(Advertisement.ServiceState.INACTIVE);
@@ -336,7 +351,7 @@ public class AdvertisementDaoTest {
                 "103.3",
                 startDate2,
                 endDate2,
-                "REQUEST",
+                Advertisement.ServiceType.REQUEST,
                 new Category("RENTING"),
                 customer);
         advertisement2.setServiceState(Advertisement.ServiceState.INACTIVE);
