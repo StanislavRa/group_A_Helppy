@@ -20,39 +20,47 @@ public class ObjectsInDatabase {
         CustomerDao customerDao = new CustomerDao(connectionToDatabaseCreate);
         AdvertisementDao advertisementDao = new AdvertisementDao(connectionToDatabaseCreate);
         CategoryDao categoryDao = new CategoryDao(connectionToDatabaseCreate);
-        AddressCityDao addressCityDao = new AddressCityDao(connectionToDatabaseCreate);
-        AddressCountryDao addressCountryDao = new AddressCountryDao(connectionToDatabaseCreate);
+        CityDao cityDao = new CityDao(connectionToDatabaseCreate);
+        CountryDao countryDao = new CountryDao(connectionToDatabaseCreate);
         AddressDao addressDao = new AddressDao(connectionToDatabaseCreate);
 
+        //create country address
+        Country country1 = new Country("Estonia");
+        countryDao.save(country1);
+        Country country2 = new Country("Sweden");
+        countryDao.save(country2);
+        Country country3 = new Country("Finland");
+        countryDao.save(country3);
 
         //create city address
-        AddressCity addressCity1 = new AddressCity("Tallinn");
-        addressCityDao.save(addressCity1);
-        AddressCity addressCity2 = new AddressCity("Tartu");
-        addressCityDao.save(addressCity2);
-        AddressCity addressCity3 = new AddressCity("Narva");
-        addressCityDao.save(addressCity3);
-        AddressCity addressCity4 = new AddressCity("Helsinki");
-        addressCityDao.save(addressCity4);
-        AddressCity addressCity5 = new AddressCity("Tampere");
-        addressCityDao.save(addressCity5);
-        AddressCity addressCity6 = new AddressCity("Stockholm");
-        addressCityDao.save(addressCity2);
-        AddressCity addressCity7 = new AddressCity("Upsala");
-        addressCityDao.save(addressCity7);
+        City city1 = new City("Tallinn");
+        city1.setCountryName(country1);
+        cityDao.save(city1);
+        City city2 = new City("Tartu");
+        city2.setCountryName(country1);
+        cityDao.save(city2);
+        City city3 = new City("Narva");
+        city3.setCountryName(country1);
+        cityDao.save(city3);
+        City city4 = new City("Helsinki");
+        city4.setCountryName(country2);
+        cityDao.save(city4);
+        City city5 = new City("Tampere");
+        city5.setCountryName(country2);
+        cityDao.save(city5);
+        City city6 = new City("Stockholm");
+        city6.setCountryName(country3);
+        cityDao.save(city2);
+        City city7 = new City("Upsala");
+        city7.setCountryName(country3);
+        cityDao.save(city7);
+
+
 
         //create country address
-        AddressCountry addressCountry1 = new AddressCountry("Estonia");
-        addressCountryDao.save(addressCountry1);
-        AddressCountry addressCountry2 = new AddressCountry("Sweden");
-        addressCountryDao.save(addressCountry2);
-        AddressCountry addressCountry3 = new AddressCountry("Finland");
-        addressCountryDao.save(addressCountry3);
-
-        //create country address
-        Address address1 = new Address(addressCountry1, addressCity1);
+        Address address1 = new Address(country1, city1);
         addressDao.save(address1);
-        Address address2 = new Address(addressCountry2, addressCity6);
+        Address address2 = new Address(country2, city6);
         addressDao.save(address2);
 
 

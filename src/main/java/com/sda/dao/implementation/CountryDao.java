@@ -1,7 +1,7 @@
 package com.sda.dao.implementation;
 
 import com.sda.dao.Dao;
-import com.sda.entity.AddressCity;
+import com.sda.entity.Country;
 import com.sda.util.SessionUtil;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -13,42 +13,42 @@ import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddressCityDao extends SessionUtil implements Dao<AddressCity> {
+public class CountryDao extends SessionUtil implements Dao<Country> {
 
-    public AddressCityDao(String hibernateConfigurationFilePath) {
+    public CountryDao(String hibernateConfigurationFilePath) {
         super(hibernateConfigurationFilePath);
     }
 
     @Override
-    public AddressCity get(Long id) {
+    public Country get(Long id) {
 
         openTransactionAndSession();
-        return getSession().get(AddressCity.class, id);
+        return getSession().get(Country.class, id);
     }
 
     @Override
-    public List<AddressCity> getAll() {
+    public List<Country> getAll() {
 
         openTransactionAndSession();
         Session session = getSession();
 
         CriteriaBuilder cb = session.getCriteriaBuilder();
-        CriteriaQuery<AddressCity> cq = cb.createQuery(AddressCity.class);
-        Root<AddressCity> rootEntry = cq.from(AddressCity.class);
-        CriteriaQuery<AddressCity> all = cq.select(rootEntry);
+        CriteriaQuery<Country> cq = cb.createQuery(Country.class);
+        Root<Country> rootEntry = cq.from(Country.class);
+        CriteriaQuery<Country> all = cq.select(rootEntry);
 
-        TypedQuery<AddressCity> allQuery = session.createQuery(all);
+        TypedQuery<Country> allQuery = session.createQuery(all);
         return allQuery.getResultList();
     }
 
     @Override
-    public void save(AddressCity addressCity) {
+    public void save(Country country) {
 
         try {
             // open session with a transaction
             openTransactionAndSession();
             Session session = getSession();
-            session.save(addressCity);
+            session.save(country);
 
             // close session with a transaction
             closeTransactionAndSession();
@@ -63,13 +63,13 @@ public class AddressCityDao extends SessionUtil implements Dao<AddressCity> {
     }
 
     @Override
-    public void update(AddressCity addressCity) {
+    public void update(Country country) {
 
         try {
             // open session with a transaction
             openTransactionAndSession();
             Session session = getSession();
-            session.merge(addressCity);
+            session.merge(country);
 
             // close session with a transaction
             closeTransactionAndSession();
@@ -84,13 +84,13 @@ public class AddressCityDao extends SessionUtil implements Dao<AddressCity> {
     }
 
     @Override
-    public void delete(AddressCity addressCity) {
+    public void delete(Country country) {
 
         try {
             // open session with a transaction
             //openTransactionAndSession();
             Session session = getSession();
-            session.delete(addressCity);
+            session.delete(country);
 
             // close session with a transaction
             closeTransactionAndSession();
@@ -104,14 +104,14 @@ public class AddressCityDao extends SessionUtil implements Dao<AddressCity> {
         }
     }
 
-    public List<String> getAllAddressCitiesList() {
+    public List<String> getAllCountyList() {
         openTransactionAndSession();
         Session session = getSession();
 
-        Query<AddressCity> getAllAddressCitiesList = session.createNamedQuery("AddressCity_GetAll", AddressCity.class);
+        Query<Country> getAllCountriesList = session.createNamedQuery("AddressCountry_GetAll", Country.class);
         List<String> listOfCityNames = new ArrayList<>();
-        for (AddressCity a : getAllAddressCitiesList.getResultList()){
-            listOfCityNames.add(a.getCity());
+        for (Country a : getAllCountriesList.getResultList()){
+            listOfCityNames.add(a.getCountryName());
         }
         return listOfCityNames;
     }

@@ -34,10 +34,10 @@ public class Advertisement {
     @Column(name = "ID", unique = true, nullable = false, length = 100)
     private Long id;
 
-    @Column(name = "SUBJECT", unique = true, nullable = false, length = 100)
+    @Column(name = "SUBJECT", nullable = false, length = 100)
     private String subject;
 
-    @Column(name = "DESCRIPTION", unique = true, nullable = false, length = 300)
+    @Column(name = "DESCRIPTION", nullable = false, length = 300)
     private String description;
 
     @Column(name = "PRICE", nullable = false, length = 100)

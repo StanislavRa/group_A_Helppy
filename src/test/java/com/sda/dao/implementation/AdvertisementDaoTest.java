@@ -26,8 +26,8 @@ public class AdvertisementDaoTest {
     AdvertisementDao advertisementDao = new AdvertisementDao(connectionToDatabaseCreate);
     CategoryDao categoryDao = new CategoryDao(connectionToDatabaseCreate);
     AddressDao addressDao = new AddressDao(connectionToDatabaseCreate);
-    AddressCountryDao addressCountryDao = new AddressCountryDao(connectionToDatabaseCreate);
-    AddressCityDao addressCityDao = new AddressCityDao(connectionToDatabaseCreate);
+    CountryDao countryDao = new CountryDao(connectionToDatabaseCreate);
+    CityDao cityDao = new CityDao(connectionToDatabaseCreate);
 
     @Test
     public void shouldSaveAdvertisement() throws ParseException {
@@ -43,9 +43,9 @@ public class AdvertisementDaoTest {
         Assert.assertNotNull(customerDao.get(1L));
 
         //create address
-        AddressCountry addressCountryTest1 = new AddressCountry("Estonia");
-        AddressCity addressCityTest1 = new AddressCity("Tallinn");
-        Address addressTest1 = new Address(addressCountryTest1, addressCityTest1);
+        Country countryTest1 = new Country("Estonia");
+        City cityTest1 = new City("Tallinn");
+        Address addressTest1 = new Address(countryTest1, cityTest1);
         addressDao.save(addressTest1);
 
         String startDateString1 = "31/12/1998";
@@ -103,9 +103,9 @@ public class AdvertisementDaoTest {
         customerDao.save(customer);
 
         //create address
-        AddressCountry addressCountryTest1 = new AddressCountry("Estonia");
-        AddressCity addressCityTest1 = new AddressCity("Tallinn");
-        Address addressTest1 = new Address(addressCountryTest1, addressCityTest1);
+        Country countryTest1 = new Country("Estonia");
+        City cityTest1 = new City("Tallinn");
+        Address addressTest1 = new Address(countryTest1, cityTest1);
         addressDao.save(addressTest1);
 
         Category rentSuperCategory = new Category(null, "Rent");
@@ -156,9 +156,9 @@ public class AdvertisementDaoTest {
         customerDao.save(customer);
 
         //create address
-        AddressCountry addressCountryTest1 = new AddressCountry("Estonia");
-        AddressCity addressCityTest1 = new AddressCity("Tallinn");
-        Address addressTest1 = new Address(addressCountryTest1, addressCityTest1);
+        Country countryTest1 = new Country("Estonia");
+        City cityTest1 = new City("Tallinn");
+        Address addressTest1 = new Address(countryTest1, cityTest1);
         addressDao.save(addressTest1);
 
         String startDateString1 = "31/12/1998";
@@ -216,9 +216,9 @@ public class AdvertisementDaoTest {
         customerDao.save(customer);
 
         //create address
-        AddressCountry addressCountryTest1 = new AddressCountry("Estonia");
-        AddressCity addressCityTest1 = new AddressCity("Tallinn");
-        Address addressTest1 = new Address(addressCountryTest1, addressCityTest1);
+        Country countryTest1 = new Country("Estonia");
+        City cityTest1 = new City("Tallinn");
+        Address addressTest1 = new Address(countryTest1, cityTest1);
         addressDao.save(addressTest1);
 
         String startDateString1 = "31/12/1998";
@@ -269,9 +269,9 @@ public class AdvertisementDaoTest {
         customerDao.save(customer);
 
         //create address
-        AddressCountry addressCountryTest1 = new AddressCountry("Estonia");
-        AddressCity addressCityTest1 = new AddressCity("Tallinn");
-        Address addressTest1 = new Address(addressCountryTest1, addressCityTest1);
+        Country countryTest1 = new Country("Estonia");
+        City cityTest1 = new City("Tallinn");
+        Address addressTest1 = new Address(countryTest1, cityTest1);
         addressDao.save(addressTest1);
 
         String startDateString1 = "31/12/1998";
@@ -315,9 +315,9 @@ public class AdvertisementDaoTest {
         customerDao.save(customer);
 
         //create address
-        AddressCountry addressCountryTest1 = new AddressCountry("Estonia");
-        AddressCity addressCityTest1 = new AddressCity("Tallinn");
-        Address addressTest1 = new Address(addressCountryTest1, addressCityTest1);
+        Country countryTest1 = new Country("Estonia");
+        City cityTest1 = new City("Tallinn");
+        Address addressTest1 = new Address(countryTest1, cityTest1);
         addressDao.save(addressTest1);
 
         //create dates

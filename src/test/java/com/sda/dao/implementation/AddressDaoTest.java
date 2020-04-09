@@ -1,8 +1,8 @@
 package com.sda.dao.implementation;
 
 import com.sda.entity.Address;
-import com.sda.entity.AddressCity;
-import com.sda.entity.AddressCountry;
+import com.sda.entity.City;
+import com.sda.entity.Country;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -22,21 +22,21 @@ public class AddressDaoTest {
     String connectionToDatabaseValidate  = "oleksHibernateValidateTest.cfg.xml";
 
     AddressDao addressDao = new AddressDao(connectionToDatabaseCreate);
-    AddressCountryDao addressCountryDao = new AddressCountryDao(connectionToDatabaseCreate);
-    AddressCityDao addressCityDao = new AddressCityDao(connectionToDatabaseCreate);
+    CountryDao countryDao = new CountryDao(connectionToDatabaseCreate);
+    CityDao cityDao = new CityDao(connectionToDatabaseCreate);
 
     @Test
     public void shouldSaveAddress() {
 
         log.info("...shouldSaveAddress...");
 
-        AddressCountry addressCountryTest1 = new AddressCountry("Estonia");
-        addressCountryDao.save(addressCountryTest1);
+        Country countryTest1 = new Country("Estonia");
+        countryDao.save(countryTest1);
 
-        AddressCity addressCityTest1 = new AddressCity("Tallinn");
-        addressCityDao.save(addressCityTest1);
+        City cityTest1 = new City("Tallinn");
+        cityDao.save(cityTest1);
 
-        Address addressTest1 = new Address(addressCountryTest1, addressCityTest1);
+        Address addressTest1 = new Address(countryTest1, cityTest1);
         addressDao.save(addressTest1);
 
         Assert.assertNotNull(addressDao.get(1L));
@@ -47,9 +47,9 @@ public class AddressDaoTest {
 
         log.info("...shouldGetAddressById...");
 
-        AddressCountry addressCountryTest1 = new AddressCountry("Estonia");
-        AddressCity addressCityTest1 = new AddressCity("Tallinn");
-        Address addressTest1 = new Address(addressCountryTest1, addressCityTest1);
+        Country countryTest1 = new Country("Estonia");
+        City cityTest1 = new City("Tallinn");
+        Address addressTest1 = new Address(countryTest1, cityTest1);
         addressDao.save(addressTest1);
 
         Address shouldGetAddressById = addressDao.get(1L);
@@ -62,13 +62,13 @@ public class AddressDaoTest {
 
         log.info("...shouldGetAllAddresses...");
 
-        AddressCountry addressCountryTest1 = new AddressCountry("Estonia");
-        AddressCity addressCityTest1 = new AddressCity("Tallinn");
-        Address addressTest1 = new Address(addressCountryTest1, addressCityTest1);
+        Country countryTest1 = new Country("Estonia");
+        City cityTest1 = new City("Tallinn");
+        Address addressTest1 = new Address(countryTest1, cityTest1);
         addressDao.save(addressTest1);
 
-        AddressCity addressCityTest2 = new AddressCity("Tartu");
-        Address addressTest2 = new Address(addressCountryTest1, addressCityTest2);
+        City cityTest2 = new City("Tartu");
+        Address addressTest2 = new Address(countryTest1, cityTest2);
         addressDao.save(addressTest2);
 
         List<Address> getAllAddresses =  addressDao.getAll();
@@ -82,22 +82,22 @@ public class AddressDaoTest {
 
         log.info("...shouldUpdateAddressCity...");
 
-        AddressCountry addressCountryTest1 = new AddressCountry("Estonia");
-        AddressCity addressCityTest1 = new AddressCity("Tallinn");
-        Address addressTest1 = new Address(addressCountryTest1, addressCityTest1);
+        Country countryTest1 = new Country("Estonia");
+        City cityTest1 = new City("Tallinn");
+        Address addressTest1 = new Address(countryTest1, cityTest1);
         addressDao.save(addressTest1);
 
         Address address = addressDao.get(1L);
 
-        AddressCity addressCityTest2 = new AddressCity("Tallinn");
+        City cityTest2 = new City("Tallinn");
 
-        address.setCity(addressCityTest2);
+        address.setCityName(cityTest2);
 
         addressDao.update(address);
 
         Address updatedAddressCity = addressDao.get(1L);
 
-        Assert.assertEquals(addressCityTest2,updatedAddressCity.getCity());
+        Assert.assertEquals(cityTest2,updatedAddressCity.getCityName());
     }
 
     @Test
@@ -105,13 +105,13 @@ public class AddressDaoTest {
 
         log.info("...shouldDeleteAddress...");
 
-        AddressCountry addressCountryTest1 = new AddressCountry("Estonia");
-        AddressCity addressCityTest1 = new AddressCity("Tallinn");
-        Address addressTest1 = new Address(addressCountryTest1, addressCityTest1);
+        Country countryTest1 = new Country("Estonia");
+        City cityTest1 = new City("Tallinn");
+        Address addressTest1 = new Address(countryTest1, cityTest1);
         addressDao.save(addressTest1);
 
-        AddressCity addressCityTest2 = new AddressCity("Tallinn");
-        Address addressTest2 = new Address(addressCountryTest1, addressCityTest2);
+        City cityTest2 = new City("Tallinn");
+        Address addressTest2 = new Address(countryTest1, cityTest2);
         addressDao.save(addressTest2);
 
         Address shouldBeSavedAddress = addressDao.get(2L);
@@ -128,9 +128,9 @@ public class AddressDaoTest {
 
         log.info("...shouldSaveAddressWithCreatedAndUpdatedTimeStamp...");
 
-        AddressCountry addressCountryTest1 = new AddressCountry("Estonia");
-        AddressCity addressCityTest1 = new AddressCity("Tallinn");
-        Address addressTest1 = new Address(addressCountryTest1, addressCityTest1);
+        Country countryTest1 = new Country("Estonia");
+        City cityTest1 = new City("Tallinn");
+        Address addressTest1 = new Address(countryTest1, cityTest1);
         addressDao.save(addressTest1);
 
         Address shouldGetAddressById = addressDao.get(1L);
@@ -145,13 +145,13 @@ public class AddressDaoTest {
 
         log.info("...shouldGetEqualObjects...");
 
-        AddressCountry addressCountryTest1 = new AddressCountry("Estonia");
-        AddressCity addressCityTest1 = new AddressCity("Tallinn");
-        Address addressTest1 = new Address(addressCountryTest1, addressCityTest1);
+        Country countryTest1 = new Country("Estonia");
+        City cityTest1 = new City("Tallinn");
+        Address addressTest1 = new Address(countryTest1, cityTest1);
         addressDao.save(addressTest1);
 
-        AddressCity addressCityTest2 = new AddressCity("Tallinn");
-        Address addressTest2 = new Address(addressCountryTest1, addressCityTest2);
+        City cityTest2 = new City("Tallinn");
+        Address addressTest2 = new Address(countryTest1, cityTest2);
         addressDao.save(addressTest2);
 
         Address addressGet1 = addressDao.get(1L);

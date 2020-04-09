@@ -12,7 +12,7 @@ UNIQUE KEY UK_1oegt2jxxn3mhf3hx59qcnra (COUNTRY))
 ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 INSERT INTO COUNTRY
-(ID,    CITY)
+(ID,    COUNTRY)
 VALUES
 (1,     'Estonia'),
 (2,     'Sweden'),

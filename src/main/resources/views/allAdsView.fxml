@@ -38,7 +38,7 @@
             <Insets />
          </opaqueInsets>
       </HBox>
-      <VBox layoutX="14.0" layoutY="89.0" prefHeight="505.0" prefWidth="238.0" spacing="30.0">
+      <VBox layoutX="14.0" layoutY="89.0" prefHeight="682.0" prefWidth="238.0" spacing="30.0">
          <children>
             <GridPane vgap="10.0">
               <columnConstraints>
@@ -88,7 +88,7 @@
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Text>
-                  <ComboBox fx:id="countryComboBox" prefWidth="200.0" GridPane.rowIndex="1" />
+                  <ComboBox fx:id="countryComboBox" onAction="#countryComboBoxSelected" prefWidth="200.0" GridPane.rowIndex="1" />
                   <RadioButton fx:id="countryRadioButton" mnemonicParsing="false" toggleGroup="$radioButtonToggleGroup" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <padding>
                         <Insets left="15.0" />
@@ -112,10 +112,7 @@
                      </font>
                   </Text>
                   <ComboBox fx:id="cityComboBox" prefWidth="200.0" GridPane.rowIndex="1" />
-                  <RadioButton fx:id="cityRadioButton" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                     <toggleGroup>
-                        <ToggleGroup fx:id="radioButtonToggleGroup1" />
-                     </toggleGroup>
+                  <RadioButton fx:id="cityRadioButton" mnemonicParsing="false" toggleGroup="$radioButtonToggleGroup" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <padding>
                         <Insets left="15.0" />
                      </padding>
@@ -209,6 +206,24 @@
             <HBox alignment="CENTER">
                <children>
                   <Button fx:id="findButton" mnemonicParsing="false" onAction="#findButtonPushed" prefHeight="30.0" prefWidth="101.0" style="-fx-background-color: rgb(0, 204, 102); -fx-background-radius: 35;" text="Find">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="15.0" layoutY="480.0" prefWidth="228.0">
+               <children>
+                  <Button fx:id="showAllButton" mnemonicParsing="false" onAction="#showAllButtonPushed" prefHeight="30.0" prefWidth="101.0" style="-fx-background-color: rgb(0, 204, 102); -fx-background-radius: 35;" text="Show all">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="15.0" layoutY="480.0" prefWidth="228.0">
+               <children>
+                  <Button fx:id="detailsButton" mnemonicParsing="false" onAction="#detailsButtonPushed" prefHeight="30.0" prefWidth="101.0" style="-fx-background-color: rgb(0, 204, 102); -fx-background-radius: 35;" text="Details">
                      <font>
                         <Font size="14.0" />
                      </font>

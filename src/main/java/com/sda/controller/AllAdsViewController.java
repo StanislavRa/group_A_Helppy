@@ -81,6 +81,14 @@ public class AllAdsViewController extends GeneralController<Advertisement> imple
     @FXML
     private Button findButton;
 
+    @FXML
+    private Button showAllButton;
+
+    @FXML
+    private Button detailsButton;
+
+    @FXML
+    private Text logoText;
 
     //javafx columns creation
     @FXML
@@ -107,11 +115,31 @@ public class AllAdsViewController extends GeneralController<Advertisement> imple
     @FXML
     private TableColumn<Advertisement, String> serviceTypeColumn;
 
-    @FXML
-    private Text logoText;
-
    String connectionToDatabaseCreate  = "oleksHibernateCreateTest.cfg.xml";
    String connectionToDatabaseValidate  = "oleksHibernateValidateTest.cfg.xml";
+
+
+    @FXML
+    void showAllButtonPushed(ActionEvent event) {
+
+        AdvertisementDao advertisementDao = new AdvertisementDao(connectionToDatabaseValidate);
+        mainTableView.setItems(convertFromListToObservableList(advertisementDao.getAllActiveList()));
+
+    }
+
+    @FXML
+    void detailsButtonPushed(ActionEvent event) {
+
+    }
+
+    @FXML
+    void countryComboBoxSelected(ActionEvent event) {
+        cityComboBox.getItems().clear();
+        CityDao cityDao = new CityDao(connectionToDatabaseValidate);
+        List<String> listOfCityNames = cityDao.getAllCitiesByCountryList(countryComboBox.getValue());
+
+        cityComboBox.getItems().addAll(listOfCityNames);
+    }
 
     @FXML
     void findButtonPushed(ActionEvent event) {
@@ -146,14 +174,13 @@ public class AllAdsViewController extends GeneralController<Advertisement> imple
         AdvertisementDao advertisementDao = new AdvertisementDao(connectionToDatabaseValidate);
         CategoryDao categoryDao = new CategoryDao(connectionToDatabaseValidate);
         AddressDao addressDao = new AddressDao(connectionToDatabaseValidate);
-        AddressCountryDao addressCountryDao = new AddressCountryDao(connectionToDatabaseValidate);
-        AddressCityDao addressCityDao = new AddressCityDao(connectionToDatabaseValidate);
+        CountryDao countryDao = new CountryDao(connectionToDatabaseValidate);
+        CityDao cityDao = new CityDao(connectionToDatabaseValidate);
 
         //set Up Table Columns and ComboBoxes
         setUpTableColumns();
         mainTableView.setItems(convertFromListToObservableList(advertisementDao.getAllActiveList()));
-        countryComboBox.getItems().addAll(addressCountryDao.getAllAddressCountyList());
-        cityComboBox.getItems().addAll(addressCityDao.getAllAddressCitiesList());
+        countryComboBox.getItems().addAll(countryDao.getAllCountyList());
         categoryComboBox.getItems().addAll((categoryDao.getAllCategoriesList()));
         serviceTypeComboBox.getItems().addAll(advertisementDao.getAllServiceTypes());
     }
@@ -166,9 +193,9 @@ public class AllAdsViewController extends GeneralController<Advertisement> imple
                 new SimpleStringProperty(value.getValue().getCategory().getName()));
         priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
         countryColumn.setCellValueFactory(value ->
-                new SimpleStringProperty(value.getValue().getAddress().getCountry().getCountry()));
+                new SimpleStringProperty(value.getValue().getAddress().getCountryName().getCountryName()));
         cityColumn.setCellValueFactory(value ->
-                new SimpleStringProperty(value.getValue().getAddress().getCity().getCity()));
+                new SimpleStringProperty(value.getValue().getAddress().getCityName().getCityName()));
         startDateColumn.setCellValueFactory(new PropertyValueFactory<>("startDate"));
         endDateColumn.setCellValueFactory(new PropertyValueFactory<>("endDate"));
         serviceTypeColumn.setCellValueFactory(new PropertyValueFactory<>("serviceType"));
@@ -184,7 +211,7 @@ public class AllAdsViewController extends GeneralController<Advertisement> imple
         List<Advertisement> getAllAdvertisementsByCategory = new ArrayList<>();
 
         for (Advertisement advertisement : getAllAdvertisementsList) {
-            if (advertisement.getCategory().toString().equals(category)) {
+            if (parser.compareTwoStrings(advertisement.getCategory().getName(), category)) {
                 getAllAdvertisementsByCategory.add(advertisement);
             }
         }
@@ -200,7 +227,7 @@ public class AllAdsViewController extends GeneralController<Advertisement> imple
         List<Advertisement> getAllAdvertisementsByCity = new ArrayList<>();
 
         for (Advertisement advertisement : getAllAdvertisementsList) {
-            if (advertisement.getAddress().getCity().getCity().equals(city)) {
+            if (advertisement.getAddress().getCityName().getCityName().equals(city)) {
                 getAllAdvertisementsByCity.add(advertisement);
             }
         }
@@ -216,7 +243,7 @@ public class AllAdsViewController extends GeneralController<Advertisement> imple
         List<Advertisement> getAllAdvertisementsByCountry = new ArrayList<>();
 
         for (Advertisement advertisement : getAllAdvertisementsList) {
-            if (advertisement.getAddress().getCountry().getCountry().equals(country)) {
+            if (advertisement.getAddress().getCountryName().getCountryName().equals(country)) {
                 getAllAdvertisementsByCountry.add(advertisement);
             }
         }

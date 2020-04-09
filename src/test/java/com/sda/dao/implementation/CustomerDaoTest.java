@@ -56,9 +56,9 @@ public class CustomerDaoTest {
         customerDao.save(customer);
 
         //create address
-        AddressCountry addressCountryTest1 = new AddressCountry("Estonia");
-        AddressCity addressCityTest1 = new AddressCity("Tallinn");
-        Address addressTest1 = new Address(addressCountryTest1, addressCityTest1);
+        Country countryTest1 = new Country("Estonia");
+        City cityTest1 = new City("Tallinn");
+        Address addressTest1 = new Address(countryTest1, cityTest1);
         addressDao.save(addressTest1);
 
         Customer shouldGetCustomerById = customerDao.get(1L);

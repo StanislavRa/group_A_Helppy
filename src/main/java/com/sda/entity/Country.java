@@ -10,14 +10,15 @@ import java.util.Objects;
 @Entity
 @Table(name = "COUNTRY")
 
+
 @NamedNativeQueries({
         @NamedNativeQuery(
                 name = "AddressCountry_GetAll",
                 query = "select * from COUNTRY country ",
-                resultClass = AddressCountry.class)
+                resultClass = Country.class)
 })
 
-public class AddressCountry {
+public class Country {
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +26,7 @@ public class AddressCountry {
         private Long id;
 
         @Column(name = "COUNTRY", length = 60,unique = true, nullable = false)
-        private String country;
+        private String countryName;
 
         @Column
         @CreationTimestamp
@@ -36,11 +37,11 @@ public class AddressCountry {
         private LocalDateTime UPDATED_ON;
 
 
-        public AddressCountry() {
+        public Country() {
         }
 
-    public AddressCountry(String country) {
-        this.country = country;
+    public Country(String countryName) {
+        this.countryName = countryName;
     }
 
     public Long getId() {
@@ -51,12 +52,12 @@ public class AddressCountry {
             this.id = id;
         }
 
-    public String getCountry() {
-        return country;
+    public String getCountryName() {
+        return countryName;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
+    public void setCountryName(String countryName) {
+        this.countryName = countryName;
     }
 
     public LocalDateTime getCREATED_ON() {
@@ -71,7 +72,7 @@ public class AddressCountry {
     public String toString() {
         return "AddressCountry{" +
                 "id=" + id +
-                ", country='" + country + '\'' +
+                ", country='" + countryName + '\'' +
                 ", CREATED_ON=" + CREATED_ON +
                 ", UPDATED_ON=" + UPDATED_ON +
                 '}';
@@ -81,12 +82,12 @@ public class AddressCountry {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        AddressCountry that = (AddressCountry) o;
-        return getCountry().equals(that.getCountry());
+        Country that = (Country) o;
+        return getCountryName().equals(that.getCountryName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getCountry());
+        return Objects.hash(getCountryName());
     }
 }

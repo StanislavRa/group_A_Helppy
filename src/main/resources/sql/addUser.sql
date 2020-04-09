@@ -10,7 +10,7 @@ PRIMARY KEY (ID),
 UNIQUE KEY UK_m6gjtxi6t4thhq8x960qif5cy (LOGIN))
 ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO USERS
+INSERT INTO USER
 (ID,            LOGIN,          PASSWORD)
 VALUES
 (1,             'peterG',      'password'),

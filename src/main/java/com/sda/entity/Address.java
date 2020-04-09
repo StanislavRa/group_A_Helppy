@@ -11,13 +11,6 @@ import java.util.Objects;
 @Entity
 @Table(name = "ADDRESS")
 
-@NamedNativeQueries({
-        @NamedNativeQuery(
-                name = "Address_GetAll",
-                query = "select * from ADDRESS address ",
-                resultClass = Address.class)
-})
-
 public class Address {
 
     @Id
@@ -25,13 +18,13 @@ public class Address {
     @Column(name = "ID", unique = true, nullable = false, length = 100)
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "FK_COUNTRY")
-    private AddressCountry country;
+    private Country countryName;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "FK_CITY")
-    private AddressCity city;
+    private City cityName;
 
     @Column
     @CreationTimestamp
@@ -45,9 +38,9 @@ public class Address {
     public Address() {
     }
 
-    public Address(AddressCountry country, AddressCity city) {
-        this.country = country;
-        this.city = city;
+    public Address(Country countryName, City cityName) {
+        this.countryName = countryName;
+        this.cityName = cityName;
     }
 
     public Long getId() {
@@ -58,20 +51,20 @@ public class Address {
         this.id = id;
     }
 
-    public AddressCountry getCountry() {
-        return country;
+    public Country getCountryName() {
+        return countryName;
     }
 
-    public void setCountry(AddressCountry country) {
-        this.country = country;
+    public void setCountryName(Country countryName) {
+        this.countryName = countryName;
     }
 
-    public AddressCity getCity() {
-        return city;
+    public City getCityName() {
+        return cityName;
     }
 
-    public void setCity(AddressCity city) {
-        this.city = city;
+    public void setCityName(City cityName) {
+        this.cityName = cityName;
     }
 
     public LocalDateTime getCREATED_ON() {
@@ -86,8 +79,8 @@ public class Address {
     public String toString() {
         return "Address{" +
                 "id=" + id +
-                ", country=" + country +
-                ", city=" + city +
+                ", country=" + countryName +
+                ", city=" + cityName +
                 ", CREATED_ON=" + CREATED_ON +
                 ", UPDATED_ON=" + UPDATED_ON +
                 '}';
@@ -98,12 +91,12 @@ public class Address {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Address address = (Address) o;
-        return getCountry().equals(address.getCountry()) &&
-                getCity().equals(address.getCity());
+        return getCountryName().equals(address.getCountryName()) &&
+                getCityName().equals(address.getCityName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getCountry(), getCity());
+        return Objects.hash(getCountryName(), getCityName());
     }
 }
