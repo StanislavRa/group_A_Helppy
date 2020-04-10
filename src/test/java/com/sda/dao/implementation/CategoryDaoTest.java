@@ -12,8 +12,11 @@ import java.util.logging.Logger;
  */
 
 public class CategoryDaoTest {
-    Logger log = Logger.getLogger(AddressDaoTest.class.getName());
-    CategoryDao categoryDao = new CategoryDao("hibernateTest.cfg.xml");
+    Logger log = Logger.getLogger(CategoryDaoTest.class.getName());
+
+    String connectionToDatabaseCreate  = "hibernateUnitTest.cfg.xml";
+
+    CategoryDao categoryDao = new CategoryDao(connectionToDatabaseCreate);
 
     @Test
     public void shouldSaveCategoryWithSubcategory() {

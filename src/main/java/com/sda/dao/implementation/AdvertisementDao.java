@@ -4,10 +4,13 @@ import com.sda.dao.Dao;
 import com.sda.entity.Advertisement;
 import com.sda.util.SessionUtil;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
+
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AdvertisementDao extends SessionUtil implements Dao<Advertisement> {
@@ -75,7 +78,6 @@ public class AdvertisementDao extends SessionUtil implements Dao<Advertisement> 
             }
             e.printStackTrace();
         }
-
     }
 
     @Override
@@ -97,6 +99,45 @@ public class AdvertisementDao extends SessionUtil implements Dao<Advertisement> 
             }
             e.printStackTrace();
         }
-
     }
+
+    public List<Advertisement> getAllActiveList() {
+        openTransactionAndSession();
+        Session session = getSession();
+        String state = Advertisement.ServiceState.ACTIVE.toString();
+
+        Query<Advertisement> getAllActiveAdvertisementList = session.createNamedQuery("Advertisement_GetAllByState",
+                                                                                       Advertisement.class);
+        getAllActiveAdvertisementList.setParameter("state", state);
+
+        return getAllActiveAdvertisementList.getResultList();
+    }
+
+    public List<Advertisement> getAllInactiveList() {
+        openTransactionAndSession();
+        Session session = getSession();
+        String state = Advertisement.ServiceState.INACTIVE.toString();
+
+        Query<Advertisement> getAllInactiveAdvertisementList = session.createNamedQuery("Advertisement_GetAllByState",
+                                                                                         Advertisement.class);
+        getAllInactiveAdvertisementList.setParameter("state", state);
+
+        return getAllInactiveAdvertisementList.getResultList();
+    }
+
+    public List<String> getAllServiceTypes() {
+        List<String> listOfServiceTypes = new ArrayList<>();
+        listOfServiceTypes.add(Advertisement.ServiceType.OFFER.name());
+        listOfServiceTypes.add(Advertisement.ServiceType.REQUEST.name());
+        return listOfServiceTypes;
+    }
+
+    public List<String> getAllServiceStates() {
+        List<String> listOfServiceStates = new ArrayList<>();
+        listOfServiceStates.add(Advertisement.ServiceState.INACTIVE.name());
+        listOfServiceStates.add(Advertisement.ServiceState.ACTIVE.name());
+        return listOfServiceStates;
+    }
+
+
 }

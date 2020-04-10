@@ -1,8 +1,6 @@
 package com.sda.dao.implementation;
 
-import com.sda.entity.Advertisement;
-import com.sda.entity.Category;
-import com.sda.entity.Customer;
+import com.sda.entity.*;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -19,9 +17,13 @@ import java.util.logging.Logger;
 
 public class CustomerDaoTest {
 
-    Logger log = Logger.getLogger(AddressDaoTest.class.getName());
-    CustomerDao customerDao = new CustomerDao("hibernateTest.cfg.xml");
-    AdvertisementDao advertisementDao = new AdvertisementDao("hibernateTest.cfg.xml");
+    Logger log = Logger.getLogger(CustomerDaoTest.class.getName());
+
+    String connectionToDatabaseCreate  = "hibernateUnitTest.cfg.xml";
+
+    CustomerDao customerDao = new CustomerDao(connectionToDatabaseCreate);
+    AdvertisementDao advertisementDao = new AdvertisementDao(connectionToDatabaseCreate);
+    AddressDao addressDao = new AddressDao(connectionToDatabaseCreate);
 
 
     @Test
@@ -51,6 +53,13 @@ public class CustomerDaoTest {
         customer.setFullName("Petr III");
 
         customerDao.save(customer);
+
+        //create address
+        Country countryTest1 = new Country("Estonia");
+        City cityTest1 = new City("Tallinn");
+        Address addressTest1 = new Address(countryTest1, cityTest1);
+        addressDao.save(addressTest1);
+
         Customer shouldGetCustomerById = customerDao.get(1L);
 
         String startDateString1 = "31/12/1998";
@@ -65,7 +74,7 @@ public class CustomerDaoTest {
                 "2.5",
                 startDate1,
                 endDate1,
-                "OFFER",
+                Advertisement.ServiceType.OFFER,
                 new Category("CLEANING"),
                 shouldGetCustomerById);
         advertisement1.setServiceState(Advertisement.ServiceState.INACTIVE);
@@ -152,29 +161,4 @@ public class CustomerDaoTest {
         Customer shouldBeDeletedCustomer = customerDao.get(2L);
         Assert.assertNull(shouldBeDeletedCustomer);
     }
-
-
-    /*
-    //Not working, still be in process
-    @Test
-    @Transactional
-
-    public void shouldGetCustomerByLoginAndPass() {
-
-        log.info("...shouldGetCustomerByLoginAndPass...");
-
-        Customer customer = new Customer();
-        String login = "JohnLove88";
-        String password = "qwerty123456";
-        String fullName = "John Smith";
-
-        customer.setLogin(login);
-        customer.setPassword(password);
-        customer.setFullName(fullName);
-
-        customerDao.save(customer);
-
-        Assert.assertEquals(fullName,customerDao.getByLogin(login).getFullName());
-    }
-*/
 }
