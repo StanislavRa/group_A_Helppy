@@ -1,7 +1,5 @@
 package com.sda.controller;
 
-import com.sda.dao.implementation.AdvertisementDao;
-import com.sda.entity.Advertisement;
 import com.sda.entity.Customer;
 import com.sda.parser.Parser;
 import javafx.collections.FXCollections;
@@ -27,6 +25,7 @@ public abstract class GeneralController <T>{
     protected Customer customer;
     protected Parser parser = new Parser();
 
+    String connectionToDatabaseValidate  = "hibernate.cfg.xml";
 
     protected FXMLLoader changeScreen(Event event, String viewName) {
 

@@ -20,11 +20,11 @@ public class Address {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "FK_COUNTRY")
-    private Country countryName;
+    private Country country;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "FK_CITY")
-    private City cityName;
+    private City city;
 
     @Column
     @CreationTimestamp
@@ -38,9 +38,9 @@ public class Address {
     public Address() {
     }
 
-    public Address(Country countryName, City cityName) {
-        this.countryName = countryName;
-        this.cityName = cityName;
+    public Address(Country country, City city) {
+        this.country = country;
+        this.city = city;
     }
 
     public Long getId() {
@@ -51,20 +51,20 @@ public class Address {
         this.id = id;
     }
 
-    public Country getCountryName() {
-        return countryName;
+    public Country getCountry() {
+        return country;
     }
 
-    public void setCountryName(Country countryName) {
-        this.countryName = countryName;
+    public void setCountry(Country country) {
+        this.country = country;
     }
 
-    public City getCityName() {
-        return cityName;
+    public City getCity() {
+        return city;
     }
 
-    public void setCityName(City cityName) {
-        this.cityName = cityName;
+    public void setCity(City city) {
+        this.city = city;
     }
 
     public LocalDateTime getCREATED_ON() {
@@ -79,8 +79,8 @@ public class Address {
     public String toString() {
         return "Address{" +
                 "id=" + id +
-                ", country=" + countryName +
-                ", city=" + cityName +
+                ", country=" + country +
+                ", city=" + city +
                 ", CREATED_ON=" + CREATED_ON +
                 ", UPDATED_ON=" + UPDATED_ON +
                 '}';
@@ -91,12 +91,12 @@ public class Address {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Address address = (Address) o;
-        return getCountryName().equals(address.getCountryName()) &&
-                getCityName().equals(address.getCityName());
+        return getCountry().equals(address.getCountry()) &&
+                getCity().equals(address.getCity());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getCountryName(), getCityName());
+        return Objects.hash(getCountry(), getCity());
     }
 }

@@ -106,7 +106,8 @@ public class AdvertisementDao extends SessionUtil implements Dao<Advertisement> 
         Session session = getSession();
         String state = Advertisement.ServiceState.ACTIVE.toString();
 
-        Query<Advertisement> getAllActiveAdvertisementList = session.createNamedQuery("Advertisement_GetAllByState", Advertisement.class);
+        Query<Advertisement> getAllActiveAdvertisementList = session.createNamedQuery("Advertisement_GetAllByState",
+                                                                                       Advertisement.class);
         getAllActiveAdvertisementList.setParameter("state", state);
 
         return getAllActiveAdvertisementList.getResultList();
@@ -117,7 +118,8 @@ public class AdvertisementDao extends SessionUtil implements Dao<Advertisement> 
         Session session = getSession();
         String state = Advertisement.ServiceState.INACTIVE.toString();
 
-        Query<Advertisement> getAllInactiveAdvertisementList = session.createNamedQuery("Advertisement_GetAllByState", Advertisement.class);
+        Query<Advertisement> getAllInactiveAdvertisementList = session.createNamedQuery("Advertisement_GetAllByState",
+                                                                                         Advertisement.class);
         getAllInactiveAdvertisementList.setParameter("state", state);
 
         return getAllInactiveAdvertisementList.getResultList();

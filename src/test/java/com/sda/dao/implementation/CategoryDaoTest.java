@@ -14,8 +14,7 @@ import java.util.logging.Logger;
 public class CategoryDaoTest {
     Logger log = Logger.getLogger(CategoryDaoTest.class.getName());
 
-    String connectionToDatabaseCreate  = "oleksHibernateCreateTest.cfg.xml";
-    String connectionToDatabaseValidate  = "oleksHibernateValidateTest.cfg.xml";
+    String connectionToDatabaseCreate  = "hibernateUnitTest.cfg.xml";
 
     CategoryDao categoryDao = new CategoryDao(connectionToDatabaseCreate);
 

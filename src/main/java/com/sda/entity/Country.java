@@ -11,13 +11,6 @@ import java.util.Objects;
 @Table(name = "COUNTRY")
 
 
-@NamedNativeQueries({
-        @NamedNativeQuery(
-                name = "AddressCountry_GetAll",
-                query = "select * from COUNTRY country ",
-                resultClass = Country.class)
-})
-
 public class Country {
 
         @Id

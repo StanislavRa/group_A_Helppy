@@ -115,9 +115,25 @@ public class AllAdsViewController extends GeneralController<Advertisement> imple
     @FXML
     private TableColumn<Advertisement, String> serviceTypeColumn;
 
-   String connectionToDatabaseCreate  = "oleksHibernateCreateTest.cfg.xml";
-   String connectionToDatabaseValidate  = "oleksHibernateValidateTest.cfg.xml";
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+        //create Dao classes
+        CustomerDao customerDao = new CustomerDao(connectionToDatabaseValidate);
+        AdvertisementDao advertisementDao = new AdvertisementDao(connectionToDatabaseValidate);
+        CategoryDao categoryDao = new CategoryDao(connectionToDatabaseValidate);
+        AddressDao addressDao = new AddressDao(connectionToDatabaseValidate);
+        CountryDao countryDao = new CountryDao(connectionToDatabaseValidate);
+        CityDao cityDao = new CityDao(connectionToDatabaseValidate);
+
+        //set Up Table Columns and ComboBoxes
+        setUpTableColumns();
+        mainTableView.setItems(convertFromListToObservableList(advertisementDao.getAllActiveList()));
+        countryComboBox.getItems().addAll(countryDao.getAllCountriesNamesList(countryDao.getAll()));
+        categoryComboBox.getItems().addAll((categoryDao.getAllCategoriesList()));
+        serviceTypeComboBox.getItems().addAll(advertisementDao.getAllServiceTypes());
+    }
 
     @FXML
     void showAllButtonPushed(ActionEvent event) {
@@ -158,7 +174,8 @@ public class AllAdsViewController extends GeneralController<Advertisement> imple
                                                             new BigDecimal((priceToTextField.getText()))));
         }
         if (dateRadioButton.isSelected()) {
-            mainTableView.setItems(findActiveAdvertisementByDate(parser.convertToDateViaSqlDate(startDatePicker.getValue()),
+            mainTableView.setItems(findActiveAdvertisementByDate(
+                                                           parser.convertToDateViaSqlDate(startDatePicker.getValue()),
                                                            parser.convertToDateViaSqlDate(endDatePicker.getValue())));
         }
         if (serviceTypeRadioButton.isSelected()) {
@@ -166,24 +183,6 @@ public class AllAdsViewController extends GeneralController<Advertisement> imple
         }
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
-        //create Dao classes
-        CustomerDao customerDao = new CustomerDao(connectionToDatabaseValidate);
-        AdvertisementDao advertisementDao = new AdvertisementDao(connectionToDatabaseValidate);
-        CategoryDao categoryDao = new CategoryDao(connectionToDatabaseValidate);
-        AddressDao addressDao = new AddressDao(connectionToDatabaseValidate);
-        CountryDao countryDao = new CountryDao(connectionToDatabaseValidate);
-        CityDao cityDao = new CityDao(connectionToDatabaseValidate);
-
-        //set Up Table Columns and ComboBoxes
-        setUpTableColumns();
-        mainTableView.setItems(convertFromListToObservableList(advertisementDao.getAllActiveList()));
-        countryComboBox.getItems().addAll(countryDao.getAllCountyList());
-        categoryComboBox.getItems().addAll((categoryDao.getAllCategoriesList()));
-        serviceTypeComboBox.getItems().addAll(advertisementDao.getAllServiceTypes());
-    }
 
     public void setUpTableColumns() {
 
@@ -193,9 +192,9 @@ public class AllAdsViewController extends GeneralController<Advertisement> imple
                 new SimpleStringProperty(value.getValue().getCategory().getName()));
         priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
         countryColumn.setCellValueFactory(value ->
-                new SimpleStringProperty(value.getValue().getAddress().getCountryName().getCountryName()));
+                new SimpleStringProperty(value.getValue().getAddress().getCountry().getCountryName()));
         cityColumn.setCellValueFactory(value ->
-                new SimpleStringProperty(value.getValue().getAddress().getCityName().getCityName()));
+                new SimpleStringProperty(value.getValue().getAddress().getCity().getCityName()));
         startDateColumn.setCellValueFactory(new PropertyValueFactory<>("startDate"));
         endDateColumn.setCellValueFactory(new PropertyValueFactory<>("endDate"));
         serviceTypeColumn.setCellValueFactory(new PropertyValueFactory<>("serviceType"));
@@ -227,7 +226,7 @@ public class AllAdsViewController extends GeneralController<Advertisement> imple
         List<Advertisement> getAllAdvertisementsByCity = new ArrayList<>();
 
         for (Advertisement advertisement : getAllAdvertisementsList) {
-            if (advertisement.getAddress().getCityName().getCityName().equals(city)) {
+            if (advertisement.getAddress().getCity().getCityName().equals(city)) {
                 getAllAdvertisementsByCity.add(advertisement);
             }
         }
@@ -243,14 +242,15 @@ public class AllAdsViewController extends GeneralController<Advertisement> imple
         List<Advertisement> getAllAdvertisementsByCountry = new ArrayList<>();
 
         for (Advertisement advertisement : getAllAdvertisementsList) {
-            if (advertisement.getAddress().getCountryName().getCountryName().equals(country)) {
+            if (advertisement.getAddress().getCountry().getCountryName().equals(country)) {
                 getAllAdvertisementsByCountry.add(advertisement);
             }
         }
         return convertFromListToObservableList(getAllAdvertisementsByCountry);
     }
 
-    public ObservableList<Advertisement> findActiveAdvertisementByPrice(BigDecimal bigDecimalBottomRate, BigDecimal bigDecimalTopRate) {
+    public ObservableList<Advertisement> findActiveAdvertisementByPrice(BigDecimal bigDecimalBottomRate,
+                                                                        BigDecimal bigDecimalTopRate) {
 
         AdvertisementDao advertisementDao = new AdvertisementDao(connectionToDatabaseValidate);
 
@@ -259,7 +259,7 @@ public class AllAdsViewController extends GeneralController<Advertisement> imple
         List<Advertisement> getAllAdvertisementsByPrice = new ArrayList<>();
 
         for (Advertisement advertisement : getAllAdvertisementsList) {
-            if (advertisement.getPrice().compareTo(bigDecimalBottomRate)>=0 && advertisement.getPrice().compareTo(bigDecimalTopRate)<=0) {
+            if (parser.compareTwoBigDecimal(bigDecimalBottomRate, bigDecimalTopRate, advertisement.getPrice())) {
                 getAllAdvertisementsByPrice.add(advertisement);
             }
         }

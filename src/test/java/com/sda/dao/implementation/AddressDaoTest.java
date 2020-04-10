@@ -17,9 +17,7 @@ import java.util.logging.Logger;
 public class AddressDaoTest {
 
     Logger log = Logger.getLogger(AddressDaoTest.class.getName());
-
-    String connectionToDatabaseCreate  = "oleksHibernateCreateTest.cfg.xml";
-    String connectionToDatabaseValidate  = "oleksHibernateValidateTest.cfg.xml";
+    String connectionToDatabaseCreate  = "hibernateUnitTest.cfg.xml";
 
     AddressDao addressDao = new AddressDao(connectionToDatabaseCreate);
     CountryDao countryDao = new CountryDao(connectionToDatabaseCreate);
@@ -91,13 +89,13 @@ public class AddressDaoTest {
 
         City cityTest2 = new City("Tallinn");
 
-        address.setCityName(cityTest2);
+        address.setCity(cityTest2);
 
         addressDao.update(address);
 
         Address updatedAddressCity = addressDao.get(1L);
 
-        Assert.assertEquals(cityTest2,updatedAddressCity.getCityName());
+        Assert.assertEquals(cityTest2,updatedAddressCity.getCity());
     }
 
     @Test

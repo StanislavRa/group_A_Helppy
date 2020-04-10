@@ -16,7 +16,7 @@ import java.util.Objects;
                 query = "select * from CITY city "+
                         "left join COUNTRY as country " +
                         "on country.id = city.FK_COUNTRY " +
-                        "where country.countryName=:country",
+                        "where country.country=:country",
                 resultClass = City.class)
 })
 

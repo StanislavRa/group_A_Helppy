@@ -16,8 +16,7 @@ public class CountryDaoTest {
 
     Logger log = Logger.getLogger(CountryDaoTest.class.getName());
 
-    String connectionToDatabaseCreate  = "oleksHibernateCreateTest.cfg.xml";
-    String connectionToDatabaseValidate  = "oleksHibernateValidateTest.cfg.xml";
+    String connectionToDatabaseCreate  = "hibernateUnitTest.cfg.xml";
 
     CountryDao countryDao = new CountryDao(connectionToDatabaseCreate);
 

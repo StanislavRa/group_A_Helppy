@@ -18,9 +18,7 @@ import java.util.logging.Logger;
 public class AdvertisementDaoTest {
 
     Logger log = Logger.getLogger(AdvertisementDaoTest.class.getName());
-
-    String connectionToDatabaseCreate  = "oleksHibernateCreateTest.cfg.xml";
-    String connectionToDatabaseValidate  = "oleksHibernateValidateTest.cfg.xml";
+    String connectionToDatabaseCreate  = "hibernateUnitTest.cfg.xml";
 
     CustomerDao customerDao = new CustomerDao(connectionToDatabaseCreate);
     AdvertisementDao advertisementDao = new AdvertisementDao(connectionToDatabaseCreate);

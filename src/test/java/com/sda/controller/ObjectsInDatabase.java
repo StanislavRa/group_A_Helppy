@@ -11,11 +11,8 @@ public class ObjectsInDatabase {
 
     public static void main(String[] args) throws ParseException {
 
-
         //create Dao controllers
-
-        String connectionToDatabaseCreate  = "oleksHibernateCreateTest.cfg.xml";
-        String connectionToDatabaseValidate  = "oleksHibernateValidateTest.cfg.xml";
+        String connectionToDatabaseCreate  = "hibernateUnitTest.cfg.xml";
 
         CustomerDao customerDao = new CustomerDao(connectionToDatabaseCreate);
         AdvertisementDao advertisementDao = new AdvertisementDao(connectionToDatabaseCreate);
@@ -55,14 +52,11 @@ public class ObjectsInDatabase {
         city7.setCountryName(country3);
         cityDao.save(city7);
 
-
-
         //create country address
         Address address1 = new Address(country1, city1);
         addressDao.save(address1);
         Address address2 = new Address(country2, city6);
         addressDao.save(address2);
-
 
         //create dates
         String startDateString1 = "31/12/1998";
@@ -105,7 +99,6 @@ public class ObjectsInDatabase {
                 customer1);
         advertisement1.setServiceState(Advertisement.ServiceState.ACTIVE);
         advertisement1.setAddress(address1);
-
 
         Advertisement advertisement2 = new Advertisement(
                 "Car Rent",

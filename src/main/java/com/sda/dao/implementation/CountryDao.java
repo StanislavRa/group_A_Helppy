@@ -4,7 +4,6 @@ import com.sda.dao.Dao;
 import com.sda.entity.Country;
 import com.sda.util.SessionUtil;
 import org.hibernate.Session;
-import org.hibernate.query.Query;
 
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -104,15 +103,12 @@ public class CountryDao extends SessionUtil implements Dao<Country> {
         }
     }
 
-    public List<String> getAllCountyList() {
-        openTransactionAndSession();
-        Session session = getSession();
+    public List<String> getAllCountriesNamesList(List<Country> getAllCountryObjectsList) {
 
-        Query<Country> getAllCountriesList = session.createNamedQuery("AddressCountry_GetAll", Country.class);
-        List<String> listOfCityNames = new ArrayList<>();
-        for (Country a : getAllCountriesList.getResultList()){
-            listOfCityNames.add(a.getCountryName());
+        List<String> listOfCountryNames = new ArrayList<>();
+        for (Country c : getAllCountryObjectsList){
+            listOfCountryNames.add(c.getCountryName());
         }
-        return listOfCityNames;
+        return listOfCountryNames;
     }
 }

@@ -16,8 +16,7 @@ public class CityDaoTest {
 
     Logger log = Logger.getLogger(CityDaoTest.class.getName());
 
-    String connectionToDatabaseCreate  = "oleksHibernateCreateTest.cfg.xml";
-    String connectionToDatabaseValidate  = "oleksHibernateValidateTest.cfg.xml";
+    String connectionToDatabaseCreate  = "hibernateUnitTest.cfg.xml";
 
     CityDao cityDao = new CityDao(connectionToDatabaseCreate);
 
