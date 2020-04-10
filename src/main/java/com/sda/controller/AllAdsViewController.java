@@ -145,7 +145,8 @@ public class AllAdsViewController extends GeneralController<Advertisement> imple
 
     @FXML
     void detailsButtonPushed(ActionEvent event) {
-
+        AdDetailsViewController controller = (changeScreen(event, "/views/adDetailsView.fxml").getController());
+        controller.initData(mainTableView.getSelectionModel().getSelectedItem());
     }
 
     @FXML
