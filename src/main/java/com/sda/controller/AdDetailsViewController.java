@@ -44,7 +44,7 @@ public class AdDetailsViewController extends GeneralController {
         categoryLabel.setText(advertisement.getCategory().getName());
         startDateLabel.setText(dateParser(advertisement.getStartDate()));
         endDateLabel.setText(dateParser(advertisement.getEndDate()));
-        addressLabel.setText(advertisement.getAddress().getCity());
+        addressLabel.setText(advertisement.getAddress().getCity().toString());
         adTypeLabel.setText(advertisement.getServiceType().toString());
         priceLabel.setText(advertisement.getPrice().toString());
         descriptionLabel.setText(advertisement.getDescription());
