@@ -1,5 +1,6 @@
 package com.sda.controller;
 
+import com.sda.dao.implementation.CityDao;
 import com.sda.entity.Advertisement;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
@@ -95,9 +96,7 @@ public class AllAdsViewController extends GeneralController<Advertisement> imple
     @FXML
     void countryComboBoxSelected(ActionEvent event) {
         cityComboBox.getItems().clear();
-        List<String> listOfCityNames = cityDao.getAllCitiesByCountryList(countryComboBox.getValue());
-
-        cityComboBox.getItems().addAll(listOfCityNames);
+        cityComboBox.getItems().addAll(getListOfCityNamesByCountry(countryComboBox.getValue(), cityDao));
     }
 
     @FXML
@@ -218,5 +217,11 @@ public class AllAdsViewController extends GeneralController<Advertisement> imple
             }
         }
         return convertFromListToObservableList(getAllAdvertisementsByServiceTypeList);
+    }
+
+    List<String> getListOfCityNamesByCountry(String country, CityDao cityDao) {
+         List<String> listOfCityNames = cityDao.getAllCitiesByCountryList(country);
+
+         return listOfCityNames;
     }
 }
