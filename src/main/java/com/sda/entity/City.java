@@ -31,7 +31,7 @@ public class City {
         @Column(name = "CITY", length = 60,unique = true, nullable = false)
         private String cityName;
 
-        @ManyToOne(cascade = CascadeType.ALL)
+        @ManyToOne(cascade = CascadeType.MERGE)
         @JoinColumn(name = "FK_COUNTRY")
         private Country country;
 
