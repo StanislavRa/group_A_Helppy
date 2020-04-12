@@ -1,5 +1,6 @@
 package com.sda.controller;
 
+import com.sda.dao.implementation.*;
 import com.sda.entity.Customer;
 import com.sda.parser.Parser;
 import javafx.collections.FXCollections;
@@ -20,12 +21,16 @@ import java.util.List;
 /**
  * @author StanislavR
  */
-public abstract class GeneralController <T>{
+public abstract class GeneralController<T> {
 
     protected Customer customer;
     protected Parser parser = new Parser();
-
-    String connectionToDatabaseValidate  = "hibernate.cfg.xml";
+    private final String DB_SETTINGS = "hibernateCreate.cfg.xml";
+    protected AdvertisementDao adDao = new AdvertisementDao(DB_SETTINGS);
+    protected CustomerDao customerDao = new CustomerDao(DB_SETTINGS);
+    protected CategoryDao categoryDao = new CategoryDao(DB_SETTINGS);
+    protected CountryDao countryDao = new CountryDao(DB_SETTINGS);
+    protected CityDao cityDao = new CityDao(DB_SETTINGS);
 
     protected FXMLLoader changeScreen(Event event, String viewName) {
 
@@ -72,6 +77,10 @@ public abstract class GeneralController <T>{
 
     }
 
+    public void updateCustomer() {
+        setCustomer(customerDao.get(customer.getId()));
+    }
+
     public Customer getCustomer() {
         return customer;
     }
@@ -81,7 +90,7 @@ public abstract class GeneralController <T>{
     }
 
 
-    public ObservableList<T> convertFromListToObservableList(List<T> list){
+    public ObservableList<T> convertFromListToObservableList(List<T> list) {
         return FXCollections.observableArrayList(list);
     }
 }

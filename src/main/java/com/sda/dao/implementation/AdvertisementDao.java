@@ -138,6 +138,4 @@ public class AdvertisementDao extends SessionUtil implements Dao<Advertisement> 
         listOfServiceStates.add(Advertisement.ServiceState.ACTIVE.name());
         return listOfServiceStates;
     }
-
-
 }

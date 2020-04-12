@@ -3,12 +3,13 @@ package com.sda.util;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-public abstract class SessionUtil extends HibernateUtil {
+public abstract class SessionUtil {
 	private Session session;
 	private Transaction transaction;
+	public String configFile;
 
-	public SessionUtil(String hibernateConfigurationFilePath) {
-		super(hibernateConfigurationFilePath);
+	public SessionUtil(String configFile) {
+		this.configFile = configFile;
 	}
 
 	public Session getSession() {
@@ -20,7 +21,7 @@ public abstract class SessionUtil extends HibernateUtil {
 	}
 
 	public Session openSession() {
-		return getSessionFactory().openSession();
+		return HibernateUtil.getSessionFactory(configFile).openSession();
 	}
 
 	public Session openTransactionAndSession() {

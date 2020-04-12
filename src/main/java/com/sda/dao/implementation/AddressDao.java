@@ -4,6 +4,7 @@ import com.sda.dao.Dao;
 import com.sda.entity.Address;
 import com.sda.util.SessionUtil;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -41,6 +42,29 @@ public class AddressDao extends SessionUtil implements Dao<Address> {
 
     @Override
     public void save(Address address) {
+           Session session = openSession();
+           Transaction transaction = session.beginTransaction();
+
+        try {
+            // open session with a transaction
+
+            session.save(address);
+
+            // close session with a transaction
+            transaction.commit();
+
+            session.close();
+
+        } catch (Exception e) {
+
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+    }
+/*    @Override
+    public void save(Address address) {
 
         try {
             // open session with a transaction
@@ -58,7 +82,7 @@ public class AddressDao extends SessionUtil implements Dao<Address> {
             }
             e.printStackTrace();
         }
-    }
+    }*/
 
     @Override
     public void update(Address address) {
@@ -101,4 +125,32 @@ public class AddressDao extends SessionUtil implements Dao<Address> {
             e.printStackTrace();
         }
     }
+
+
+    public void deleteAll() {
+
+        List<Address> addressList = getAll();
+
+            openTransactionAndSession();
+            Session session = getSession();
+        try {
+            // open session with a transaction
+            for (Address address : addressList) {
+
+            session.delete(address);
+            }
+            closeTransactionAndSession();
+
+            // close session with a transaction
+
+        } catch (Exception e) {
+
+            if (getTransaction() != null) {
+                getTransaction().rollback();
+            }
+            e.printStackTrace();
+        }
+    }
+
+
 }

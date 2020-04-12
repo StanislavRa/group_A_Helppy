@@ -33,7 +33,7 @@ public class City {
 
         @ManyToOne(cascade = CascadeType.ALL)
         @JoinColumn(name = "FK_COUNTRY")
-        private Country countryName;
+        private Country country;
 
         @Column
         @CreationTimestamp
@@ -77,12 +77,12 @@ public class City {
             return UPDATED_ON;
         }
 
-        public Country getCountryName() {
-                return countryName;
+        public Country getCountry() {
+                return country;
         }
 
-        public void setCountryName(Country countryName) {
-                this.countryName = countryName;
+        public void setCountry(Country country) {
+                this.country = country;
         }
 
         @Override
@@ -90,7 +90,7 @@ public class City {
                 return "City{" +
                         "id=" + id +
                         ", city='" + cityName + '\'' +
-                        ", country=" + countryName +
+                        ", country=" + country +
                         ", CREATED_ON=" + CREATED_ON +
                         ", UPDATED_ON=" + UPDATED_ON +
                         '}';

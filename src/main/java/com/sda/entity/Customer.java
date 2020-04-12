@@ -40,7 +40,7 @@ public class Customer extends User {
     @Column(name = "FULL_NAME", nullable = false, length = 60)
     private String fullName;
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "customer",  fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Advertisement> userAdvertisements = new ArrayList<>();
 
     public Customer() {
