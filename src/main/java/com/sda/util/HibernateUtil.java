@@ -1,26 +1,25 @@
 package com.sda.util;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.boot.registry.StandardServiceRegistry;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
-public abstract class HibernateUtil {
+public class HibernateUtil {
 
-    private  SessionFactory sessionFactory;
+    public static SessionFactory factory;
+//to disallow creating objects by other classes.
 
-    public HibernateUtil(String hibernateConfigurationFilePath) {
-
-        try {
-            // Create the SessionFactory from standard (hibernate.cfg.xml)
-            // config file.
-            sessionFactory = new Configuration().configure(hibernateConfigurationFilePath).buildSessionFactory();
-        } catch (Exception ex) {
-            // Log the exception.
-            ex.printStackTrace();
-            throw new ExceptionInInitializerError(ex);
-        }
+    private HibernateUtil() {
     }
+//maling the Hibernate SessionFactory object as singleton
 
-    public SessionFactory getSessionFactory() {
-        return sessionFactory;
+    public static synchronized SessionFactory getSessionFactory(String configFile) {
+
+        if (factory == null) {
+            factory = new Configuration().configure(configFile).
+                    buildSessionFactory();
+        }
+        return factory;
     }
 }

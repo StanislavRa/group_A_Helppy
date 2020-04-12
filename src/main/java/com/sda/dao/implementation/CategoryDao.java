@@ -1,6 +1,7 @@
 package com.sda.dao.implementation;
 
 import com.sda.dao.Dao;
+import com.sda.entity.Advertisement;
 import com.sda.entity.Category;
 import com.sda.util.SessionUtil;
 import org.hibernate.Session;
@@ -102,6 +103,18 @@ public class CategoryDao extends SessionUtil implements Dao<Category> {
             }
             e.printStackTrace();
         }
+    }
+
+    public Category getByName(String name) {
+
+        openTransactionAndSession();
+        Session session = getSession();
+
+        Query<Category> getCategoryByName = session.createNamedQuery("Category_GetByName",
+                Category.class);
+        getCategoryByName.setParameter("name", name);
+
+        return getCategoryByName.getSingleResult();
     }
 
 

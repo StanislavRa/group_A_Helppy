@@ -1,30 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToggleGroup?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sda.controller.MyAdsController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sda.controller.MyAdsController">
     <children>
-        <SplitPane dividerPositions="0.1, 0.2, 0.65, 0.7" orientation="VERTICAL" prefHeight="800.0" prefWidth="1280.0">
+        <SplitPane dividerPositions="0.1, 0.2, 0.6, 0.65" orientation="VERTICAL" prefHeight="800.0" prefWidth="1280.0">
             <items>
                 <AnchorPane prefHeight="200.0" prefWidth="200.0">
                     <children>
@@ -43,12 +26,11 @@
                                 <Font name="System Bold" size="17.0" />
                             </font>
                         </Button>
-                  <HBox layoutX="260.0" layoutY="14.0" prefHeight="41.0" prefWidth="200.0">
-                     <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Hello," wrappingWidth="68.240234375" />
-                        <Label fx:id="fullNameLabel" prefHeight="21.0" prefWidth="119.0" text="Full Name" />
-                     </children>
-                  </HBox>
+                  <Button fx:id="logOutButton" alignment="CENTER" contentDisplay="CENTER" layoutX="982.0" layoutY="14.0" mnemonicParsing="false" onAction="#logOutButtonPushed" prefHeight="45.0" prefWidth="130.0" style="-fx-background-color: rgb(0, 204, 102); -fx-background-radius: 35;" text="Log Out" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                  </Button>
                     </children>
                 </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
@@ -77,11 +59,16 @@
                                                 <TextField fx:id="priceTextField" prefHeight="25.0" prefWidth="104.0" promptText="Price" />
                                             </graphic>
                                         </Menu>
-                                        <Menu mnemonicParsing="false" text="Address">
+                                        <Menu mnemonicParsing="false" text="Country">
                                             <graphic>
-                                                <ComboBox fx:id="locationComboBox" accessibleRole="CHECK_BOX" prefWidth="150.0" promptText="Choose Location" />
+                                                <ComboBox fx:id="countryComboBox" accessibleRole="CHECK_BOX" onAction="#countryComboBoxSelected" prefWidth="150.0" promptText="Choose Location" />
                                             </graphic>
                                         </Menu>
+                              <Menu mnemonicParsing="false" text="City">
+                                 <graphic>
+                                    <ComboBox fx:id="cityComboBox" accessibleRole="CHECK_BOX" prefWidth="150.0" promptText="Choose Location" />
+                                 </graphic>
+                              </Menu>
                                     </menus>
                                 </MenuBar>
                             </children>
@@ -94,14 +81,14 @@
                                             <children>
                                                 <RadioButton fx:id="offerServiceRadioButton" contentDisplay="CENTER" layoutX="270.0" layoutY="12.0" mnemonicParsing="false" text="Offer Service" textAlignment="CENTER">
                                                     <toggleGroup>
-                                                        <ToggleGroup fx:id="serviceType" />
+                                                        <ToggleGroup fx:id="serviceTypeGroup" />
                                                     </toggleGroup>
                                                 </RadioButton>
                                             </children>
                                         </AnchorPane>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                             <children>
-                                                <RadioButton fx:id="requestServiceRadioButton" contentDisplay="CENTER" layoutX="265.0" layoutY="12.0" mnemonicParsing="false" text="Request Service" textAlignment="CENTER" toggleGroup="$serviceType" />
+                                                <RadioButton fx:id="requestServiceRadioButton" contentDisplay="CENTER" layoutX="265.0" layoutY="12.0" mnemonicParsing="false" text="Request Service" textAlignment="CENTER" toggleGroup="$serviceTypeGroup" />
                                             </children>
                                         </AnchorPane>
                                     </items>
@@ -129,10 +116,10 @@
                             <children>
                                 <ButtonBar prefHeight="34.0" prefWidth="996.0">
                                     <buttons>
-                                        <Button fx:id="createButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Create" textAlignment="CENTER" />
-                                        <Button fx:id="updateButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Update" textAlignment="CENTER" />
-                                        <Button fx:id="deleteButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Delete" textAlignment="CENTER" />
-                                        <Button fx:id="detailsButtonClicked" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Details" textAlignment="CENTER" />
+                                        <Button fx:id="createButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#createButtonPushed" text="Create" textAlignment="CENTER" />
+                                        <Button fx:id="updateButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#updateButtonPushed" text="Update" textAlignment="CENTER" />
+                                        <Button fx:id="deleteButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#deleteButtonPushed" text="Delete" textAlignment="CENTER" />
+                                        <Button fx:id="detailsButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#detailsButtonPushed" text="Details" textAlignment="CENTER" />
                                     </buttons>
                                     <VBox.margin>
                                         <Insets />
@@ -153,17 +140,29 @@
                 </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                     <children>
-                        <TableView fx:id="serviceTable" layoutX="370.0" layoutY="71.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <TableView fx:id="serviceTable" layoutX="370.0" layoutY="-31.0" prefHeight="267.0" prefWidth="1278.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
                             <columns>
                                 <TableColumn fx:id="categoryTableColumn" maxWidth="180.0" prefWidth="180.0" resizable="false" text="Category" />
                                 <TableColumn fx:id="startDateTableColumn" maxWidth="180.0" prefWidth="180.0" resizable="false" text="Start Date" />
                                 <TableColumn fx:id="endDateTableColumn" maxWidth="180.0" prefWidth="180.0" resizable="false" text="End Date" />
-                                <TableColumn fx:id="priceDateTableColumn" maxWidth="180.0" minWidth="3.0" prefWidth="180.0" resizable="false" text="Price" />
-                                <TableColumn fx:id="addressDateTableColumn" maxWidth="180.0" prefWidth="180.0" resizable="false" text="Address" />
-                                <TableColumn fx:id="serviceTypeDateTableColumn" maxWidth="180.0" prefWidth="180.0" resizable="false" text="ServiceType" />
-                                <TableColumn fx:id="subjectDateTableColumn" prefWidth="200.0" text="Subject" />
+                                <TableColumn fx:id="priceTableColumn" maxWidth="180.0" minWidth="3.0" prefWidth="180.0" resizable="false" text="Price" />
+                                <TableColumn fx:id="addressTableColumn" maxWidth="180.0" prefWidth="180.0" resizable="false" text="Address" />
+                                <TableColumn fx:id="serviceTypeTableColumn" maxWidth="180.0" prefWidth="180.0" resizable="false" text="ServiceType" />
+                                <TableColumn fx:id="subjectTableColumn" prefWidth="200.0" text="Subject" />
                             </columns>
                         </TableView>
+                        <VBox layoutX="301.0" layoutY="-93.0" prefWidth="1278.0" AnchorPane.bottomAnchor="242.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <children>
+                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="My existing ads" textAlignment="CENTER" wrappingWidth="1282.13671875">
+                                    <VBox.margin>
+                                        <Insets />
+                                    </VBox.margin>
+                                    <font>
+                                        <Font size="19.0" />
+                                    </font>
+                                </Text>
+                            </children>
+                        </VBox>
                     </children>
                 </AnchorPane>
             </items>

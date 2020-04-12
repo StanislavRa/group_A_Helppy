@@ -57,7 +57,6 @@ public class Advertisement {
     @UpdateTimestamp
     private LocalDateTime UPDATED_ON;
 
-
     @Enumerated(EnumType.STRING)
     @Column(name = "STATE", nullable = false, updatable = false, length = 50)
     private ServiceState serviceState;
@@ -66,15 +65,15 @@ public class Advertisement {
     @Column(name = "TYPE", nullable = false, updatable = false, length = 50)
     private ServiceType serviceType;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "FK_CATEGORY_ID")
     private Category category;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "FK_ADDRESS_ID")
     private Address address;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JoinColumn(name = "FK_CUSTOMER_ID")
     private Customer customer;
 
@@ -88,7 +87,8 @@ public class Advertisement {
                          Date endDate,
                          ServiceType serviceType,
                          Category category,
-                         Customer customer) {
+                         Customer customer,
+                         Address address) {
         this.subject = subject;
         this.description = description;
         this.price = new BigDecimal(price);
@@ -97,8 +97,9 @@ public class Advertisement {
         this.serviceType = serviceType;
         this.category = category;
         this.customer = customer;
+        this.address = address;
 
-        if (this.endDate.before(new Date())) {
+        if (!this.endDate.before(new Date())) {
             this.serviceState = ServiceState.ACTIVE;
         } else this.serviceState = ServiceState.INACTIVE;
     }

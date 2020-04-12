@@ -5,6 +5,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -18,13 +20,15 @@ public class Address {
     @Column(name = "ID", unique = true, nullable = false, length = 100)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "FK_COUNTRY")
-    private Country country;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "FK_CITY")
-    private City city;
+    @Column(name = "COUNTRY", nullable = false, length = 100)
+    private String country;
+
+    @Column(name = "CITY", nullable = false, length = 100)
+    private String city;
+
+    @OneToOne(mappedBy = "address", cascade = CascadeType.MERGE,fetch = FetchType.EAGER)
+    private Advertisement advertisement;
 
     @Column
     @CreationTimestamp
@@ -38,7 +42,7 @@ public class Address {
     public Address() {
     }
 
-    public Address(Country country, City city) {
+    public Address(String country, String city) {
         this.country = country;
         this.city = city;
     }
@@ -51,19 +55,27 @@ public class Address {
         this.id = id;
     }
 
-    public Country getCountry() {
+    public String getCountry() {
         return country;
     }
 
-    public void setCountry(Country country) {
+    public void setCountry(String country) {
         this.country = country;
     }
 
-    public City getCity() {
+    public String getCity() {
         return city;
     }
 
-    public void setCity(City city) {
+    public Advertisement getAdvertisement() {
+        return advertisement;
+    }
+
+    public void setAdvertisement(Advertisement advertisement) {
+        this.advertisement = advertisement;
+    }
+
+    public void setCity(String city) {
         this.city = city;
     }
 

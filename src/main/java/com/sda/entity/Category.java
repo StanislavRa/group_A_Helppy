@@ -16,7 +16,14 @@ import java.util.Objects;
         @NamedNativeQuery(
                 name = "Category_GetAll",
                 query = "select * from CATEGORY category ",
+                resultClass = Category.class),
+        @NamedNativeQuery(
+                name = "Category_GetByName",
+                query = "select * from CATEGORY category " +
+                        "where category.name=:name",
                 resultClass = Category.class)
+
+
 })
 
 public class Category {

@@ -6,11 +6,16 @@
         <datasource-map>
           <unit-entry name="com:sda:config:hibernate.cfg.xml" />
           <unit-entry name="hibernate.cfg.xml" value="69b659c5-8eb1-49d9-97b9-3e52475eb84a" />
+          <unit-entry name="hibernateCreate.cfg.xml" />
           <unit-entry name="hibernateTest.cfg.xml" value="56104780-96a9-4430-8096-6489d8b6e645" />
+          <unit-entry name="hibernateUnitTest.cfg.xml" />
+          <unit-entry name="hibernateValidate.cfg.xml" />
         </datasource-map>
         <naming-strategy-map />
-        <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/src/main/resources/hibernate.cfg.xml" />
+        <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/src/main/resources/hibernateCreate.cfg.xml" />
         <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/src/main/resources/hibernateTest.cfg.xml" />
+        <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/src/main/resources/hibernateUnitTest.cfg.xml" />
+        <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/src/main/resources/hibernateValidate.cfg.xml" />
       </configuration>
     </facet>
     <facet type="jpa" name="JPA">
@@ -18,6 +23,7 @@
         <setting name="validation-enabled" value="true" />
         <datasource-mapping>
           <factory-entry name="Entities" value="d3e7ce05-a2cc-4b56-8d0e-079cc478840d" />
+          <factory-entry name="group_A_Helppy" />
         </datasource-mapping>
         <naming-strategy-map />
       </configuration>
