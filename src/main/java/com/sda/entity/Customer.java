@@ -24,14 +24,14 @@ import java.util.Objects;
                 query = "select * from CUSTOMER customer " +
                         "left join USER as user " +
                         "on user.id = customer.id " +
-                        "where user.LOGIN=:login",
+                        "where binary (user.LOGIN)=:login",
                 resultClass = Customer.class),
         @NamedNativeQuery(
                 name = "Customer_GetByLoginAndPassword",
                 query = "select * from CUSTOMER customer " +
                         "left join USER as user " +
                         "on user.id = customer.id " +
-                        "where user.LOGIN=:login and user.PASSWORD=:password",
+                        "where binary (user.LOGIN)=:login and binary(user.PASSWORD)=:password",
                 resultClass = Customer.class)
 })
 

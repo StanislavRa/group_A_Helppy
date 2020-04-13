@@ -237,14 +237,14 @@
       </VBox>
       <TableView fx:id="mainTableView" layoutX="261.0" layoutY="89.0" prefHeight="682.0" prefWidth="1005.0">
         <columns>
-          <TableColumn fx:id="subjectColumn" prefWidth="-1.0" text="Subject" />
-          <TableColumn fx:id="categoryColumn" minWidth="0.0" prefWidth="-1.0" text="Category" />
-            <TableColumn fx:id="priceColumn" prefWidth="-1.0" text="Price" />
-            <TableColumn fx:id="countryColumn" prefWidth="-1.0" text="Country" />
-            <TableColumn fx:id="cityColumn" prefWidth="-1.0" text="City" />
-            <TableColumn fx:id="startDateColumn" prefWidth="-1.0" text="Start Date" />
-            <TableColumn fx:id="endDateColumn" prefWidth="-1.0" text="End Date" />
-            <TableColumn fx:id="serviceTypeColumn" prefWidth="-1.0" text="Request / Offer" />
+          <TableColumn fx:id="subjectTableColumn" prefWidth="-1.0" text="Subject" />
+          <TableColumn fx:id="categoryTableColumn" minWidth="0.0" prefWidth="-1.0" text="Category" />
+            <TableColumn fx:id="priceTableColumn" prefWidth="-1.0" text="Price" />
+            <TableColumn fx:id="countryTableColumn" prefWidth="-1.0" text="Country" />
+            <TableColumn fx:id="cityTableColumn" prefWidth="-1.0" text="City" />
+            <TableColumn fx:id="startDateTableColumn" prefWidth="-1.0" text="Start Date" />
+            <TableColumn fx:id="endDateTableColumn" prefWidth="-1.0" text="End Date" />
+            <TableColumn fx:id="serviceTypeTableColumn" prefWidth="-1.0" text="Request / Offer" />
         </columns>
          <opaqueInsets>
             <Insets />

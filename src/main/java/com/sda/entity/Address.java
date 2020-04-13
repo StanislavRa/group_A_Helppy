@@ -27,7 +27,7 @@ public class Address {
     @Column(name = "CITY", nullable = false, length = 100)
     private String city;
 
-    @OneToOne(mappedBy = "address", cascade = CascadeType.MERGE,fetch = FetchType.EAGER)
+    @OneToOne(mappedBy = "address", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private Advertisement advertisement;
 
     @Column
