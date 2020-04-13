@@ -58,11 +58,11 @@ public class Advertisement {
     private LocalDateTime UPDATED_ON;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "STATE", nullable = false, updatable = false, length = 50)
+    @Column(name = "STATE", nullable = false, length = 50)
     private ServiceState serviceState;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "TYPE", nullable = false, updatable = false, length = 50)
+    @Column(name = "TYPE", nullable = false, length = 50)
     private ServiceType serviceType;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
@@ -132,8 +132,8 @@ public class Advertisement {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
+    public void setPrice(String price) {
+        this.price = new BigDecimal(price);
     }
 
     public Date getStartDate() {
@@ -192,14 +192,6 @@ public class Advertisement {
         return UPDATED_ON;
     }
 
-    public void setCREATED_ON(LocalDateTime CREATED_ON) {
-        this.CREATED_ON = CREATED_ON;
-    }
-
-    public void setUPDATED_ON(LocalDateTime UPDATED_ON) {
-        this.UPDATED_ON = UPDATED_ON;
-    }
-
     public Customer getCustomer() {
         return customer;
     }
@@ -212,7 +204,7 @@ public class Advertisement {
     public enum ServiceType {
         OFFER("Offer"),
         REQUEST("Request");
-        private String type;
+        private final String type;
 
         ServiceType(String type) {
             this.type = type;

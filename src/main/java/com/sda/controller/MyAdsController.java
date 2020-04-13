@@ -1,6 +1,5 @@
 package com.sda.controller;
 
-import com.sda.dao.implementation.CityDao;
 import com.sda.entity.Address;
 import com.sda.entity.Advertisement;
 import com.sda.entity.Customer;
@@ -11,6 +10,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
 import java.net.URL;
@@ -66,7 +67,9 @@ public class MyAdsController extends GeneralController<Advertisement> implements
     @FXML
     private TableColumn<Advertisement, String> priceTableColumn;
     @FXML
-    private TableColumn<Advertisement, String> addressTableColumn;
+    private TableColumn<Advertisement, String> countryTableColumn;
+    @FXML
+    private TableColumn<Advertisement, String> cityTableColumn;
     @FXML
     private TableColumn<Advertisement.ServiceType, String> serviceTypeTableColumn;
     @FXML
@@ -82,25 +85,28 @@ public class MyAdsController extends GeneralController<Advertisement> implements
         serviceTable.setItems(adsTable);
     }
 
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
         countryComboBox.getItems().addAll(countryDao.getAllCountriesNamesList(countryDao.getAll()));
         categoryComboBox.getItems().addAll((categoryDao.getAllCategoriesList()));
+        populateFieldsFromSelectedRow();
     }
 
     // Here we can use Oleks's table settings
     public void setUpTableColumns() {
+        subjectTableColumn.setCellValueFactory(new PropertyValueFactory<>("subject"));
         categoryTableColumn.setCellValueFactory(value ->
                 new SimpleStringProperty(value.getValue().getCategory().getName()));
-        categoryComboBox.setPromptText("Choose category");
+        priceTableColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+        countryTableColumn.setCellValueFactory(value ->
+                new SimpleStringProperty(value.getValue().getAddress().getCountry()));
+        cityTableColumn.setCellValueFactory(value ->
+                new SimpleStringProperty(value.getValue().getAddress().getCity()));
         startDateTableColumn.setCellValueFactory(new PropertyValueFactory<>("startDate"));
         endDateTableColumn.setCellValueFactory(new PropertyValueFactory<>("endDate"));
-        priceTableColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
-        addressTableColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
-        countryComboBox.setPromptText("Choose location");
         serviceTypeTableColumn.setCellValueFactory(new PropertyValueFactory<>("serviceType"));
-        subjectTableColumn.setCellValueFactory(new PropertyValueFactory<>("subject"));
     }
 
     // Logic to choose only particular country city
@@ -124,13 +130,13 @@ public class MyAdsController extends GeneralController<Advertisement> implements
     }
 
     private Advertisement.ServiceType serviceTypeSelected() {
-        return offerServiceRadioButton.isSelected() ? Advertisement.ServiceType.OFFER : Advertisement.ServiceType.REQUEST;
+        return offerServiceRadioButton.isSelected() ?
+                Advertisement.ServiceType.OFFER : Advertisement.ServiceType.REQUEST;
     }
 
-    @FXML
-    void createButtonPushed() {
+    private Advertisement getAdFromFields() {
 
-        Advertisement newAd = new Advertisement(
+        return new Advertisement(
                 subjectTextField.getText(),
                 descriptionTextField.getText(),
                 priceTextField.getText(),
@@ -140,18 +146,22 @@ public class MyAdsController extends GeneralController<Advertisement> implements
                 categoryDao.getByName(categoryComboBox.getValue()),
                 customer,
                 new Address(countryComboBox.getValue(), cityComboBox.getValue()));
+    }
+
+    @FXML
+    void createButtonPushed() {
 
         isInt(priceTextField.getText());
-        System.out.println("New ad " + subjectTextField + " created");
+        System.out.println("New ad " + subjectTextField.getText() + " created");
 
-        serviceTable.getItems().add(newAd);
+        adDao.save(getAdFromFields());
 
-        adDao.update(newAd); // was changed to update
         updateCustomer();
-
-        clearValues();
+        initData();
 
         AlertBox.success(); // new method in alert box
+
+        clearValues();
     }
 
     @FXML
@@ -173,52 +183,51 @@ public class MyAdsController extends GeneralController<Advertisement> implements
 
         ObservableList<Advertisement> selectedRows, allAds;
 
-        allAds = serviceTable.getItems();
+        allAds = getAllAdsFromTable(serviceTable);
 
         //this gives us the rows that were selected
-        selectedRows = serviceTable.getSelectionModel().getSelectedItems();
+        selectedRows = getSelectedAdsFromTable(serviceTable);
 
         for (Advertisement advertisement : selectedRows) {
-            if (AlertBox.confirmation(advertisement.getSubject())) { // new method in alert box
+            if (AlertBox.confirmation(advertisement.getSubject())) {
 
                 allAds.remove(advertisement);
 
-                Advertisement shouldBeDeletedAd = adDao.get(advertisement.getId());
+                Advertisement shouldDeleteThisAd = adDao.get(advertisement.getId());
 
-                adDao.delete(shouldBeDeletedAd);
-
+                adDao.delete(shouldDeleteThisAd);
                 updateCustomer();
 
-                System.out.println("Ad " + subjectTextField + " deleted");
+                System.out.println("Ad " + subjectTextField.getText() + " deleted");
             }
         }
     }
 
     @FXML
     void updateButtonPushed() {
-/*        ad = serviceTable.getSelectionModel().getSelectedItem();
+
+        Advertisement shouldUpdateThisAd = adDao.get(getAdFromSelectedRow(serviceTable).getId());
+
+        shouldUpdateThisAd.setSubject(subjectTextField.getText());
+        shouldUpdateThisAd.setDescription(descriptionTextField.getText());
+        shouldUpdateThisAd.setServiceType(serviceTypeSelected());
+        shouldUpdateThisAd.setAddress(new Address(countryComboBox.getValue(), cityComboBox.getValue()));
+        shouldUpdateThisAd.setCategory(categoryDao.getByName(categoryComboBox.getValue()));
+        shouldUpdateThisAd.setPrice(priceTextField.getText());
+
+        System.out.println(shouldUpdateThisAd.getServiceType());
 
 
-        if (ad != null) {
-            this.categoryComboBox.setValue(ad.getCategory());
-            this.startDatePicker.setValue(LocalDate.parse(ad.getStartDate().toString()));
-            this.endDatePicker.setValue(LocalDate.parse(ad.getEndDate().toString()));
-            //this.priceTextField.setText(String.valueOf(((Double) ad.getPrice())));
-            this.locationComboBox.setValue(cityDao.getAll());
-            this.serviceTypeGroup.getUserData();
-            this.subjectTextField.setText(ad.getSubject());
-            this.descriptionTextField.setText(String.valueOf(ad.getDescription()));
-        }
+        adDao.update(shouldUpdateThisAd);
 
-        updateButton.setOnAction(e ->
-        {
-            AlertBox.confirmDelete("Ad has been updated");
-            ObservableList<Advertisement> selectedAd;
-            selectedAd = serviceTable.getSelectionModel().getSelectedItems();
-            selectedAd.setAll();
-            setUpTableColumns();
-            clearValues();
-        });*/
+        updateCustomer();
+        initData();
+        AlertBox.success();
+
+        System.out.println("Ad " + subjectTextField.getText() + " updated");
+
+        clearValues();
+
     }
 
     @FXML
@@ -226,6 +235,19 @@ public class MyAdsController extends GeneralController<Advertisement> implements
         AdDetailsViewController controller = (changeScreen(event, "/views/adDetailsView.fxml").getController());
         controller.initData(serviceTable.getSelectionModel().getSelectedItem());
         controller.setCustomer(customer);
+    }
+
+
+    private ObservableList<Advertisement> getSelectedAdsFromTable(TableView<Advertisement> tableView) {
+        return tableView.getSelectionModel().getSelectedItems();
+    }
+
+    private ObservableList<Advertisement> getAllAdsFromTable(TableView<Advertisement> tableView) {
+        return tableView.getItems();
+    }
+
+    private Advertisement getAdFromSelectedRow(TableView<Advertisement> tableView) {
+        return tableView.getSelectionModel().getSelectedItem();
     }
 
     public void logOutButtonPushed(javafx.event.ActionEvent actionEvent) {
@@ -239,5 +261,24 @@ public class MyAdsController extends GeneralController<Advertisement> implements
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    public void populateFieldsFromSelectedRow() {
+        serviceTable.setOnMouseClicked((MouseEvent event) -> {
+            if(event.getButton().equals(MouseButton.PRIMARY)){
+
+                subjectTextField.setText(getAdFromSelectedRow(serviceTable).getSubject());
+                descriptionTextField.setText(getAdFromSelectedRow(serviceTable).getDescription());
+                priceTextField.setText(getAdFromSelectedRow(serviceTable).getPrice().toString());
+                countryComboBox.setValue(getAdFromSelectedRow(serviceTable).getAddress().getCountry());
+                cityComboBox.setValue(getAdFromSelectedRow(serviceTable).getAddress().getCity());
+                categoryComboBox.setValue(getAdFromSelectedRow(serviceTable).getCategory().getName());
+                endDatePicker.setValue(parser.convertToLocalDateViaInstant(getAdFromSelectedRow(serviceTable).getEndDate()));
+                startDatePicker.setValue(parser.convertToLocalDateViaInstant(getAdFromSelectedRow(serviceTable).getStartDate()));
+                if (getAdFromSelectedRow(serviceTable).getServiceType() == Advertisement.ServiceType.OFFER) {
+                offerServiceRadioButton.setSelected(true);
+                } else requestServiceRadioButton.setSelected(true);
+            }
+        });
     }
 }
