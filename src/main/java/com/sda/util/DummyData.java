@@ -103,8 +103,6 @@ public class DummyData {
         saveCitiesToDB(finnishCityList);
         saveCitiesToDB(swedishCityList);
 
-        saveAddressesToDB(addressList);
-
         saveCategoriesToDB(superCategoryList);
         saveCategoriesToDB(rentSubCategoryList);
         saveCategoriesToDB(cleanSubCategoryList);
