@@ -54,21 +54,21 @@ public class AllAdsViewController extends GeneralController<Advertisement> imple
     @FXML
     private RadioButton serviceTypeRadioButton;
     @FXML
-    private TableColumn<Advertisement, String> subjectColumn;
+    private TableColumn<Advertisement, String> subjectTableColumn;
     @FXML
-    private TableColumn<Advertisement, String> categoryColumn;
+    private TableColumn<Advertisement, String> categoryTableColumn;
     @FXML
-    private TableColumn<Advertisement, String> priceColumn;
+    private TableColumn<Advertisement, String> priceTableColumn;
     @FXML
-    private TableColumn<Advertisement, String> countryColumn;
+    private TableColumn<Advertisement, String> countryTableColumn;
     @FXML
-    private TableColumn<Advertisement, String> cityColumn;
+    private TableColumn<Advertisement, String> cityTableColumn;
     @FXML
-    private TableColumn<Advertisement, String> startDateColumn;
+    private TableColumn<Advertisement, String> startDateTableColumn;
     @FXML
-    private TableColumn<Advertisement, String> endDateColumn;
+    private TableColumn<Advertisement, String> endDateTableColumn;
     @FXML
-    private TableColumn<Advertisement, String> serviceTypeColumn;
+    private TableColumn<Advertisement, String> serviceTypeTableColumn;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -128,17 +128,17 @@ public class AllAdsViewController extends GeneralController<Advertisement> imple
 
     public void setUpTableColumns() {
 
-        subjectColumn.setCellValueFactory(new PropertyValueFactory<>("subject"));
-        categoryColumn.setCellValueFactory(value ->
+        subjectTableColumn.setCellValueFactory(new PropertyValueFactory<>("subject"));
+        categoryTableColumn.setCellValueFactory(value ->
                 new SimpleStringProperty(value.getValue().getCategory().getName()));
-        priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
-        countryColumn.setCellValueFactory(value ->
+        priceTableColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+        countryTableColumn.setCellValueFactory(value ->
                 new SimpleStringProperty(value.getValue().getAddress().getCountry()));
-        cityColumn.setCellValueFactory(value ->
+        cityTableColumn.setCellValueFactory(value ->
                 new SimpleStringProperty(value.getValue().getAddress().getCity()));
-        startDateColumn.setCellValueFactory(new PropertyValueFactory<>("startDate"));
-        endDateColumn.setCellValueFactory(new PropertyValueFactory<>("endDate"));
-        serviceTypeColumn.setCellValueFactory(new PropertyValueFactory<>("serviceType"));
+        startDateTableColumn.setCellValueFactory(new PropertyValueFactory<>("startDate"));
+        endDateTableColumn.setCellValueFactory(new PropertyValueFactory<>("endDate"));
+        serviceTypeTableColumn.setCellValueFactory(new PropertyValueFactory<>("serviceType"));
     }
 
     public ObservableList<Advertisement> findActiveAdvertisementByCategory(String category) {
