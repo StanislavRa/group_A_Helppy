@@ -45,7 +45,7 @@ public class AdDetailsViewControllerTest {
                 "2.5",
                 startDate1,
                 endDate1,
-                "OFFER",
+                Advertisement.ServiceType.OFFER,
                 new Category("CLEANING"),
                 customer);
         advertisement1.setServiceState(Advertisement.ServiceState.INACTIVE);
@@ -56,7 +56,7 @@ public class AdDetailsViewControllerTest {
                 "103.3",
                 startDate2,
                 endDate2,
-                "REQUEST",
+                Advertisement.ServiceType.REQUEST,
                 new Category("RENTING"),
                 customer);
         advertisement2.setServiceState(Advertisement.ServiceState.INACTIVE);
