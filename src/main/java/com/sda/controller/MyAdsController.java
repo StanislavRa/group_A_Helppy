@@ -12,18 +12,14 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.text.Text;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class MyAdsController extends GeneralController<Advertisement> implements Initializable {
 
-    @FXML
-    private Text logoText;
-    @FXML
-    private Button allAdsButton;
     @FXML
     private ComboBox<String> categoryComboBox;
     @FXML
@@ -39,23 +35,12 @@ public class MyAdsController extends GeneralController<Advertisement> implements
     @FXML
     private RadioButton offerServiceRadioButton;
     @FXML
-    private ToggleGroup serviceTypeGroup;
-    @FXML
     private RadioButton requestServiceRadioButton;
     @FXML
     private TextField subjectTextField;
     @FXML
     private TextArea descriptionTextField;
 
-    // we do not need some buttons, because we use ...ButtonPushed methods
-    @FXML
-    private Button createButton;
-    @FXML
-    private Button updateButton;
-    @FXML
-    private Button deleteButton;
-    @FXML
-    private Button detailsButton;
     @FXML
     private TableView<Advertisement> serviceTable;
     @FXML
@@ -94,7 +79,6 @@ public class MyAdsController extends GeneralController<Advertisement> implements
         populateFieldsFromSelectedRow();
     }
 
-    // Here we can use Oleks's table settings
     public void setUpTableColumns() {
         subjectTableColumn.setCellValueFactory(new PropertyValueFactory<>("subject"));
         categoryTableColumn.setCellValueFactory(value ->
@@ -118,16 +102,44 @@ public class MyAdsController extends GeneralController<Advertisement> implements
         cityComboBox.getItems().addAll(listOfCityNames);
     }
 
-    // need some checking from the price input
-    private boolean isInt(String input) {
-        try {
-            int price = Integer.parseInt(String.valueOf(input));
-            return true;
-        } catch (NumberFormatException e) {
-            System.out.println(e);
-            return false;
+    private void inputFormatValidation() {
+        priceTextField.setTextFormatter(new TextFormatter<>(change ->
+                (change.getControlNewText().matches("([1-9][0-9]*)?")) ? change : null));
+        AlertBox.validation("Make sure price is a number");
+    }
+    public void validDateCheck(){
+        if (startDatePicker.getValue().isAfter(endDatePicker.getValue())) {
+            AlertBox.validation("Make sure End Date is after Start Date");
+        }
+        if (LocalDate.now().isAfter((startDatePicker.getValue())) || LocalDate.now().isAfter((endDatePicker.getValue()))) {
+            AlertBox.validation("Make sure you don't choose a date from past");
         }
     }
+
+    public void userInputNullCheck(){
+        if(
+                categoryComboBox.getSelectionModel().isEmpty() ||
+                startDatePicker.getValue() == null ||
+                endDatePicker.getValue() == null ||
+                priceTextField.getText().isEmpty() ||
+                countryComboBox.getSelectionModel().isEmpty() ||
+                cityComboBox.getSelectionModel().isEmpty() ||
+                subjectTextField.getText().isEmpty() ||
+                descriptionTextField.getText().isEmpty() &&
+                        (offerServiceRadioButton == null || requestServiceRadioButton == null)
+        )
+        {
+            AlertBox.validation("Make sure you fill in all the necessary data");
+        }
+
+    }
+
+    public void runValidations(){
+        userInputNullCheck();
+        validDateCheck();
+        inputFormatValidation();
+    }
+
 
     private Advertisement.ServiceType serviceTypeSelected() {
         return offerServiceRadioButton.isSelected() ?
@@ -150,8 +162,7 @@ public class MyAdsController extends GeneralController<Advertisement> implements
 
     @FXML
     void createButtonPushed() {
-
-        isInt(priceTextField.getText());
+        runValidations();
         System.out.println("New ad " + subjectTextField.getText() + " created");
 
         adDao.save(getAdFromFields());
@@ -159,19 +170,19 @@ public class MyAdsController extends GeneralController<Advertisement> implements
         updateCustomer();
         initData();
 
-        AlertBox.success(); // new method in alert box
+        AlertBox.success("New ad created");
 
-        clearValues();
+        clearValuesAfterChange();
     }
 
+
     @FXML
-    void clearValues() {
+    void clearValuesAfterChange() {
         categoryComboBox.getSelectionModel().clearSelection();
         startDatePicker.getEditor().clear();
         endDatePicker.getEditor().clear();
         priceTextField.clear();
         countryComboBox.getSelectionModel().clearSelection();
-        //serviceTypeGroup.setSelected(false);
         offerServiceRadioButton.setSelected(false);
         requestServiceRadioButton.setSelected(false);
         subjectTextField.clear();
@@ -184,12 +195,10 @@ public class MyAdsController extends GeneralController<Advertisement> implements
         ObservableList<Advertisement> selectedRows, allAds;
 
         allAds = getAllAdsFromTable(serviceTable);
-
-        //this gives us the rows that were selected
         selectedRows = getSelectedAdsFromTable(serviceTable);
 
         for (Advertisement advertisement : selectedRows) {
-            if (AlertBox.confirmation(advertisement.getSubject())) {
+            if (AlertBox.confirmation(advertisement.getSubject(), "Are you sure you want to delete")) {
 
                 allAds.remove(advertisement);
 
@@ -222,11 +231,11 @@ public class MyAdsController extends GeneralController<Advertisement> implements
 
         updateCustomer();
         initData();
-        AlertBox.success();
+        AlertBox.success("Ad updated");
 
         System.out.println("Ad " + subjectTextField.getText() + " updated");
 
-        clearValues();
+        clearValuesAfterChange();
 
     }
 
