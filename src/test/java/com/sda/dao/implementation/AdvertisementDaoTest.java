@@ -1,10 +1,6 @@
 package com.sda.dao.implementation;
 
-import com.sda.controller.AdDetailsViewController;
-import com.sda.entity.Address;
-import com.sda.entity.Advertisement;
-import com.sda.entity.Category;
-import com.sda.entity.Customer;
+import com.sda.entity.*;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -21,55 +17,15 @@ import java.util.logging.Logger;
 
 public class AdvertisementDaoTest {
 
-    Logger log = Logger.getLogger(AddressDaoTest.class.getName());
-    CustomerDao customerDao = new CustomerDao("hibernateDemi.cfg.xml");
-    AdvertisementDao advertisementDao = new AdvertisementDao("hibernateDemi.cfg.xml");
-    CategoryDao categoryDao = new CategoryDao("hibernateDemi.cfg.xml");
-    AddressDao addressDao = new AddressDao("hibernateDemi.cfg.xml");
+    Logger log = Logger.getLogger(AdvertisementDaoTest.class.getName());
+    String connectionToDatabaseCreate  = "hibernateUnitTest.cfg.xml";
 
-    @Test
-    public void shouldAddAdvertisement() throws ParseException {
-        // create new customer
-        Customer customer = new Customer();
-        customer.setLogin("Pjotr");
-        customer.setPassword("123456");
-        customer.setFullName("Petr III");
-
-        customerDao.save(customer);
-        Assert.assertNotNull(customerDao.get(1L));
-
-        // create new address
-        Address addressTest1 = new Address("Estonia", "Tallinn", "Parnu mnt");
-        addressDao.save(addressTest1);
-
-        // create new advertisement
-        String startDateString1 = "31/12/1998";
-        Date startDate1 = new SimpleDateFormat("dd/MM/yyyy").parse(startDateString1);
-
-        String endDateString1 = "31/12/1998";
-        Date endDate1 = new SimpleDateFormat("dd/MM/yyyy").parse(endDateString1);
-
-        Advertisement advertisement1 = new Advertisement(
-                "Clean Fast",
-                "One, Two, One Two Three Four!!!",
-                "2.5",
-                startDate1,
-                endDate1,
-                "OFFER",
-                new Category("CLEANING"),
-                customer);
-        advertisement1.setServiceState(Advertisement.ServiceState.INACTIVE);
-
-        // assign address to advertisement
-        advertisement1.setAddress(addressTest1);
-
-        // assign customer to advertisement
-        advertisement1.setCustomer(customer);
-
-        advertisementDao.save(advertisement1);
-
-        Assert.assertNotNull(advertisementDao.get(1L));
-    }
+    CustomerDao customerDao = new CustomerDao(connectionToDatabaseCreate);
+    AdvertisementDao advertisementDao = new AdvertisementDao(connectionToDatabaseCreate);
+    CategoryDao categoryDao = new CategoryDao(connectionToDatabaseCreate);
+    AddressDao addressDao = new AddressDao(connectionToDatabaseCreate);
+    CountryDao countryDao = new CountryDao(connectionToDatabaseCreate);
+    CityDao cityDao = new CityDao(connectionToDatabaseCreate);
 
     @Test
     public void shouldSaveAdvertisement() throws ParseException {
@@ -85,7 +41,9 @@ public class AdvertisementDaoTest {
         Assert.assertNotNull(customerDao.get(1L));
 
         //create address
-        Address addressTest1 = new Address("Estonia", "Tallinn", "Parnu mnt");
+        Country countryTest1 = new Country("Estonia");
+        City cityTest1 = new City("Tallinn");
+        Address addressTest1 = new Address(countryTest1, cityTest1);
         addressDao.save(addressTest1);
 
         String startDateString1 = "31/12/1998";
@@ -94,41 +52,39 @@ public class AdvertisementDaoTest {
         String endDateString1 = "31/12/1998";
         Date endDate1 = new SimpleDateFormat("dd/MM/yyyy").parse(endDateString1);
 
-//        String startDateString2 = "21/02/2005";
-//        Date startDate2 = new SimpleDateFormat("dd/MM/yyyy").parse(startDateString2);
-//
-//        String endDateString2 = "13/01/2001";
-//        Date endDate2 = new SimpleDateFormat("dd/MM/yyyy").parse(endDateString2);
+        String startDateString2 = "21/02/2005";
+        Date startDate2 = new SimpleDateFormat("dd/MM/yyyy").parse(startDateString2);
+
+        String endDateString2 = "13/01/2001";
+        Date endDate2 = new SimpleDateFormat("dd/MM/yyyy").parse(endDateString2);
 
         Advertisement advertisement1 = new Advertisement(
-                "CCCCLEAN",
-                "Cleaning is gOOOd",
+                "Clean Fast",
+                "blablabla",
                 "2.5",
                 startDate1,
                 endDate1,
-                "OFFER",
-                new Category("Cleannnn"),
+                Advertisement.ServiceType.OFFER,
+                new Category("CLEANING"),
                 customer);
         advertisement1.setServiceState(Advertisement.ServiceState.INACTIVE);
 
-        advertisement1.setAddress(addressTest1);
-
-//        Advertisement advertisement2 = new Advertisement(
-//                "Car Rent",
-//                "ohohoho",
-//                "103.3",
-//                startDate2,
-//                endDate2,
-//                "REQUEST",
-//                new Category("RENTING"),
-//                customer);
-//        advertisement2.setServiceState(Advertisement.ServiceState.INACTIVE);
+        Advertisement advertisement2 = new Advertisement(
+                "Car Rent",
+                "ohohoho",
+                "103.3",
+                startDate2,
+                endDate2,
+                Advertisement.ServiceType.REQUEST,
+                new Category("RENTING"),
+                customer);
+        advertisement2.setServiceState(Advertisement.ServiceState.INACTIVE);
 
         advertisementDao.save(advertisement1);
-//        advertisementDao.save(advertisement2);
+        advertisementDao.save(advertisement2);
 
         Assert.assertNotNull(advertisementDao.get(1L));
-//        Assert.assertNotNull(advertisementDao.get(2L));
+        Assert.assertNotNull(advertisementDao.get(2L));
     }
 
 
@@ -143,6 +99,13 @@ public class AdvertisementDaoTest {
         customer.setFullName("Petr III");
 
         customerDao.save(customer);
+
+        //create address
+        Country countryTest1 = new Country("Estonia");
+        City cityTest1 = new City("Tallinn");
+        Address addressTest1 = new Address(countryTest1, cityTest1);
+        addressDao.save(addressTest1);
+
         Category rentSuperCategory = new Category(null, "Rent");
         categoryDao.save(rentSuperCategory);
 
@@ -163,7 +126,7 @@ public class AdvertisementDaoTest {
                 "2.5",
                 startDate1,
                 endDate1,
-                "OFFER",
+                Advertisement.ServiceType.OFFER,
                 rentSubCategory1,
                 customer);
 
@@ -190,6 +153,12 @@ public class AdvertisementDaoTest {
 
         customerDao.save(customer);
 
+        //create address
+        Country countryTest1 = new Country("Estonia");
+        City cityTest1 = new City("Tallinn");
+        Address addressTest1 = new Address(countryTest1, cityTest1);
+        addressDao.save(addressTest1);
+
         String startDateString1 = "31/12/1998";
         Date startDate1 = new SimpleDateFormat("dd/MM/yyyy").parse(startDateString1);
 
@@ -208,7 +177,7 @@ public class AdvertisementDaoTest {
                 "2.5",
                 startDate1,
                 endDate1,
-                "OFFER",
+                Advertisement.ServiceType.OFFER,
                 new Category("CLEANING"),
                 customer);
         advertisement1.setServiceState(Advertisement.ServiceState.INACTIVE);
@@ -219,7 +188,7 @@ public class AdvertisementDaoTest {
                 "103.3",
                 startDate2,
                 endDate2,
-                "REQUEST",
+                Advertisement.ServiceType.REQUEST,
                 new Category("RENTING"),
                 customer);
         advertisement2.setServiceState(Advertisement.ServiceState.INACTIVE);
@@ -244,6 +213,12 @@ public class AdvertisementDaoTest {
 
         customerDao.save(customer);
 
+        //create address
+        Country countryTest1 = new Country("Estonia");
+        City cityTest1 = new City("Tallinn");
+        Address addressTest1 = new Address(countryTest1, cityTest1);
+        addressDao.save(addressTest1);
+
         String startDateString1 = "31/12/1998";
         Date startDate1 = new SimpleDateFormat("dd/MM/yyyy").parse(startDateString1);
 
@@ -257,7 +232,7 @@ public class AdvertisementDaoTest {
                 "2.5",
                 startDate1,
                 endDate1,
-                "OFFER",
+                Advertisement.ServiceType.OFFER,
                 new Category("CLEANING"),
                 customer);
         advertisement1.setServiceState(Advertisement.ServiceState.INACTIVE);
@@ -291,6 +266,12 @@ public class AdvertisementDaoTest {
 
         customerDao.save(customer);
 
+        //create address
+        Country countryTest1 = new Country("Estonia");
+        City cityTest1 = new City("Tallinn");
+        Address addressTest1 = new Address(countryTest1, cityTest1);
+        addressDao.save(addressTest1);
+
         String startDateString1 = "31/12/1998";
         Date startDate1 = new SimpleDateFormat("dd/MM/yyyy").parse(startDateString1);
 
@@ -304,7 +285,7 @@ public class AdvertisementDaoTest {
                 "2.5",
                 startDate1,
                 endDate1,
-                "OFFER",
+                Advertisement.ServiceType.OFFER,
                 new Category("CLEANING"),
                 customer);
         advertisement1.setServiceState(Advertisement.ServiceState.INACTIVE);
@@ -324,11 +305,20 @@ public class AdvertisementDaoTest {
 
         log.info("...shouldSaveAdvertisementAsListToCustomer...");
 
+        //create customer
         Customer customer = new Customer();
         customer.setLogin("Pjotr");
         customer.setPassword("123456");
         customer.setFullName("Petr III");
+        customerDao.save(customer);
 
+        //create address
+        Country countryTest1 = new Country("Estonia");
+        City cityTest1 = new City("Tallinn");
+        Address addressTest1 = new Address(countryTest1, cityTest1);
+        addressDao.save(addressTest1);
+
+        //create dates
         String startDateString1 = "31/12/1998";
         Date startDate1 = new SimpleDateFormat("dd/MM/yyyy").parse(startDateString1);
 
@@ -341,13 +331,14 @@ public class AdvertisementDaoTest {
         String endDateString2 = "13/01/2001";
         Date endDate2 = new SimpleDateFormat("dd/MM/yyyy").parse(endDateString2);
 
+        //create advertisement
         Advertisement advertisement1 = new Advertisement(
                 "Clean Fast",
                 "blablabla",
                 "2.5",
                 startDate1,
                 endDate1,
-                "OFFER",
+                Advertisement.ServiceType.OFFER,
                 new Category("CLEANING"),
                 customer);
         advertisement1.setServiceState(Advertisement.ServiceState.INACTIVE);
@@ -358,18 +349,18 @@ public class AdvertisementDaoTest {
                 "103.3",
                 startDate2,
                 endDate2,
-                "REQUEST",
+                Advertisement.ServiceType.REQUEST,
                 new Category("RENTING"),
                 customer);
         advertisement2.setServiceState(Advertisement.ServiceState.INACTIVE);
-        customer.setUserAdvertisements(Arrays.asList(advertisement1, advertisement2));
 
-        customerDao.save(customer);
+        advertisementDao.save(advertisement1);
+        advertisementDao.save(advertisement2);
+
+        customer.setUserAdvertisements(Arrays.asList(advertisement1, advertisement2));
 
         Assert.assertEquals(2,
                 customerDao.getByLogin(
                         customer.getLogin()).getUserAdvertisements().size());
     }
-
-
 }

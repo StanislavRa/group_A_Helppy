@@ -13,13 +13,10 @@ import java.util.Date;
 public class AdDetailsViewController extends GeneralController {
 
     @FXML
-    private Label subjectLabel;
+    private Label startDateLabel;
 
     @FXML
     private Label categoryLabel;
-
-    @FXML
-    private Label startDateLabel;
 
     @FXML
     private Label endDateLabel;
@@ -28,7 +25,13 @@ public class AdDetailsViewController extends GeneralController {
     private Label addressLabel;
 
     @FXML
+    private Label subjectLabel;
+
+    @FXML
     private Label adTypeLabel;
+
+    @FXML
+    private Label userFullNameLabel;
 
     @FXML
     private Label priceLabel;
@@ -36,15 +39,12 @@ public class AdDetailsViewController extends GeneralController {
     @FXML
     private Label descriptionLabel;
 
-    @FXML
-    private Label userFullNameLabel;
-
     public void initData(Advertisement advertisement)  {
         subjectLabel.setText(advertisement.getSubject());
         categoryLabel.setText(advertisement.getCategory().getName());
         startDateLabel.setText(dateParser(advertisement.getStartDate()));
         endDateLabel.setText(dateParser(advertisement.getEndDate()));
-        addressLabel.setText(advertisement.getAddress().getCity());
+        addressLabel.setText(advertisement.getAddress().getCity().toString());
         adTypeLabel.setText(advertisement.getServiceType().toString());
         priceLabel.setText(advertisement.getPrice().toString());
         descriptionLabel.setText(advertisement.getDescription());
@@ -57,3 +57,4 @@ public class AdDetailsViewController extends GeneralController {
         return formattedDate;
     }
 }
+
