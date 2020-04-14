@@ -1,6 +1,6 @@
 package com.sda.controller;
 
-import com.sda.controller.animation.Shake;
+import com.sda.controller.utilities.Animation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -18,7 +18,6 @@ public class LogInViewController extends GeneralController {
     protected Button signInButton;
     @FXML
     protected Button signUpNowButton;
-
 
     @FXML
     private void signInButtonPushed(ActionEvent event) {
@@ -47,8 +46,8 @@ public class LogInViewController extends GeneralController {
 
         } else {
 
-            Shake userLoginAnim = new Shake(userNameTextField);
-            Shake userPasswordAnim = new Shake(passwordPasswordField);
+            Animation userLoginAnim = new Animation(userNameTextField);
+            Animation userPasswordAnim = new Animation(passwordPasswordField);
             userLoginAnim.playAnim();
             userPasswordAnim.playAnim();
         }

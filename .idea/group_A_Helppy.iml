@@ -6,10 +6,10 @@
         <datasource-map>
           <unit-entry name="com:sda:config:hibernate.cfg.xml" />
           <unit-entry name="hibernate.cfg.xml" value="69b659c5-8eb1-49d9-97b9-3e52475eb84a" />
-          <unit-entry name="hibernateCreate.cfg.xml" />
+          <unit-entry name="hibernateCreate.cfg.xml" value="e0e563af-2fd1-4037-8348-23d3ba3e9db0" />
           <unit-entry name="hibernateTest.cfg.xml" value="56104780-96a9-4430-8096-6489d8b6e645" />
-          <unit-entry name="hibernateUnitTest.cfg.xml" />
-          <unit-entry name="hibernateValidate.cfg.xml" />
+          <unit-entry name="hibernateUnitTest.cfg.xml" value="40e9a291-a34b-4f0b-9f87-57ded6ab244e" />
+          <unit-entry name="hibernateValidate.cfg.xml" value="f63e10d3-f8f2-4f21-a33b-944caf5955f9" />
         </datasource-map>
         <naming-strategy-map />
         <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/src/main/resources/hibernateCreate.cfg.xml" />
