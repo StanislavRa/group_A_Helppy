@@ -1,6 +1,7 @@
 package com.sda.dao.implementation;
 
 import com.sda.dao.Dao;
+import com.sda.entity.City;
 import com.sda.entity.Customer;
 import com.sda.util.SessionUtil;
 import org.hibernate.Session;
@@ -102,6 +103,30 @@ public class CustomerDao extends SessionUtil implements Dao<Customer> {
         }
     }
 
+    public void deleteAll() {
+
+        List<Customer> customerList = getAll();
+
+        openTransactionAndSession();
+        Session session = getSession();
+        try {
+            // open session with a transaction
+            for (Customer customer : customerList) {
+
+                session.delete(customer);
+            }
+            closeTransactionAndSession();
+
+            // close session with a transaction
+
+        } catch (Exception e) {
+
+            if (getTransaction() != null) {
+                getTransaction().rollback();
+            }
+            e.printStackTrace();
+        }
+    }
 
     public Customer getByLogin(String login) {
 

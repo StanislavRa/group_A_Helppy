@@ -3,6 +3,7 @@ package com.sda.dao.implementation;
 import com.sda.dao.Dao;
 import com.sda.entity.Advertisement;
 import com.sda.entity.Category;
+import com.sda.entity.City;
 import com.sda.util.SessionUtil;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -95,6 +96,31 @@ public class CategoryDao extends SessionUtil implements Dao<Category> {
 
             // close session with a transaction
             closeTransactionAndSession();
+
+        } catch (Exception e) {
+
+            if (getTransaction() != null) {
+                getTransaction().rollback();
+            }
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteAll() {
+
+        List<Category> categoryList = getAll();
+
+        openTransactionAndSession();
+        Session session = getSession();
+        try {
+            // open session with a transaction
+            for (Category category : categoryList) {
+
+                session.delete(category);
+            }
+            closeTransactionAndSession();
+
+            // close session with a transaction
 
         } catch (Exception e) {
 
