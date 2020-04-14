@@ -108,7 +108,7 @@ public class AllAdsViewController extends TableSetUp implements Initializable {
                     parser.convertToDateViaSqlDate(endDatePicker.getValue())));
         }
         if (serviceTypeRadioButton.isSelected() &&
-                Validator.isComboboxHasValue(cityComboBox,"Select OFFER or REQUEST")) {
+                Validator.isComboboxHasValue(serviceTypeComboBox,"Select OFFER or REQUEST")) {
             mainTableView.setItems(findActiveAdvertisementByServiceType(serviceTypeComboBox.getValue()));
         }
     }
