@@ -36,11 +36,8 @@ public class AddressDaoTest {
 
     @After
     public void tearDown() {
-
        addressDao.deleteAll();
         System.out.println("After");
-
-
     }
 
     @Test

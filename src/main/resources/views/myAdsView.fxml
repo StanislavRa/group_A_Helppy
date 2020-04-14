@@ -27,26 +27,33 @@
             <items>
                 <AnchorPane prefHeight="200.0" prefWidth="200.0">
                     <children>
-                        <HBox layoutX="992.0" layoutY="14.0" spacing="14.0">
+                        <HBox layoutX="846.0" layoutY="14.0" spacing="14.0">
                             <opaqueInsets>
                                 <Insets />
                             </opaqueInsets>
+                     <children>
+                        <Button fx:id="myAdsButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#myAdsButtonPushed" prefHeight="45.0" prefWidth="130.0" style="-fx-background-color: rgb(0, 204, 102); -fx-background-radius: 35;" text="My Ads" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Button>
+                              <Button fx:id="allAdsButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#allAdsButtonPushed" prefHeight="45.0" prefWidth="130.0" style="-fx-background-color: rgb(0, 204, 102); -fx-background-radius: 35;" text="All Ads" textFill="WHITE">
+                                  <font>
+                                      <Font name="System Bold" size="17.0" />
+                                  </font>
+                              </Button>
+                        <Button fx:id="logOutButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#logOutButtonPushed" prefHeight="45.0" prefWidth="130.0" style="-fx-background-color: rgb(0, 204, 102); -fx-background-radius: 35;" text="Log Out" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="17.0" />
+                           </font>
+                        </Button>
+                     </children>
                         </HBox>
                         <Text fx:id="logoText" blendMode="SRC_ATOP" boundsType="VISUAL" fill="#00cc66" layoutX="17.0" layoutY="48.0" onMouseClicked="#logoTextOnMouseClicked" strokeType="OUTSIDE" strokeWidth="0.0" text="Helppy" wrappingWidth="122.3828125">
                             <font>
                                 <Font name="Brush Script MT Italic" size="52.0" />
                             </font>
                         </Text>
-                        <Button fx:id="allAdsButton" alignment="CENTER" contentDisplay="CENTER" layoutX="1128.0" layoutY="14.0" mnemonicParsing="false" onAction="#allAdsButtonPushed" prefHeight="45.0" prefWidth="130.0" style="-fx-background-color: rgb(0, 204, 102); -fx-background-radius: 35;" text="All Ads" textFill="WHITE">
-                            <font>
-                                <Font name="System Bold" size="17.0" />
-                            </font>
-                        </Button>
-                  <Button fx:id="logOutButton" alignment="CENTER" contentDisplay="CENTER" layoutX="982.0" layoutY="14.0" mnemonicParsing="false" onAction="#logOutButtonPushed" prefHeight="45.0" prefWidth="130.0" style="-fx-background-color: rgb(0, 204, 102); -fx-background-radius: 35;" text="Log Out" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="17.0" />
-                     </font>
-                  </Button>
                     </children>
                 </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
@@ -156,16 +163,16 @@
                 </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                     <children>
-                        <TableView fx:id="serviceTable" layoutX="370.0" layoutY="-31.0" prefHeight="267.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
+                        <TableView fx:id="mainTableView" layoutX="370.0" layoutY="-31.0" maxWidth="1.7976931348623157E308" prefHeight="267.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
                             <columns>
-                                <TableColumn fx:id="categoryTableColumn" maxWidth="-Infinity" minWidth="200.0" prefWidth="-1.0" resizable="false" text="Category" />
-                                <TableColumn fx:id="serviceTypeTableColumn" maxWidth="-Infinity" minWidth="200.0" prefWidth="-1.0" resizable="false" text="ServiceType" />
-                                <TableColumn fx:id="subjectTableColumn" maxWidth="-Infinity" minWidth="200.0" prefWidth="-1.0" text="Subject" />
-                                <TableColumn fx:id="priceTableColumn" maxWidth="-Infinity" minWidth="200.0" prefWidth="-1.0" resizable="false" text="Price" />
-                                <TableColumn fx:id="cityTableColumn" maxWidth="-Infinity" minWidth="200.0" prefWidth="157.0" resizable="false" text="City" />
-                        <TableColumn fx:id="countryTableColumn" maxWidth="-Infinity" minWidth="200.0" prefWidth="203.0" resizable="false" text="Country" />
-                                <TableColumn fx:id="startDateTableColumn" maxWidth="-Infinity" minWidth="200.0" prefWidth="104.0" resizable="false" text="Start Date" />
-                                <TableColumn fx:id="endDateTableColumn" maxWidth="-Infinity" minWidth="200.0" prefWidth="256.0" resizable="false" text="End Date" />
+                                <TableColumn fx:id="categoryTableColumn" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="160.0" resizable="false" text="Category" />
+                                <TableColumn fx:id="serviceTypeTableColumn" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="160.0" resizable="false" text="Request / Offer" />
+                                <TableColumn fx:id="subjectTableColumn" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="160.0" text="Subject" />
+                                <TableColumn fx:id="priceTableColumn" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="160.0" resizable="false" text="Price" />
+                        <TableColumn fx:id="countryTableColumn" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="160.0" resizable="false" text="Country" />
+                                <TableColumn fx:id="cityTableColumn" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="160.0" resizable="false" text="City" />
+                                <TableColumn fx:id="startDateTableColumn" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="160.0" resizable="false" text="Start Date" />
+                                <TableColumn fx:id="endDateTableColumn" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="160.0" resizable="false" text="End Date" />
                             </columns>
                         </TableView>
                         <VBox layoutX="301.0" layoutY="-93.0" prefWidth="1278.0" AnchorPane.bottomAnchor="242.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

@@ -1,7 +1,8 @@
-package com.sda.parser;
+package com.sda.controller.utilities;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 
@@ -12,7 +13,6 @@ public class Parser {
 
         return java.sql.Date.valueOf(dateToConvert);
     }
-
 
 
     public boolean compareTwoStrings(String s1, String s2){
@@ -36,5 +36,10 @@ public class Parser {
 
     public LocalDate convertSQLDateToLocalDate(java.sql.Date date) {
         return date.toLocalDate();
+    }
+
+    public String dateParser(java.util.Date date) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
+        return formatter.format(date);
     }
 }

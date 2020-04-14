@@ -21,5 +21,35 @@ C:/Users/Stanislavr/OneDrive/Documents/Private/Java/IdeaProjects/group_A_Helppy/
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://remotemysql.com:3306/bwzugyvX5F?createDatabaseIfNotExist=true</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="hibernateValidate.cfg.xml/Hibernate" uuid="f63e10d3-f8f2-4f21-a33b-944caf5955f9">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>Hibernate
+
+C:/Users/Stanislavr/OneDrive/Documents/Private/Java/Projects/group_A_Helppy/src/main/resources/hibernateValidate.cfg.xml</remarks>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/helppy?serverTimezone = UTC</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="hibernateUnitTest.cfg.xml/Hibernate" uuid="40e9a291-a34b-4f0b-9f87-57ded6ab244e">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>Hibernate
+
+C:/Users/Stanislavr/OneDrive/Documents/Private/Java/Projects/group_A_Helppy/src/main/resources/hibernateUnitTest.cfg.xml</remarks>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/helppyTest?createDatabaseIfNotExist=true</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="hibernateCreate.cfg.xml/Hibernate" uuid="e0e563af-2fd1-4037-8348-23d3ba3e9db0">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>Hibernate
+
+C:/Users/Stanislavr/OneDrive/Documents/Private/Java/Projects/group_A_Helppy/src/main/resources/hibernateCreate.cfg.xml</remarks>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/helppy?serverTimezone = UTC</jdbc-url>
+    </data-source>
   </component>
 </project>
