@@ -24,14 +24,14 @@ import java.util.Objects;
                 query = "select * from CUSTOMER customer " +
                         "left join USER as user " +
                         "on user.id = customer.id " +
-                        "where user.LOGIN=:login",
+                        "where binary (user.LOGIN)=:login",
                 resultClass = Customer.class),
         @NamedNativeQuery(
                 name = "Customer_GetByLoginAndPassword",
                 query = "select * from CUSTOMER customer " +
                         "left join USER as user " +
                         "on user.id = customer.id " +
-                        "where user.LOGIN=:login and user.PASSWORD=:password",
+                        "where binary (user.LOGIN)=:login and binary(user.PASSWORD)=:password",
                 resultClass = Customer.class)
 })
 
@@ -40,7 +40,7 @@ public class Customer extends User {
     @Column(name = "FULL_NAME", nullable = false, length = 60)
     private String fullName;
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "customer",  fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Advertisement> userAdvertisements = new ArrayList<>();
 
     public Customer() {

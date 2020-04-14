@@ -1,6 +1,5 @@
 package com.sda.controller;
 
-import com.sda.dao.implementation.CustomerDao;
 import com.sda.entity.Customer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,7 +20,6 @@ public class SignUpViewController extends GeneralController {
     void signUpButtonPushed(ActionEvent event) {
 
         String loginText = userNameTextField.getText().trim();
-        CustomerDao customerDao = new CustomerDao("hibernateDemi.cfg.xml");
         Customer customer = customerDao.getByLogin(loginText);
 
         if (customer == null) {

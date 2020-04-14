@@ -1,6 +1,7 @@
 package com.sda.dao.implementation;
 
 import com.sda.dao.Dao;
+import com.sda.entity.Address;
 import com.sda.entity.City;
 import com.sda.util.SessionUtil;
 import org.hibernate.Session;
@@ -116,5 +117,30 @@ public class CityDao extends SessionUtil implements Dao<City> {
             listOfCityNames.add(a.getCityName());
         }
         return listOfCityNames;
+    }
+
+    public void deleteAll() {
+
+        List<City> addressList = getAll();
+
+        openTransactionAndSession();
+        Session session = getSession();
+        try {
+            // open session with a transaction
+            for (City city : addressList) {
+
+                session.delete(city);
+            }
+            closeTransactionAndSession();
+
+            // close session with a transaction
+
+        } catch (Exception e) {
+
+            if (getTransaction() != null) {
+                getTransaction().rollback();
+            }
+            e.printStackTrace();
+        }
     }
 }

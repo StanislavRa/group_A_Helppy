@@ -1,6 +1,7 @@
 package com.sda.dao.implementation;
 
 import com.sda.dao.Dao;
+import com.sda.entity.City;
 import com.sda.entity.Country;
 import com.sda.util.SessionUtil;
 import org.hibernate.Session;
@@ -110,5 +111,30 @@ public class CountryDao extends SessionUtil implements Dao<Country> {
             listOfCountryNames.add(c.getCountryName());
         }
         return listOfCountryNames;
+    }
+
+    public void deleteAll() {
+
+        List<Country> addressList = getAll();
+
+        openTransactionAndSession();
+        Session session = getSession();
+        try {
+            // open session with a transaction
+            for (Country country : addressList) {
+
+                session.delete(country);
+            }
+            closeTransactionAndSession();
+
+            // close session with a transaction
+
+        } catch (Exception e) {
+
+            if (getTransaction() != null) {
+                getTransaction().rollback();
+            }
+            e.printStackTrace();
+        }
     }
 }

@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
@@ -13,7 +14,6 @@ import java.util.logging.Logger;
 /**
  * @author StanislavR
  */
-
 
 public class CustomerDaoTest {
 
@@ -24,7 +24,6 @@ public class CustomerDaoTest {
     CustomerDao customerDao = new CustomerDao(connectionToDatabaseCreate);
     AdvertisementDao advertisementDao = new AdvertisementDao(connectionToDatabaseCreate);
     AddressDao addressDao = new AddressDao(connectionToDatabaseCreate);
-
 
     @Test
     public void shouldSaveCustomer() {
@@ -40,7 +39,6 @@ public class CustomerDaoTest {
 
         Customer shouldBeSavedCustomer = customerDao.get(1L);
         Assert.assertNotNull(shouldBeSavedCustomer);
-
     }
 
 
@@ -55,8 +53,8 @@ public class CustomerDaoTest {
         customerDao.save(customer);
 
         //create address
-        Country countryTest1 = new Country("Estonia");
-        City cityTest1 = new City("Tallinn");
+        String countryTest1 = new String("Estonia");
+        String cityTest1 = new String("Tallinn");
         Address addressTest1 = new Address(countryTest1, cityTest1);
         addressDao.save(addressTest1);
 
@@ -76,7 +74,9 @@ public class CustomerDaoTest {
                 endDate1,
                 Advertisement.ServiceType.OFFER,
                 new Category("CLEANING"),
-                shouldGetCustomerById);
+                shouldGetCustomerById,
+                addressTest1);
+
         advertisement1.setServiceState(Advertisement.ServiceState.INACTIVE);
 
         advertisementDao.save(advertisement1);
@@ -143,22 +143,85 @@ public class CustomerDaoTest {
     }
 
     @Test
-    public void shouldDeleteCustomer() {
+    public void shouldDeleteCustomer() throws ParseException {
 
         log.info("...shouldDeleteCustomer...");
 
-        Customer customerTest1 = new Customer("login", "password", "C J");
-        customerDao.save(customerTest1);
+        CategoryDao categoryDao = new CategoryDao(connectionToDatabaseCreate);
 
-        Customer customerTest2 = new Customer("login1", "password", "C J");
-        customerDao.save(customerTest2);
+        //create customer
+        Customer customer = new Customer();
+        customer.setLogin("Pjotr");
+        customer.setPassword("123456");
+        customer.setFullName("Petr III");
+        customerDao.save(customer);
 
-        Customer shouldBeSavedCustomer = customerDao.get(2L);
-        Assert.assertNotNull(shouldBeSavedCustomer);
+        //create address
+        String countryTest1 = new String("Estonia");
+        String countryTest2 = new String("USA");
+        String cityTest1 = new String("Tallinn");
+        String cityTest2 = new String("LA");
+        Address addressTest1 = new Address(countryTest1, cityTest1);
+        Address addressTest2 = new Address(countryTest2, cityTest2);
+        // addressDao.save(addressTest1);
 
+        Category category = new Category("Rent");
+        categoryDao.save(category);
+
+        //create dates
+        String startDateString1 = "31/12/1998";
+        Date startDate1 = new SimpleDateFormat("dd/MM/yyyy").parse(startDateString1);
+
+        String endDateString1 = "31/12/1998";
+        Date endDate1 = new SimpleDateFormat("dd/MM/yyyy").parse(endDateString1);
+
+        String startDateString2 = "21/02/2005";
+        Date startDate2 = new SimpleDateFormat("dd/MM/yyyy").parse(startDateString2);
+
+        String endDateString2 = "13/01/2001";
+        Date endDate2 = new SimpleDateFormat("dd/MM/yyyy").parse(endDateString2);
+
+        //create advertisement
+        Advertisement advertisement1 = new Advertisement(
+                "Clean Fast",
+                "blablabla",
+                "2.5",
+                startDate1,
+                endDate1,
+                Advertisement.ServiceType.OFFER,
+                category,
+                customer,
+                addressTest1);
+        advertisement1.setServiceState(Advertisement.ServiceState.INACTIVE);
+
+        Advertisement advertisement2 = new Advertisement(
+                "Car Rent",
+                "ohohoho",
+                "103.3",
+                startDate2,
+                endDate2,
+                Advertisement.ServiceType.REQUEST,
+                category,
+                customer,
+                addressTest2);
+        advertisement2.setServiceState(Advertisement.ServiceState.INACTIVE);
+
+        advertisementDao.save(advertisement1);
+        advertisementDao.save(advertisement2);
+
+        customer.setUserAdvertisements(Arrays.asList(advertisement1, advertisement2));
+
+        Customer shouldBeSavedCustomer = customerDao.get(1L);
+
+/*        Assert.assertNotNull(shouldBeSavedAd);
+        shouldBeSavedAd.setCustomer(null);
+        advertisementDao.update(shouldBeSavedAd);
+
+
+        Advertisement shouldBeUpdatedAd = advertisementDao.get(2L);*/
         customerDao.delete(shouldBeSavedCustomer);
 
-        Customer shouldBeDeletedCustomer = customerDao.get(2L);
+        Customer shouldBeDeletedCustomer = customerDao.get(1L);
         Assert.assertNull(shouldBeDeletedCustomer);
     }
 }

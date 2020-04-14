@@ -1,7 +1,6 @@
 package com.sda.controller;
 
 import com.sda.controller.animation.Shake;
-import com.sda.dao.implementation.CustomerDao;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -29,7 +28,7 @@ public class LogInViewController extends GeneralController {
 
         if (!loginText.isEmpty() && !loginPassword.isEmpty()) {
 
-            CustomerDao customerDao = new CustomerDao("hibernateDemi.cfg.xml");
+
             customer = customerDao.getByLoginAndPassword(loginText, loginPassword);
 
             if (customer != null) {
