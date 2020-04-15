@@ -1,7 +1,6 @@
 package com.sda.dao.implementation;
 
 import com.sda.dao.Dao;
-import com.sda.entity.Advertisement;
 import com.sda.entity.Category;
 import com.sda.util.SessionUtil;
 import org.hibernate.Session;
@@ -46,12 +45,10 @@ public class CategoryDao extends SessionUtil implements Dao<Category> {
     public void save(Category category) {
 
         try {
-            // open session with a transaction
             openTransactionAndSession();
             Session session = getSession();
             session.save(category);
 
-            // close session with a transaction
             closeTransactionAndSession();
 
         } catch (Exception e) {
@@ -67,12 +64,11 @@ public class CategoryDao extends SessionUtil implements Dao<Category> {
     public void update(Category category) {
 
         try {
-            // open session with a transaction
+
             openTransactionAndSession();
             Session session = getSession();
             session.merge(category);
 
-            // close session with a transaction
             closeTransactionAndSession();
 
         } catch (Exception e) {
@@ -88,13 +84,33 @@ public class CategoryDao extends SessionUtil implements Dao<Category> {
     public void delete(Category category) {
 
         try {
-            // open session with a transaction
-            //openTransactionAndSession();
+
             Session session = getSession();
             session.remove(category);
 
-            // close session with a transaction
             closeTransactionAndSession();
+
+        } catch (Exception e) {
+
+            if (getTransaction() != null) {
+                getTransaction().rollback();
+            }
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteAll() {
+
+        List<Category> categoryList = getAll();
+
+        Session session = getSession();
+        try {
+
+            for (Category category : categoryList) {
+
+                session.delete(category);
+            }
+        closeTransactionAndSession();
 
         } catch (Exception e) {
 
@@ -119,17 +135,15 @@ public class CategoryDao extends SessionUtil implements Dao<Category> {
 
 
     public List<String> getAllCategoriesList() {
-        openTransactionAndSession();
-        Session session = getSession();
 
-        Query<Category> getAllCategoryList = session.createNamedQuery("Category_GetAll", Category.class);
+        List<Category> getAllCategoryList = getAll();
+
         List<String> listOfSubcategories = new ArrayList<>();
-        for (Category o : getAllCategoryList.getResultList()) {
+        for (Category o : getAllCategoryList) {
             if (o.getSuperCategory() == null) {
                 listOfSubcategories.add(o.getName());
             }
         }
         return listOfSubcategories;
     }
-
 }

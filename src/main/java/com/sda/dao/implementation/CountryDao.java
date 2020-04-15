@@ -45,12 +45,10 @@ public class CountryDao extends SessionUtil implements Dao<Country> {
     public void save(Country country) {
 
         try {
-            // open session with a transaction
             openTransactionAndSession();
             Session session = getSession();
             session.save(country);
 
-            // close session with a transaction
             closeTransactionAndSession();
 
         } catch (Exception e) {
@@ -66,12 +64,10 @@ public class CountryDao extends SessionUtil implements Dao<Country> {
     public void update(Country country) {
 
         try {
-            // open session with a transaction
             openTransactionAndSession();
             Session session = getSession();
             session.merge(country);
 
-            // close session with a transaction
             closeTransactionAndSession();
 
         } catch (Exception e) {
@@ -87,12 +83,9 @@ public class CountryDao extends SessionUtil implements Dao<Country> {
     public void delete(Country country) {
 
         try {
-            // open session with a transaction
-            //openTransactionAndSession();
             Session session = getSession();
             session.delete(country);
 
-            // close session with a transaction
             closeTransactionAndSession();
 
         } catch (Exception e) {
@@ -115,19 +108,15 @@ public class CountryDao extends SessionUtil implements Dao<Country> {
 
     public void deleteAll() {
 
-        List<Country> addressList = getAll();
+        List<Country> countryList = getAll();
 
-        openTransactionAndSession();
         Session session = getSession();
         try {
-            // open session with a transaction
-            for (Country country : addressList) {
+            for (Country country : countryList) {
 
                 session.delete(country);
             }
             closeTransactionAndSession();
-
-            // close session with a transaction
 
         } catch (Exception e) {
 
