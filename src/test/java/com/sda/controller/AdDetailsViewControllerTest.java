@@ -1,7 +1,9 @@
 package com.sda.controller;
 
 import com.sda.dao.implementation.AdvertisementDao;
+import com.sda.dao.implementation.CategoryDao;
 import com.sda.dao.implementation.CustomerDao;
+import com.sda.entity.Address;
 import com.sda.entity.Advertisement;
 import com.sda.entity.Category;
 import com.sda.entity.Customer;
@@ -16,8 +18,10 @@ public class AdDetailsViewControllerTest {
 
     @Test
     public void shouldCreateAdvertisementDao() throws ParseException {
-        AdvertisementDao advertisementDao = new AdvertisementDao("hibernateDemi.cfg.xml");
-        CustomerDao customerDao = new CustomerDao("hibernateDemi.cfg.xml");
+        String connectionToDatabaseCreate  = "hibernateUnitTest.cfg.xml";
+        AdvertisementDao advertisementDao = new AdvertisementDao(connectionToDatabaseCreate);
+        CustomerDao customerDao = new CustomerDao(connectionToDatabaseCreate);
+        CategoryDao categoryDao = new CategoryDao(connectionToDatabaseCreate);
 
         Customer customer = new Customer();
         customer.setLogin("Pjotr");
@@ -26,6 +30,16 @@ public class AdDetailsViewControllerTest {
 
         customerDao.save(customer);
         Assert.assertNotNull(customerDao.get(1L));
+
+        //create address
+        String countryTest1 = new String("USA");
+        String cityTest1 = new String("LA");
+        Address addressTest1 = new Address(countryTest1, cityTest1);
+        Address addressTest2 = new Address(countryTest1, cityTest1);
+        //addressDao.save(addressTest1);
+
+        Category category = new Category("Rent");
+        categoryDao.save(category);
 
         String startDateString1 = "31/12/1998";
         Date startDate1 = new SimpleDateFormat("dd/MM/yyyy").parse(startDateString1);
@@ -46,8 +60,9 @@ public class AdDetailsViewControllerTest {
                 startDate1,
                 endDate1,
                 Advertisement.ServiceType.OFFER,
-                new Category("CLEANING"),
-                customer);
+                category,
+                customer,
+                addressTest1);
         advertisement1.setServiceState(Advertisement.ServiceState.INACTIVE);
 
         Advertisement advertisement2 = new Advertisement(
@@ -57,8 +72,9 @@ public class AdDetailsViewControllerTest {
                 startDate2,
                 endDate2,
                 Advertisement.ServiceType.REQUEST,
-                new Category("RENTING"),
-                customer);
+                category,
+                customer,
+                addressTest2);
         advertisement2.setServiceState(Advertisement.ServiceState.INACTIVE);
 
         advertisementDao.save(advertisement1);
