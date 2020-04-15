@@ -41,13 +41,12 @@ public class AdvertisementDao extends SessionUtil implements Dao<Advertisement> 
 
     @Override
     public void save(Advertisement advertisement) {
+
         try {
-            // open session with a transaction
             openTransactionAndSession();
             Session session = getSession();
             session.save(advertisement);
 
-            // close session with a transaction
             closeTransactionAndSession();
 
         } catch (Exception e) {
@@ -63,12 +62,10 @@ public class AdvertisementDao extends SessionUtil implements Dao<Advertisement> 
     public void update(Advertisement advertisement) {
 
         try {
-            // open session with a transaction
             openTransactionAndSession();
             Session session = getSession();
             session.merge(advertisement);
 
-            // close session with a transaction
             closeTransactionAndSession();
 
         } catch (Exception e) {
@@ -84,12 +81,30 @@ public class AdvertisementDao extends SessionUtil implements Dao<Advertisement> 
     public void delete(Advertisement advertisement) {
 
         try {
-            // open session with a transaction
-            //openTransactionAndSession();
             Session session = getSession();
             session.delete(advertisement);
 
-            // close session with a transaction
+            closeTransactionAndSession();
+
+        } catch (Exception e) {
+
+            if (getTransaction() != null) {
+                getTransaction().rollback();
+            }
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteAll() {
+
+        List<Advertisement> advertisementList = getAll();
+
+        Session session = getSession();
+        try {
+            for (Advertisement advertisement : advertisementList) {
+
+                session.delete(advertisement);
+            }
             closeTransactionAndSession();
 
         } catch (Exception e) {
@@ -107,7 +122,7 @@ public class AdvertisementDao extends SessionUtil implements Dao<Advertisement> 
         String state = Advertisement.ServiceState.ACTIVE.toString();
 
         Query<Advertisement> getAllActiveAdvertisementList = session.createNamedQuery("Advertisement_GetAllByState",
-                                                                                       Advertisement.class);
+                Advertisement.class);
         getAllActiveAdvertisementList.setParameter("state", state);
 
         return getAllActiveAdvertisementList.getResultList();
@@ -119,7 +134,7 @@ public class AdvertisementDao extends SessionUtil implements Dao<Advertisement> 
         String state = Advertisement.ServiceState.INACTIVE.toString();
 
         Query<Advertisement> getAllInactiveAdvertisementList = session.createNamedQuery("Advertisement_GetAllByState",
-                                                                                         Advertisement.class);
+                Advertisement.class);
         getAllInactiveAdvertisementList.setParameter("state", state);
 
         return getAllInactiveAdvertisementList.getResultList();

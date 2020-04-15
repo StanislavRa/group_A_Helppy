@@ -1,6 +1,7 @@
 package com.sda.controller;
 
 import com.sda.controller.utilities.Validator;
+import com.sda.dao.implementation.CityDao;
 import com.sda.entity.Advertisement;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -190,5 +191,11 @@ public class AllAdsViewController extends TableSetUp implements Initializable {
             }
         }
         return convertFromListToObservableList(getAllAdvertisementsByServiceTypeList);
+    }
+
+    List<String> getListOfCityNamesByCountry(String country, CityDao cityDao) {
+        List<String> listOfCityNames = cityDao.getAllCitiesByCountryList(country);
+
+        return listOfCityNames;
     }
 }

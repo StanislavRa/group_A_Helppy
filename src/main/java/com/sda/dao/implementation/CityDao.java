@@ -1,7 +1,6 @@
 package com.sda.dao.implementation;
 
 import com.sda.dao.Dao;
-import com.sda.entity.Address;
 import com.sda.entity.City;
 import com.sda.util.SessionUtil;
 import org.hibernate.Session;
@@ -46,12 +45,10 @@ public class CityDao extends SessionUtil implements Dao<City> {
     public void save(City city) {
 
         try {
-            // open session with a transaction
             openTransactionAndSession();
             Session session = getSession();
             session.save(city);
 
-            // close session with a transaction
             closeTransactionAndSession();
 
         } catch (Exception e) {
@@ -67,12 +64,10 @@ public class CityDao extends SessionUtil implements Dao<City> {
     public void update(City city) {
 
         try {
-            // open session with a transaction
             openTransactionAndSession();
             Session session = getSession();
             session.merge(city);
 
-            // close session with a transaction
             closeTransactionAndSession();
 
         } catch (Exception e) {
@@ -88,12 +83,9 @@ public class CityDao extends SessionUtil implements Dao<City> {
     public void delete(City city) {
 
         try {
-            // open session with a transaction
-            //openTransactionAndSession();
             Session session = getSession();
             session.delete(city);
 
-            // close session with a transaction
             closeTransactionAndSession();
 
         } catch (Exception e) {
@@ -113,7 +105,7 @@ public class CityDao extends SessionUtil implements Dao<City> {
         getAllCitiesByCountryList.setParameter("country", country);
 
         List<String> listOfCityNames = new ArrayList<>();
-        for (City a : getAllCitiesByCountryList.getResultList()){
+        for (City a : getAllCitiesByCountryList.getResultList()) {
             listOfCityNames.add(a.getCityName());
         }
         return listOfCityNames;
@@ -121,19 +113,15 @@ public class CityDao extends SessionUtil implements Dao<City> {
 
     public void deleteAll() {
 
-        List<City> addressList = getAll();
+        List<City> citiesList = getAll();
 
-        openTransactionAndSession();
         Session session = getSession();
         try {
-            // open session with a transaction
-            for (City city : addressList) {
+            for (City city : citiesList) {
 
                 session.delete(city);
             }
             closeTransactionAndSession();
-
-            // close session with a transaction
 
         } catch (Exception e) {
 
