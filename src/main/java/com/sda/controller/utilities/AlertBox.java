@@ -1,15 +1,7 @@
-package com.sda.controller;
+package com.sda.controller.utilities;
 
-import javafx.geometry.Pos;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 public class AlertBox {
 
@@ -28,7 +20,7 @@ public class AlertBox {
         alert.showAndWait();
     }
 
-    public static void validation (String message) {
+    public static void validation(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Inserted values are not valid");
         alert.setHeaderText(null);

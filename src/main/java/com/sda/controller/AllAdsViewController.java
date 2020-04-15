@@ -1,13 +1,15 @@
 package com.sda.controller;
 
+import com.sda.controller.utilities.Validator;
 import com.sda.entity.Advertisement;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
 
 import java.math.BigDecimal;
 import java.net.URL;
@@ -16,15 +18,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
+public class AllAdsViewController extends TableSetUp implements Initializable {
 
-/**
- * @author StanislavR
- */
-
-public class AllAdsViewController extends GeneralController<Advertisement> implements Initializable {
-
-    @FXML
-    private TableView<Advertisement> mainTableView;
     @FXML
     private ComboBox<String> categoryComboBox;
     @FXML
@@ -53,22 +48,6 @@ public class AllAdsViewController extends GeneralController<Advertisement> imple
     private ComboBox<String> serviceTypeComboBox;
     @FXML
     private RadioButton serviceTypeRadioButton;
-    @FXML
-    private TableColumn<Advertisement, String> subjectTableColumn;
-    @FXML
-    private TableColumn<Advertisement, String> categoryTableColumn;
-    @FXML
-    private TableColumn<Advertisement, String> priceTableColumn;
-    @FXML
-    private TableColumn<Advertisement, String> countryTableColumn;
-    @FXML
-    private TableColumn<Advertisement, String> cityTableColumn;
-    @FXML
-    private TableColumn<Advertisement, String> startDateTableColumn;
-    @FXML
-    private TableColumn<Advertisement, String> endDateTableColumn;
-    @FXML
-    private TableColumn<Advertisement, String> serviceTypeTableColumn;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -81,19 +60,12 @@ public class AllAdsViewController extends GeneralController<Advertisement> imple
     }
 
     @FXML
-    void showAllButtonPushed(ActionEvent event) {
+    private void showAllButtonPushed(ActionEvent event) {
         mainTableView.setItems(convertFromListToObservableList(adDao.getAllActiveList()));
     }
 
     @FXML
-    void detailsButtonPushed(ActionEvent event) {
-        AdDetailsViewController controller = (changeScreen(event, "/views/adDetailsView.fxml").getController());
-        controller.initData(mainTableView.getSelectionModel().getSelectedItem());
-        controller.setCustomer(customer);
-    }
-
-    @FXML
-    void countryComboBoxSelected(ActionEvent event) {
+    private void countryComboBoxSelected(ActionEvent event) {
         cityComboBox.getItems().clear();
         List<String> listOfCityNames = cityDao.getAllCitiesByCountryList(countryComboBox.getValue());
 
@@ -101,44 +73,44 @@ public class AllAdsViewController extends GeneralController<Advertisement> imple
     }
 
     @FXML
-    void findButtonPushed(ActionEvent event) {
+    private void findButtonPushed(ActionEvent event) {
 
-        if (categoryRadioButton.isSelected()) {
+        if (categoryRadioButton.isSelected() &&
+                Validator.isComboboxHasValue(categoryComboBox,"Select category")) {
             mainTableView.setItems(findActiveAdvertisementByCategory(categoryComboBox.getValue()));
         }
-        if (countryRadioButton.isSelected()) {
+        if (countryRadioButton.isSelected() &&
+                Validator.isComboboxHasValue(countryComboBox,"Select country")) {
             mainTableView.setItems(findActiveAdvertisementByCountry(countryComboBox.getValue()));
         }
-        if (cityRadioButton.isSelected()) {
+        if (cityRadioButton.isSelected() &&
+                Validator.isComboboxHasValue(cityComboBox,"Select city and country")) {
             mainTableView.setItems(findActiveAdvertisementByCity(cityComboBox.getValue()));
         }
-        if (priceRadioButton.isSelected()) {
+        if (priceRadioButton.isSelected() &&
+                Validator.isTextFieldEmpty(priceToTextField, "Insert max. price") &&
+                Validator.isTextFieldEmpty(priceFromTextField, "Insert min. price") &&
+                Validator.stringMatcherValidation(priceToTextField.getText(), "[0-9]*['.']?[0-9]*",
+                        "Make sure that price number format is xx.xx"))
+        {
             mainTableView.setItems(findActiveAdvertisementByPrice(new BigDecimal(priceFromTextField.getText()),
                     new BigDecimal((priceToTextField.getText()))));
         }
-        if (dateRadioButton.isSelected()) {
+        if (dateRadioButton.isSelected() &&
+                Validator.isDatePickerEmpty(startDatePicker,"Select Start Date") &&
+                Validator.isDatePickerEmpty(endDatePicker,"Select End Date") &&
+                Validator.startDateIsBeforeEndDate(
+                        startDatePicker.getValue(),
+                        endDatePicker.getValue(),
+                        "Make sure that End Date is after Start Date")) {
             mainTableView.setItems(findActiveAdvertisementByDate(
                     parser.convertToDateViaSqlDate(startDatePicker.getValue()),
                     parser.convertToDateViaSqlDate(endDatePicker.getValue())));
         }
-        if (serviceTypeRadioButton.isSelected()) {
+        if (serviceTypeRadioButton.isSelected() &&
+                Validator.isComboboxHasValue(serviceTypeComboBox,"Select OFFER or REQUEST")) {
             mainTableView.setItems(findActiveAdvertisementByServiceType(serviceTypeComboBox.getValue()));
         }
-    }
-
-    public void setUpTableColumns() {
-
-        subjectTableColumn.setCellValueFactory(new PropertyValueFactory<>("subject"));
-        categoryTableColumn.setCellValueFactory(value ->
-                new SimpleStringProperty(value.getValue().getCategory().getName()));
-        priceTableColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
-        countryTableColumn.setCellValueFactory(value ->
-                new SimpleStringProperty(value.getValue().getAddress().getCountry()));
-        cityTableColumn.setCellValueFactory(value ->
-                new SimpleStringProperty(value.getValue().getAddress().getCity()));
-        startDateTableColumn.setCellValueFactory(new PropertyValueFactory<>("startDate"));
-        endDateTableColumn.setCellValueFactory(new PropertyValueFactory<>("endDate"));
-        serviceTypeTableColumn.setCellValueFactory(new PropertyValueFactory<>("serviceType"));
     }
 
     public ObservableList<Advertisement> findActiveAdvertisementByCategory(String category) {

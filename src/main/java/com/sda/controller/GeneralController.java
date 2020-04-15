@@ -1,8 +1,9 @@
 package com.sda.controller;
 
 import com.sda.dao.implementation.*;
+import com.sda.entity.Advertisement;
 import com.sda.entity.Customer;
-import com.sda.parser.Parser;
+import com.sda.controller.utilities.Parser;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,10 +19,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.List;
 
-/**
- * @author StanislavR
- */
-public abstract class GeneralController<T> {
+public abstract class GeneralController {
 
     protected Customer customer;
     protected Parser parser = new Parser();
@@ -78,6 +76,11 @@ public abstract class GeneralController<T> {
 
     }
 
+    public void logOutButtonPushed(javafx.event.ActionEvent actionEvent) {
+        customer = null;
+        changeScreen(actionEvent, "/views/logInView.fxml");
+    }
+
     public void updateCustomer() {
         setCustomer(customerDao.get(customer.getId()));
     }
@@ -91,7 +94,7 @@ public abstract class GeneralController<T> {
     }
 
 
-    public ObservableList<T> convertFromListToObservableList(List<T> list) {
+    public ObservableList<Advertisement> convertFromListToObservableList(List<Advertisement> list) {
         return FXCollections.observableArrayList(list);
     }
 }

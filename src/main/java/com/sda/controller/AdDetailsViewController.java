@@ -4,9 +4,6 @@ import com.sda.entity.Advertisement;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 public class AdDetailsViewController extends GeneralController {
 
     @FXML
@@ -29,20 +26,15 @@ public class AdDetailsViewController extends GeneralController {
     private Label descriptionLabel;
 
     public void initData(Advertisement advertisement) {
+
         subjectLabel.setText(advertisement.getSubject());
         categoryLabel.setText(advertisement.getCategory().getName());
-        startDateLabel.setText(dateParser(advertisement.getStartDate()));
-        endDateLabel.setText(dateParser(advertisement.getEndDate()));
-        addressLabel.setText(advertisement.getAddress().getCity().toString());
+        startDateLabel.setText(parser.dateParser(advertisement.getStartDate()));
+        endDateLabel.setText(parser.dateParser(advertisement.getEndDate()));
+        addressLabel.setText(advertisement.getAddress().getCity());
         adTypeLabel.setText(advertisement.getServiceType().toString());
         priceLabel.setText(advertisement.getPrice().toString());
         descriptionLabel.setText(advertisement.getDescription());
         userFullNameLabel.setText(advertisement.getCustomer().getFullName());
-    }
-
-    public String dateParser(Date date) {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
-        String formattedDate = formatter.format(date);
-        return formattedDate;
     }
 }

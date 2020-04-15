@@ -1,17 +1,14 @@
-package com.sda.controller.animation;
+package com.sda.controller.utilities;
 
 import javafx.animation.TranslateTransition;
 import javafx.scene.Node;
 import javafx.util.Duration;
 
-/**
- * @author StanislavR
- */
-public class Shake {
+public class Animation {
 
     private TranslateTransition translateTransition;
 
-    public Shake(Node node) {
+    public Animation(Node node) {
         translateTransition = new TranslateTransition(Duration.millis(70), node);
         translateTransition.setFromX(0f);
         translateTransition.setByX(10f);
