@@ -9,14 +9,14 @@ import java.util.logging.Logger;
 
 
 /**
- * @author StanislavR
+ * Work only one-by-one
  */
 
 public class CountryDaoTest {
 
     Logger log = Logger.getLogger(CountryDaoTest.class.getName());
 
-    String connectionToDatabaseCreate  = "hibernateUnitTest.cfg.xml";
+    String connectionToDatabaseCreate = "hibernateUnitTest.cfg.xml";
 
     CountryDao countryDao = new CountryDao(connectionToDatabaseCreate);
 
@@ -55,7 +55,7 @@ public class CountryDaoTest {
         Country addressCityTest2 = new Country("Sweden");
         countryDao.save(addressCityTest2);
 
-        List<Country> getAllAddressesCountries =  countryDao.getAll();
+        List<Country> getAllAddressesCountries = countryDao.getAll();
 
         Assert.assertEquals(2, getAllAddressesCountries.size());
 

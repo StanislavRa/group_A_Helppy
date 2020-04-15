@@ -9,14 +9,14 @@ import java.util.logging.Logger;
 
 
 /**
- * @author StanislavR
+ * Work only one-by-one
  */
 
 public class CityDaoTest {
 
     Logger log = Logger.getLogger(CityDaoTest.class.getName());
 
-    String connectionToDatabaseCreate  = "hibernateUnitTest.cfg.xml";
+    String connectionToDatabaseCreate = "hibernateUnitTest.cfg.xml";
 
     CityDao cityDao = new CityDao(connectionToDatabaseCreate);
 
@@ -57,7 +57,7 @@ public class CityDaoTest {
         City cityTest2 = new City("Tartu");
         cityDao.save(cityTest2);
 
-        List<City> getAllAddressesCities =  cityDao.getAll();
+        List<City> getAllAddressesCities = cityDao.getAll();
 
         Assert.assertEquals(2, getAllAddressesCities.size());
 
@@ -90,7 +90,7 @@ public class CityDaoTest {
         log.info("...shouldDeleteAddress...");
 
         City cityTest1 = new City("Tallinn");
-           cityDao.save(cityTest1);
+        cityDao.save(cityTest1);
 
         City cityTest2 = new City("Tallinn");
         cityDao.save(cityTest2);

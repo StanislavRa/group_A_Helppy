@@ -8,13 +8,13 @@ import java.util.List;
 import java.util.logging.Logger;
 
 /**
- * @author StanislavR
+ * Work only one-by-one
  */
 
 public class CategoryDaoTest {
     Logger log = Logger.getLogger(CategoryDaoTest.class.getName());
 
-    String connectionToDatabaseCreate  = "hibernateUnitTest.cfg.xml";
+    String connectionToDatabaseCreate = "hibernateUnitTest.cfg.xml";
 
     CategoryDao categoryDao = new CategoryDao(connectionToDatabaseCreate);
 
@@ -26,15 +26,15 @@ public class CategoryDaoTest {
         Category rentSuperCategory = new Category(null, "Rent");
         categoryDao.save(rentSuperCategory);
 
-        Category rentSubCategory1 = new Category(rentSuperCategory,"Car Rent");
+        Category rentSubCategory1 = new Category(rentSuperCategory, "Car Rent");
         categoryDao.save(rentSubCategory1);
 
-        Category rentSubCategory2 = new Category(rentSuperCategory,"Apartment Rent");
+        Category rentSubCategory2 = new Category(rentSuperCategory, "Apartment Rent");
         categoryDao.save(rentSubCategory2);
 
-        Assert.assertEquals("Rent",categoryDao.get(2L).getSuperCategory().getName());
+        Assert.assertEquals("Rent", categoryDao.get(2L).getSuperCategory().getName());
         Assert.assertEquals(2, categoryDao.get(1L).getSubCategories().size());
-        Assert.assertEquals("Car Rent",categoryDao.get(1L).getSubCategories().get(0).getName());
+        Assert.assertEquals("Car Rent", categoryDao.get(1L).getSubCategories().get(0).getName());
     }
 
     @Test
@@ -45,12 +45,12 @@ public class CategoryDaoTest {
         Category rentSuperCategory = new Category(null, "Rent");
         categoryDao.save(rentSuperCategory);
 
-        Category rentSubCategory1 = new Category(rentSuperCategory,"Car Rent");
+        Category rentSubCategory1 = new Category(rentSuperCategory, "Car Rent");
         categoryDao.save(rentSubCategory1);
 
         Category shouldGetCategoryById = categoryDao.get(1L);
 
-        Assert.assertEquals(shouldGetCategoryById,rentSuperCategory );
+        Assert.assertEquals(shouldGetCategoryById, rentSuperCategory);
 
     }
 
@@ -62,13 +62,13 @@ public class CategoryDaoTest {
         Category rentSuperCategory = new Category(null, "Rent");
         categoryDao.save(rentSuperCategory);
 
-        Category rentSubCategory1 = new Category(rentSuperCategory,"Car Rent");
+        Category rentSubCategory1 = new Category(rentSuperCategory, "Car Rent");
         categoryDao.save(rentSubCategory1);
 
-        Category rentSubCategory3 = new Category(rentSuperCategory,"Bike Rent");
+        Category rentSubCategory3 = new Category(rentSuperCategory, "Bike Rent");
         categoryDao.save(rentSubCategory3);
 
-        List<Category> getAllCategory =  categoryDao.getAll();
+        List<Category> getAllCategory = categoryDao.getAll();
 
         Assert.assertEquals(3, getAllCategory.size());
 
@@ -92,7 +92,7 @@ public class CategoryDaoTest {
 
         Category updatedCategory = categoryDao.get(1L);
 
-        Assert.assertEquals(newCategoryName,updatedCategory.getName());
+        Assert.assertEquals(newCategoryName, updatedCategory.getName());
     }
 
     @Test
@@ -103,10 +103,10 @@ public class CategoryDaoTest {
         Category rentSuperCategory = new Category(null, "Rent");
         categoryDao.save(rentSuperCategory);
 
-        Category rentSubCategory1 = new Category(rentSuperCategory,"Car Rent");
+        Category rentSubCategory1 = new Category(rentSuperCategory, "Car Rent");
         categoryDao.save(rentSubCategory1);
 
-        Category rentSubCategory3 = new Category(rentSuperCategory,"Bike Rent");
+        Category rentSubCategory3 = new Category(rentSuperCategory, "Bike Rent");
         categoryDao.save(rentSubCategory3);
 
 
