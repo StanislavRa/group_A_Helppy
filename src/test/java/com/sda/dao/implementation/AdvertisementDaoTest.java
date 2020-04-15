@@ -1,6 +1,9 @@
 package com.sda.dao.implementation;
 
-import com.sda.entity.*;
+import com.sda.entity.Address;
+import com.sda.entity.Advertisement;
+import com.sda.entity.Category;
+import com.sda.entity.Customer;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -12,7 +15,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 /**
- * @author StanislavR
+ * Work only one-by-one
  */
 
 public class AdvertisementDaoTest {
@@ -391,7 +394,7 @@ public class AdvertisementDaoTest {
         String cityTest2 = new String("LA");
         Address addressTest1 = new Address(countryTest1, cityTest1);
         Address addressTest2 = new Address(countryTest2, cityTest2);
-       // addressDao.save(addressTest1);
+        // addressDao.save(addressTest1);
 
         Category category = new Category("Rent");
         categoryDao.save(category);

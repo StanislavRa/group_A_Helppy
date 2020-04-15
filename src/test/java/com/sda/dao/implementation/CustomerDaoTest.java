@@ -1,6 +1,9 @@
 package com.sda.dao.implementation;
 
-import com.sda.entity.*;
+import com.sda.entity.Address;
+import com.sda.entity.Advertisement;
+import com.sda.entity.Category;
+import com.sda.entity.Customer;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -12,14 +15,14 @@ import java.util.List;
 import java.util.logging.Logger;
 
 /**
- * @author StanislavR
+ * Work only one-by-one
  */
 
 public class CustomerDaoTest {
 
     Logger log = Logger.getLogger(CustomerDaoTest.class.getName());
 
-    String connectionToDatabaseCreate  = "hibernateUnitTest.cfg.xml";
+    String connectionToDatabaseCreate = "hibernateUnitTest.cfg.xml";
 
     CustomerDao customerDao = new CustomerDao(connectionToDatabaseCreate);
     AdvertisementDao advertisementDao = new AdvertisementDao(connectionToDatabaseCreate);
@@ -109,7 +112,7 @@ public class CustomerDaoTest {
 
         Customer updatedCustomer = customerDao.get(1L);
 
-        Assert.assertEquals(newCustomerPassword,updatedCustomer.getPassword());
+        Assert.assertEquals(newCustomerPassword, updatedCustomer.getPassword());
     }
 
     @Test
@@ -137,7 +140,7 @@ public class CustomerDaoTest {
         customerDao.save(customerSasha);
         customerDao.save(customerVasja);
 
-        List<Customer> getAllCustomers =  customerDao.getAll();
+        List<Customer> getAllCustomers = customerDao.getAll();
 
         Assert.assertEquals(3, getAllCustomers.size());
     }
