@@ -106,6 +106,7 @@ public class CountryDao extends SessionUtil implements Dao<Country> {
         return listOfCountryNames;
     }
 
+    @Override
     public void deleteAll() {
 
         List<Country> countryList = getAll();

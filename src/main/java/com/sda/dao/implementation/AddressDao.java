@@ -99,6 +99,7 @@ public class AddressDao extends SessionUtil implements Dao<Address> {
         }
     }
 
+    @Override
     public void deleteAll() {
 
         List<Address> addressList = getAll();

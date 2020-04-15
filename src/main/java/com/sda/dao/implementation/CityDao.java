@@ -97,20 +97,7 @@ public class CityDao extends SessionUtil implements Dao<City> {
         }
     }
 
-    public List<String> getAllCitiesByCountryList(String country) {
-        openTransactionAndSession();
-        Session session = getSession();
-
-        Query<City> getAllCitiesByCountryList = session.createNamedQuery("City_GetAllByCountry", City.class);
-        getAllCitiesByCountryList.setParameter("country", country);
-
-        List<String> listOfCityNames = new ArrayList<>();
-        for (City a : getAllCitiesByCountryList.getResultList()) {
-            listOfCityNames.add(a.getCityName());
-        }
-        return listOfCityNames;
-    }
-
+    @Override
     public void deleteAll() {
 
         List<City> citiesList = getAll();
@@ -130,5 +117,19 @@ public class CityDao extends SessionUtil implements Dao<City> {
             }
             e.printStackTrace();
         }
+    }
+
+    public List<String> getAllCityNamesByCountry(String country) {
+        openTransactionAndSession();
+        Session session = getSession();
+
+        Query<City> getAllCitiesByCountryList = session.createNamedQuery("City_GetAllByCountry", City.class);
+        getAllCitiesByCountryList.setParameter("country", country);
+
+        List<String> listOfCityNames = new ArrayList<>();
+        for (City a : getAllCitiesByCountryList.getResultList()) {
+            listOfCityNames.add(a.getCityName());
+        }
+        return listOfCityNames;
     }
 }

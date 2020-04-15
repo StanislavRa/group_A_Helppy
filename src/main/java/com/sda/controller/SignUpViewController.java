@@ -17,7 +17,7 @@ public class SignUpViewController extends GeneralController {
     private TextField fullNameTextField;
 
     @FXML
-    void signUpButtonPushed(ActionEvent event) {
+    protected void signUpButtonPushed(ActionEvent event) {
 
         String loginText = userNameTextField.getText().trim();
         Customer customer = customerDao.getByLogin(loginText);
@@ -50,7 +50,7 @@ public class SignUpViewController extends GeneralController {
     }
 
     @FXML
-    void signInButtonPushed(ActionEvent event) {
+    protected void signInButtonPushed(ActionEvent event) {
         changeScreen(event, "/views/loginView.fxml");
     }
 }

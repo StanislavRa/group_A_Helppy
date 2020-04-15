@@ -54,27 +54,27 @@ public class AllAdsViewController extends TableSetUp implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         setUpTableColumns();
-        mainTableView.setItems(convertFromListToObservableList(adDao.getAllActiveList()));
+        mainTableView.setItems(convertFromListToObservableList(adDao.getAllActiveAds()));
         countryComboBox.getItems().addAll(countryDao.getAllCountriesNamesList(countryDao.getAll()));
-        categoryComboBox.getItems().addAll((categoryDao.getAllCategoriesList()));
-        serviceTypeComboBox.getItems().addAll(adDao.getAllServiceTypes());
+        categoryComboBox.getItems().addAll((categoryDao.getAllCategoryNames()));
+        serviceTypeComboBox.getItems().addAll(parser.getNames(Advertisement.ServiceType.class));
     }
 
     @FXML
-    private void showAllButtonPushed(ActionEvent event) {
-        mainTableView.setItems(convertFromListToObservableList(adDao.getAllActiveList()));
+    protected void showAllButtonPushed(ActionEvent event) {
+        mainTableView.setItems(convertFromListToObservableList(adDao.getAllActiveAds()));
     }
 
     @FXML
-    private void countryComboBoxSelected(ActionEvent event) {
+    protected void countryComboBoxSelected(ActionEvent event) {
         cityComboBox.getItems().clear();
-        List<String> listOfCityNames = cityDao.getAllCitiesByCountryList(countryComboBox.getValue());
+        List<String> listOfCityNames = cityDao.getAllCityNamesByCountry(countryComboBox.getValue());
 
         cityComboBox.getItems().addAll(listOfCityNames);
     }
 
     @FXML
-    private void findButtonPushed(ActionEvent event) {
+    protected void findButtonPushed(ActionEvent event) {
 
         if (categoryRadioButton.isSelected() &&
                 Validator.isComboboxHasValue(categoryComboBox,"Select category")) {
@@ -114,9 +114,9 @@ public class AllAdsViewController extends TableSetUp implements Initializable {
         }
     }
 
-    public ObservableList<Advertisement> findActiveAdvertisementByCategory(String category) {
+    protected ObservableList<Advertisement> findActiveAdvertisementByCategory(String category) {
 
-        List<Advertisement> getAllAdvertisementsList = adDao.getAllActiveList();
+        List<Advertisement> getAllAdvertisementsList = adDao.getAllActiveAds();
         List<Advertisement> getAllAdvertisementsByCategory = new ArrayList<>();
 
         for (Advertisement advertisement : getAllAdvertisementsList) {
@@ -127,9 +127,9 @@ public class AllAdsViewController extends TableSetUp implements Initializable {
         return convertFromListToObservableList(getAllAdvertisementsByCategory);
     }
 
-    public ObservableList<Advertisement> findActiveAdvertisementByCity(String city) {
+    protected ObservableList<Advertisement> findActiveAdvertisementByCity(String city) {
 
-        List<Advertisement> getAllAdvertisementsList = adDao.getAllActiveList();
+        List<Advertisement> getAllAdvertisementsList = adDao.getAllActiveAds();
         List<Advertisement> getAllAdvertisementsByCity = new ArrayList<>();
 
         for (Advertisement advertisement : getAllAdvertisementsList) {
@@ -140,9 +140,9 @@ public class AllAdsViewController extends TableSetUp implements Initializable {
         return convertFromListToObservableList(getAllAdvertisementsByCity);
     }
 
-    public ObservableList<Advertisement> findActiveAdvertisementByCountry(String country) {
+    protected ObservableList<Advertisement> findActiveAdvertisementByCountry(String country) {
 
-        List<Advertisement> getAllAdvertisementsList = adDao.getAllActiveList();
+        List<Advertisement> getAllAdvertisementsList = adDao.getAllActiveAds();
         List<Advertisement> getAllAdvertisementsByCountry = new ArrayList<>();
 
         for (Advertisement advertisement : getAllAdvertisementsList) {
@@ -153,10 +153,10 @@ public class AllAdsViewController extends TableSetUp implements Initializable {
         return convertFromListToObservableList(getAllAdvertisementsByCountry);
     }
 
-    public ObservableList<Advertisement> findActiveAdvertisementByPrice(BigDecimal bigDecimalBottomRate,
+    protected ObservableList<Advertisement> findActiveAdvertisementByPrice(BigDecimal bigDecimalBottomRate,
                                                                         BigDecimal bigDecimalTopRate) {
 
-        List<Advertisement> getAllAdvertisementsList = adDao.getAllActiveList();
+        List<Advertisement> getAllAdvertisementsList = adDao.getAllActiveAds();
         List<Advertisement> getAllAdvertisementsByPrice = new ArrayList<>();
 
         for (Advertisement advertisement : getAllAdvertisementsList) {
@@ -167,9 +167,9 @@ public class AllAdsViewController extends TableSetUp implements Initializable {
         return convertFromListToObservableList(getAllAdvertisementsByPrice);
     }
 
-    public ObservableList<Advertisement> findActiveAdvertisementByDate(Date startDate, Date endDate) {
+    protected ObservableList<Advertisement> findActiveAdvertisementByDate(Date startDate, Date endDate) {
 
-        List<Advertisement> getAllAdvertisementsList = adDao.getAllActiveList();
+        List<Advertisement> getAllAdvertisementsList = adDao.getAllActiveAds();
         List<Advertisement> getAllAdvertisementsByDate = new ArrayList<>();
 
         for (Advertisement advertisement : getAllAdvertisementsList) {
@@ -180,9 +180,9 @@ public class AllAdsViewController extends TableSetUp implements Initializable {
         return convertFromListToObservableList(getAllAdvertisementsByDate);
     }
 
-    public ObservableList<Advertisement> findActiveAdvertisementByServiceType(String serviceType) {
+    protected ObservableList<Advertisement> findActiveAdvertisementByServiceType(String serviceType) {
 
-        List<Advertisement> getAllAdvertisementsList = adDao.getAllActiveList();
+        List<Advertisement> getAllAdvertisementsList = adDao.getAllActiveAds();
         List<Advertisement> getAllAdvertisementsByServiceTypeList = new ArrayList<>();
 
         for (Advertisement advertisement : getAllAdvertisementsList) {
@@ -193,8 +193,8 @@ public class AllAdsViewController extends TableSetUp implements Initializable {
         return convertFromListToObservableList(getAllAdvertisementsByServiceTypeList);
     }
 
-    List<String> getListOfCityNamesByCountry(String country, CityDao cityDao) {
-        List<String> listOfCityNames = cityDao.getAllCitiesByCountryList(country);
+    protected List<String> getListOfCityNamesByCountry(String country, CityDao cityDao) {
+        List<String> listOfCityNames = cityDao.getAllCityNamesByCountry(country);
 
         return listOfCityNames;
     }

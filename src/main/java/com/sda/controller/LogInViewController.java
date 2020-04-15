@@ -20,7 +20,7 @@ public class LogInViewController extends GeneralController {
     protected Button signUpNowButton;
 
     @FXML
-    private void signInButtonPushed(ActionEvent event) {
+    protected void signInButtonPushed(ActionEvent event) {
 
         String loginText = userNameTextField.getText().trim();
         String loginPassword = passwordPasswordField.getText().trim();
@@ -54,7 +54,7 @@ public class LogInViewController extends GeneralController {
     }
 
     @FXML
-    void signUpNowButtonPushed(ActionEvent event) {
+    protected void signUpNowButtonPushed(ActionEvent event) {
         changeScreen(event, "/views/signUpView.fxml");
     }
 }
