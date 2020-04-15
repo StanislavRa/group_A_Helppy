@@ -33,5 +33,10 @@
             <Font name="Brush Script MT Italic" size="52.0" />
          </font>
       </Text>
+      <Text fx:id="logoText1" boundsType="VISUAL" fill="#00ae57" layoutX="329.0" layoutY="246.0" onMouseClicked="#logoTextOnMouseClicked" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Helppy Application!" textAlignment="CENTER" wrappingWidth="616.2734375">
+         <font>
+            <Font name="Brush Script MT Italic" size="150.0" />
+         </font>
+      </Text>
    </children>
 </Pane>

@@ -7,7 +7,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sda.controller.AllAdsViewController">
    <children>
-      <HBox layoutX="992.0" layoutY="14.0" spacing="14.0">
+      <HBox layoutX="848.0" layoutY="14.0" spacing="14.0">
          <children>
             <Button fx:id="myAdsButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#myAdsButtonPushed" prefHeight="45.0" prefWidth="130.0" style="-fx-background-color: rgb(0, 204, 102); -fx-background-radius: 35;" text="My Ads" textFill="WHITE">
                <font>
@@ -19,13 +19,31 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Button>
+            <Button fx:id="logOutButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#logOutButtonPushed" prefHeight="45.0" prefWidth="130.0" style="-fx-background-color: rgb(0, 204, 102); -fx-background-radius: 35;" text="Log Out" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </Button>
          </children>
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
       </HBox>
-      <VBox layoutX="14.0" layoutY="89.0" prefHeight="682.0" prefWidth="238.0" spacing="30.0">
+      <VBox layoutX="14.0" layoutY="97.0" prefHeight="682.0" prefWidth="238.0" spacing="30.0">
          <children>
+            <Text blendMode="SRC_ATOP" boundsType="VISUAL" fill="#28c96e" strokeType="OUTSIDE" strokeWidth="0.0" text="SEARCH TAB" textAlignment="CENTER" wrappingWidth="160.3671875">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Text>
+            <Text blendMode="SRC_ATOP" boundsType="VISUAL" layoutX="-7.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select one criterium  ⬇" textAlignment="RIGHT" wrappingWidth="225.2041015625">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Text>
             <GridPane vgap="10.0">
               <columnConstraints>
                 <ColumnConstraints minWidth="10.0" />
@@ -191,27 +209,27 @@
             </GridPane>
             <HBox alignment="CENTER">
                <children>
-                  <Button fx:id="findButton" mnemonicParsing="false" onAction="#findButtonPushed" prefHeight="30.0" prefWidth="101.0" style="-fx-background-color: rgb(0, 204, 102); -fx-background-radius: 35;" text="Find">
+                  <Button fx:id="findButton" mnemonicParsing="false" onAction="#findButtonPushed" prefHeight="30.0" prefWidth="101.0" style="-fx-background-color: rgb(0, 204, 102); -fx-background-radius: 35;" text="Find" textFill="WHITE">
                      <font>
-                        <Font size="14.0" />
+                        <Font name="System Bold" size="14.0" />
                      </font>
                   </Button>
                </children>
             </HBox>
             <HBox alignment="CENTER" layoutX="15.0" layoutY="480.0" prefWidth="228.0">
                <children>
-                  <Button fx:id="showAllButton" mnemonicParsing="false" onAction="#showAllButtonPushed" prefHeight="30.0" prefWidth="101.0" style="-fx-background-color: rgb(0, 204, 102); -fx-background-radius: 35;" text="Show all">
+                  <Button fx:id="showAllButton" mnemonicParsing="false" onAction="#showAllButtonPushed" prefHeight="30.0" prefWidth="101.0" style="-fx-background-color: rgb(0, 204, 102); -fx-background-radius: 35;" text="Show all" textFill="WHITE">
                      <font>
-                        <Font size="14.0" />
+                        <Font name="System Bold" size="14.0" />
                      </font>
                   </Button>
                </children>
             </HBox>
             <HBox alignment="CENTER" layoutX="15.0" layoutY="480.0" prefWidth="228.0">
                <children>
-                  <Button fx:id="detailsButton" mnemonicParsing="false" onAction="#detailsButtonPushed" prefHeight="30.0" prefWidth="101.0" style="-fx-background-color: rgb(0, 204, 102); -fx-background-radius: 35;" text="Details">
+                  <Button fx:id="detailsButton" mnemonicParsing="false" onAction="#detailsButtonPushed" prefHeight="30.0" prefWidth="101.0" style="-fx-background-color: rgb(0, 204, 102); -fx-background-radius: 35;" text="Details" textFill="WHITE">
                      <font>
-                        <Font size="14.0" />
+                        <Font name="System Bold" size="14.0" />
                      </font>
                   </Button>
                </children>
@@ -223,14 +241,14 @@
       </VBox>
       <TableView fx:id="mainTableView" layoutX="261.0" layoutY="89.0" prefHeight="682.0" prefWidth="1005.0">
         <columns>
-          <TableColumn fx:id="subjectTableColumn" prefWidth="-1.0" text="Subject" />
           <TableColumn fx:id="categoryTableColumn" minWidth="0.0" prefWidth="-1.0" text="Category" />
+            <TableColumn fx:id="serviceTypeTableColumn" prefWidth="-1.0" text="Request / Offer" />
+          <TableColumn fx:id="subjectTableColumn" prefWidth="-1.0" text="Subject" />
             <TableColumn fx:id="priceTableColumn" prefWidth="-1.0" text="Price" />
             <TableColumn fx:id="countryTableColumn" prefWidth="-1.0" text="Country" />
             <TableColumn fx:id="cityTableColumn" prefWidth="-1.0" text="City" />
             <TableColumn fx:id="startDateTableColumn" prefWidth="-1.0" text="Start Date" />
             <TableColumn fx:id="endDateTableColumn" prefWidth="-1.0" text="End Date" />
-            <TableColumn fx:id="serviceTypeTableColumn" prefWidth="-1.0" text="Request / Offer" />
         </columns>
          <opaqueInsets>
             <Insets />
