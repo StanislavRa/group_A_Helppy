@@ -6,10 +6,10 @@ import org.hibernate.Transaction;
 public abstract class SessionUtil {
 	private Session session;
 	private Transaction transaction;
-	public String configFile;
+	private final String CONFIG_FILE;
 
-	public SessionUtil(String configFile) {
-		this.configFile = configFile;
+	public SessionUtil(String CONFIG_FILE) {
+		this.CONFIG_FILE = CONFIG_FILE;
 	}
 
 	public Session getSession() {
@@ -21,7 +21,7 @@ public abstract class SessionUtil {
 	}
 
 	public Session openSession() {
-		return HibernateUtil.getSessionFactory(configFile).openSession();
+		return HibernateUtil.getSessionFactory(CONFIG_FILE).openSession();
 	}
 
 	public Session openTransactionAndSession() {

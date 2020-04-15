@@ -45,19 +45,18 @@ public abstract class GeneralController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return loader;
     }
 
     @FXML
-    void allAdsButtonPushed(ActionEvent event) {
+    protected void allAdsButtonPushed(ActionEvent event) {
 
         AllAdsViewController allAdsViewController = changeScreen(event, "/views/allAdsView.fxml").getController();
         allAdsViewController.setCustomer(customer);
     }
 
     @FXML
-    void myAdsButtonPushed(ActionEvent event) {
+    protected void myAdsButtonPushed(ActionEvent event) {
 
         if (customer != null) {
             MyAdsController controller = (changeScreen(event, "/views/myAdsView.fxml").getController());
@@ -69,31 +68,28 @@ public abstract class GeneralController {
     }
 
     @FXML
-    void logoTextOnMouseClicked(MouseEvent event) {
+    protected void logoTextOnMouseClicked(MouseEvent event) {
         HomeViewController homeViewController = changeScreen(event, "/views/homeView.fxml").getController();
         homeViewController.setCustomer(customer);
-
     }
 
-    public void logOutButtonPushed(javafx.event.ActionEvent actionEvent) {
+    protected void logOutButtonPushed(javafx.event.ActionEvent actionEvent) {
         customer = null;
         changeScreen(actionEvent, "/views/logInView.fxml");
     }
 
-    public void updateCustomer() {
+    protected void updateCustomer() {
         setCustomer(customerDao.get(customer.getId()));
     }
 
+    protected ObservableList<Advertisement> convertFromListToObservableList(List<Advertisement> list) {
+        return FXCollections.observableArrayList(list);
+    }
     public Customer getCustomer() {
         return customer;
     }
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
-    }
-
-
-    public ObservableList<Advertisement> convertFromListToObservableList(List<Advertisement> list) {
-        return FXCollections.observableArrayList(list);
     }
 }

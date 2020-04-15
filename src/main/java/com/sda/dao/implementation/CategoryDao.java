@@ -99,6 +99,7 @@ public class CategoryDao extends SessionUtil implements Dao<Category> {
         }
     }
 
+    @Override
     public void deleteAll() {
 
         List<Category> categoryList = getAll();
@@ -134,7 +135,7 @@ public class CategoryDao extends SessionUtil implements Dao<Category> {
     }
 
 
-    public List<String> getAllCategoriesList() {
+    public List<String> getAllCategoryNames() {
 
         List<Category> getAllCategoryList = getAll();
 

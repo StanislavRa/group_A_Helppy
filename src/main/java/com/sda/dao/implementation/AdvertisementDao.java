@@ -95,6 +95,7 @@ public class AdvertisementDao extends SessionUtil implements Dao<Advertisement> 
         }
     }
 
+    @Override
     public void deleteAll() {
 
         List<Advertisement> advertisementList = getAll();
@@ -116,7 +117,7 @@ public class AdvertisementDao extends SessionUtil implements Dao<Advertisement> 
         }
     }
 
-    public List<Advertisement> getAllActiveList() {
+    public List<Advertisement> getAllActiveAds() {
         openTransactionAndSession();
         Session session = getSession();
         String state = Advertisement.ServiceState.ACTIVE.toString();
@@ -128,7 +129,7 @@ public class AdvertisementDao extends SessionUtil implements Dao<Advertisement> 
         return getAllActiveAdvertisementList.getResultList();
     }
 
-    public List<Advertisement> getAllInactiveList() {
+    public List<Advertisement> getAllInactiveAds() {
         openTransactionAndSession();
         Session session = getSession();
         String state = Advertisement.ServiceState.INACTIVE.toString();
@@ -138,19 +139,5 @@ public class AdvertisementDao extends SessionUtil implements Dao<Advertisement> 
         getAllInactiveAdvertisementList.setParameter("state", state);
 
         return getAllInactiveAdvertisementList.getResultList();
-    }
-
-    public List<String> getAllServiceTypes() {
-        List<String> listOfServiceTypes = new ArrayList<>();
-        listOfServiceTypes.add(Advertisement.ServiceType.OFFER.name());
-        listOfServiceTypes.add(Advertisement.ServiceType.REQUEST.name());
-        return listOfServiceTypes;
-    }
-
-    public List<String> getAllServiceStates() {
-        List<String> listOfServiceStates = new ArrayList<>();
-        listOfServiceStates.add(Advertisement.ServiceState.INACTIVE.name());
-        listOfServiceStates.add(Advertisement.ServiceState.ACTIVE.name());
-        return listOfServiceStates;
     }
 }

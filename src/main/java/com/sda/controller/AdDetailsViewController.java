@@ -25,7 +25,7 @@ public class AdDetailsViewController extends GeneralController {
     @FXML
     private Label descriptionLabel;
 
-    public void initData(Advertisement advertisement) {
+    protected void initData(Advertisement advertisement) {
 
         subjectLabel.setText(advertisement.getSubject());
         categoryLabel.setText(advertisement.getCategory().getName());

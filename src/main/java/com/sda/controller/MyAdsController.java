@@ -53,18 +53,18 @@ public class MyAdsController extends TableSetUp implements Initializable {
 
         mainTableView.setItems(adsTable);
         countryComboBox.getItems().addAll(countryDao.getAllCountriesNamesList(countryDao.getAll()));
-        categoryComboBox.getItems().addAll((categoryDao.getAllCategoriesList()));
+        categoryComboBox.getItems().addAll((categoryDao.getAllCategoryNames()));
     }
 
     @FXML
-    private void countryComboBoxSelected(javafx.event.ActionEvent event) {
+    protected void countryComboBoxSelected(javafx.event.ActionEvent event) {
         cityComboBox.getItems().clear();
-        List<String> listOfCityNames = cityDao.getAllCitiesByCountryList(countryComboBox.getValue());
+        List<String> listOfCityNames = cityDao.getAllCityNamesByCountry(countryComboBox.getValue());
 
         cityComboBox.getItems().addAll(listOfCityNames);
     }
 
-    private boolean userInputNullCheck() {
+    protected boolean userInputNullCheck() {
         if (
                 categoryComboBox.getSelectionModel().isEmpty() ||
                         startDatePicker.getValue() == null ||
@@ -82,7 +82,7 @@ public class MyAdsController extends TableSetUp implements Initializable {
         return true;
     }
 
-    private boolean fieldsValidator() {
+    protected boolean fieldsValidator() {
 
         return userInputNullCheck() &&
                 Validator.startDateIsBeforeEndDate(
@@ -96,12 +96,12 @@ public class MyAdsController extends TableSetUp implements Initializable {
                                 "Make sure that price number format is xx.xx");
     }
 
-    private Advertisement.ServiceType serviceTypeSelected() {
+    protected Advertisement.ServiceType serviceTypeSelected() {
         return offerServiceRadioButton.isSelected() ?
                 Advertisement.ServiceType.OFFER : Advertisement.ServiceType.REQUEST;
     }
 
-    private Advertisement getAdFromFields() {
+    protected Advertisement getAdFromFields() {
 
         return new Advertisement(
                 subjectTextField.getText(),
@@ -115,7 +115,7 @@ public class MyAdsController extends TableSetUp implements Initializable {
                 new Address(countryComboBox.getValue(), cityComboBox.getValue()));
     }
 
-    private Advertisement changeAdFromFields(Advertisement advertisement) {
+    protected Advertisement changeAdFromFields(Advertisement advertisement) {
 
         advertisement.setSubject(subjectTextField.getText());
         advertisement.setDescription(descriptionTextField.getText());
@@ -130,7 +130,7 @@ public class MyAdsController extends TableSetUp implements Initializable {
     }
 
     @FXML
-    void createButtonPushed() {
+    protected void createButtonPushed() {
 
         if (fieldsValidator()) {
 
@@ -144,7 +144,7 @@ public class MyAdsController extends TableSetUp implements Initializable {
     }
 
     @FXML
-    void updateButtonPushed() {
+    protected void updateButtonPushed() {
 
         if (fieldsValidator()) {
 
@@ -159,7 +159,7 @@ public class MyAdsController extends TableSetUp implements Initializable {
     }
 
     @FXML
-    void deleteButtonPushed() {
+    protected void deleteButtonPushed() {
 
         ObservableList<Advertisement> allAds = getAllFromTable(mainTableView);
         ObservableList<Advertisement> selectedRows = getSelectedFromTable(mainTableView);
@@ -177,7 +177,7 @@ public class MyAdsController extends TableSetUp implements Initializable {
     }
 
     @FXML
-    void clearValues() {
+    protected void clearValues() {
 
         categoryComboBox.getSelectionModel().clearSelection();
         startDatePicker.getEditor().clear();
@@ -190,7 +190,7 @@ public class MyAdsController extends TableSetUp implements Initializable {
         descriptionTextField.clear();
     }
 
-    public void populateFieldsFromSelectedRow() {
+    protected void populateFieldsFromSelectedRow() {
 
         mainTableView.setOnMouseClicked((MouseEvent event) -> {
             if (event.getButton().equals(MouseButton.PRIMARY)) {

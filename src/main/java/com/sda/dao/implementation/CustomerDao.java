@@ -100,6 +100,7 @@ public class CustomerDao extends SessionUtil implements Dao<Customer> {
         }
     }
 
+    @Override
     public void deleteAll() {
 
         List<Customer> customerList = getAll();
