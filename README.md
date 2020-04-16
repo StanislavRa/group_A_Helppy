@@ -1,18 +1,24 @@
 # group_A_Helppy
 
-One Paragraph of project description goes here
+Desktop application which simulates a social platform for sharing job advertisements.
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-
-### Prerequisites
-
-What things you need to install the software and how to install them
-
+To run this application version of JDK 8 should be installed on your computer.
+ 
+App can be launched by calling method in:
 ```
-Give examples
+com.sda.main.App
 ```
+Automatically will be created dummy data with 4 users accounts:
+
+| Login         | Password        |
+| ------------- | ------------- |
+| Demi          | 0000          |
+| Mariam        | 1111          |
+| Oleks         | 2222          |
+| Stan          | 3333          |
+
 
 ### Installing
 
@@ -44,47 +50,23 @@ Explain what these tests test and why
 Give an example
 ```
 
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-
 ## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
+* [Java FX](https://openjfx.io/) - Software platform for creating and delivering desktop applications
 * [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+* [Hibernate](https://hibernate.org/) - Object-relational mapping tool
 
 ## Authors
 
-* **Demi** - *Initial work* - [Demi](https://github.com/demiavalian)
-* **Mariam** - *Initial work* - [Dgebu](https://github.com/Dgebu)
-* **Oleksandr** - *Initial work* - [Oleks Oleks](https://github.com/Shpakovsky94)
-* **Stanislav** - *Initial work* - [Stanislav](https://github.com/StanislavRa)
-
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+* **Demi** - *Front End* - [Demi](https://github.com/demiavalian)
+* **Mariam** - *Code* - [Dgebu](https://github.com/Dgebu)
+* **Oleksandr** - *Database* - [Oleks Oleks](https://github.com/Shpakovsky94)
+* **Stanislav** - *Testing* - [Stanislav](https://github.com/StanislavRa)
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+* Inspiration of Java advanced by [Hatef Palizgar](https://www.linkedin.com/in/hatefpalizgar/)
+* Inspiration of DB by [Zino Adidi](https://github.com/zinoadidi)
+* Used some code parts of [Jaret Wright](https://github.com/JaretWright/GUIDemo) in controllers 
+
 
