@@ -81,10 +81,10 @@ public class DummyData {
         );
 
         customerList = Arrays.asList(
-                new Customer("Pjotr", "123456", "Petr III"),
-                new Customer("Dima", "qwe", "Dmitry Peskov"),
-                new Customer("Olga", "0000", "Olga Demina"),
-                new Customer("John", "1111", "John Smith")
+                new Customer("Demi", "0000", "Demiko Avaliani"),
+                new Customer("Mariam", "1111", "Mariam Dgebuadze"),
+                new Customer("Oleks", "2222", "Oleksandr Shpakovski"),
+                new Customer("Stan", "3333", "Stanislav Ratšinski")
         );
 
         settingCityListToCountry(estonianCityList, countryList.get(0));
