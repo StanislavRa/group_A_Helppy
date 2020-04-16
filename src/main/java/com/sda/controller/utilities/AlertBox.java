@@ -28,4 +28,12 @@ public class AlertBox {
         alert.showAndWait();
     }
 
+    public static void error(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Information Dialog");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
 }

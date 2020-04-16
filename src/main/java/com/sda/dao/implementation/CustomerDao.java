@@ -1,6 +1,7 @@
 package com.sda.dao.implementation;
 
 import com.sda.dao.Dao;
+import com.sda.entity.City;
 import com.sda.entity.Customer;
 import com.sda.util.SessionUtil;
 import org.hibernate.Session;
@@ -43,12 +44,10 @@ public class CustomerDao extends SessionUtil implements Dao<Customer> {
     public void save(Customer customer) {
 
         try {
-            // open session with a transaction
             openTransactionAndSession();
             Session session = getSession();
             session.save(customer);
 
-            // close session with a transaction
             closeTransactionAndSession();
 
         } catch (Exception e) {
@@ -64,7 +63,6 @@ public class CustomerDao extends SessionUtil implements Dao<Customer> {
     public void update(Customer customer) {
 
         try {
-            // open session with a transaction
             openTransactionAndSession();
             Session session = getSession();
             session.merge(customer);
@@ -102,12 +100,32 @@ public class CustomerDao extends SessionUtil implements Dao<Customer> {
         }
     }
 
+    @Override
+    public void deleteAll() {
+
+        List<Customer> customerList = getAll();
+
+        Session session = getSession();
+        try {
+            for (Customer customer : customerList) {
+
+                session.delete(customer);
+            }
+            closeTransactionAndSession();
+
+        } catch (Exception e) {
+
+            if (getTransaction() != null) {
+                getTransaction().rollback();
+            }
+            e.printStackTrace();
+        }
+    }
 
     public Customer getByLogin(String login) {
 
         Customer customer = null;
 
-        // open session with a transaction
         openTransactionAndSession();
         Session session = getSession();
 
@@ -125,7 +143,6 @@ public class CustomerDao extends SessionUtil implements Dao<Customer> {
 
         Customer customer = null;
 
-        // open session with a transaction
         openTransactionAndSession();
         Session session = getSession();
 
@@ -141,7 +158,6 @@ public class CustomerDao extends SessionUtil implements Dao<Customer> {
 
     public Customer getByFullName(String fullName) {
 
-        // open session with a transaction
         openTransactionAndSession();
         Session session = getSession();
 

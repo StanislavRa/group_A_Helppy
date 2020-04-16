@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.Arrays;
 
 public class Parser {
 
@@ -41,5 +42,9 @@ public class Parser {
     public String dateParser(java.util.Date date) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
         return formatter.format(date);
+    }
+
+    public String[] getNames(Class<? extends Enum<?>> e) {
+        return Arrays.stream(e.getEnumConstants()).map(Enum::name).toArray(String[]::new);
     }
 }

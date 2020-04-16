@@ -1,20 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<?import javafx.scene.shape.*?>
+<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.text.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sda.controller.AdDetailsViewController">
    <children>
-      <Text fx:id="logoText" boundsType="VISUAL" fill="RED" layoutX="17.0" layoutY="48.0" onMouseClicked="#logoTextOnMouseClicked" strokeType="OUTSIDE" strokeWidth="0.0" text="Helppy" wrappingWidth="122.3828125">
+      <Separator layoutY="72.0" prefWidth="1280.0" />
+      <Text fx:id="logoText" boundsType="VISUAL" fill="#00cc66" layoutX="17.0" layoutY="47.0" onMouseClicked="#logoTextOnMouseClicked" strokeType="OUTSIDE" strokeWidth="0.0" text="Helppy" wrappingWidth="122.3828125">
          <font>
             <Font name="Brush Script MT Italic" size="52.0" />
          </font>
       </Text>
-      <Separator layoutY="72.0" prefWidth="1280.0" />
       <HBox layoutX="992.0" layoutY="14.0" spacing="14.0">
          <children>
             <Button fx:id="myAdsButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#myAdsButtonPushed" prefHeight="45.0" prefWidth="130.0" style="-fx-background-color: rgb(0, 204, 102); -fx-background-radius: 35;" text="My Ads" textFill="WHITE">
@@ -24,7 +31,7 @@
             </Button>
             <Button fx:id="allAdsButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#allAdsButtonPushed" prefHeight="45.0" prefWidth="130.0" style="-fx-background-color: rgb(0, 204, 102); -fx-background-radius: 35;" text="All Ads" textFill="WHITE">
                <font>
-                  <Font name="System Bold Italic" size="18.0" />
+                  <Font name="System Bold" size="18.0" />
                </font>
             </Button>
          </children>
@@ -32,7 +39,7 @@
             <Insets />
          </opaqueInsets>
       </HBox>
-      <Pane layoutY="77.0" prefHeight="717.0" prefWidth="1280.0">
+      <Pane layoutX="10.0" layoutY="87.0" prefHeight="717.0" prefWidth="1280.0">
          <children>
             <HBox alignment="CENTER" layoutY="31.0" prefHeight="37.0" prefWidth="1280.0">
                <children>
@@ -172,7 +179,7 @@
                      <children>
                         <HBox alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" style="-fx-border-style: solid none none none; -fx-border-color: rgb(0, 204, 102); -fx-border-width: 2;">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="SERVICE DESCRIPTION">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-bounds-type: black;" text="SERVICE DESCRIPTION">
                                  <font>
                                     <Font size="18.0" />
                                  </font>

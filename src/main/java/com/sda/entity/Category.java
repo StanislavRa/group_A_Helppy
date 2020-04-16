@@ -14,16 +14,10 @@ import java.util.Objects;
 @NamedNativeQueries({
 
         @NamedNativeQuery(
-                name = "Category_GetAll",
-                query = "select * from CATEGORY category ",
-                resultClass = Category.class),
-        @NamedNativeQuery(
                 name = "Category_GetByName",
                 query = "select * from CATEGORY category " +
                         "where category.name=:name",
                 resultClass = Category.class)
-
-
 })
 
 public class Category {
@@ -57,12 +51,10 @@ public class Category {
     public Category(Category superCategory, String name) {
         this.superCategory = superCategory;
         this.name = name;
-        //this.subCategories = new ArrayList<>();
     }
 
     public Category(String name) {
         this.name = name;
-        //this.subCategories = new ArrayList<>();
     }
 
     public Long getId() {
