@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sda.controller.AllAdsViewController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sda.controller.AllAdsViewController">
    <children>
       <HBox layoutX="848.0" layoutY="14.0" spacing="14.0">
          <children>
@@ -54,11 +55,6 @@
                 <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Text blendMode="SRC_ATOP" boundsType="VISUAL" strokeType="OUTSIDE" strokeWidth="0.0" text="Category" GridPane.valignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font>
-                  </Text>
                   <ComboBox fx:id="categoryComboBox" blendMode="SRC_ATOP" prefWidth="200.0" promptText="Choose Category" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <GridPane.margin>
                         <Insets />
@@ -72,6 +68,11 @@
                         <ToggleGroup fx:id="radioButtonToggleGroup" />
                      </toggleGroup>
                   </RadioButton>
+                  <Text boundsType="VISUAL" strokeType="OUTSIDE" strokeWidth="0.0" text="Category">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Text>
                </children>
                <VBox.margin>
                   <Insets />
@@ -99,6 +100,9 @@
                      </padding>
                   </RadioButton>
                </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
             </GridPane>
             <GridPane layoutX="15.0" layoutY="95.0" vgap="10.0">
                <columnConstraints>
@@ -110,17 +114,17 @@
                   <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Text boundsType="VISUAL" strokeType="OUTSIDE" strokeWidth="0.0" text="City">
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font>
-                  </Text>
                   <ComboBox fx:id="cityComboBox" prefWidth="200.0" promptText="Choose City" GridPane.rowIndex="1" />
                   <RadioButton fx:id="cityRadioButton" mnemonicParsing="false" toggleGroup="$radioButtonToggleGroup" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <padding>
                         <Insets left="15.0" />
                      </padding>
                   </RadioButton>
+                  <Text boundsType="VISUAL" strokeType="OUTSIDE" strokeWidth="0.0" text="City">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Text>
                </children>
             </GridPane>
             <GridPane vgap="10.0">
