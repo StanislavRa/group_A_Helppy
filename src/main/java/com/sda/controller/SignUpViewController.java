@@ -1,9 +1,9 @@
 package com.sda.controller;
 
+import com.sda.controller.utilities.AlertBox;
 import com.sda.entity.Customer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
@@ -31,21 +31,12 @@ public class SignUpViewController extends GeneralController {
 
             customerDao.save(newCustomer);
 
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Information Dialog");
-            alert.setHeaderText(null);
-            alert.setContentText("Success!");
-
-            alert.showAndWait();
+            AlertBox.success("Success!");
 
             changeScreen(event, "/views/logInView.fxml");
 
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Information Dialog");
-            alert.setHeaderText(null);
-            alert.setContentText(loginText + " login name is in use");
-            alert.showAndWait();
+            AlertBox.error(loginText + " login name is in use");
         }
     }
 

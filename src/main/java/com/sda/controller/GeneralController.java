@@ -73,6 +73,7 @@ public abstract class GeneralController {
         homeViewController.setCustomer(customer);
     }
 
+    @FXML
     protected void logOutButtonPushed(javafx.event.ActionEvent actionEvent) {
         customer = null;
         changeScreen(actionEvent, "/views/logInView.fxml");
