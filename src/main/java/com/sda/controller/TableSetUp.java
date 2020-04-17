@@ -2,12 +2,16 @@ package com.sda.controller;
 
 import com.sda.controller.utilities.AlertBox;
 import com.sda.entity.Advertisement;
+import com.sda.entity.Customer;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+
+import java.util.List;
 
 public class TableSetUp extends GeneralController {
 
@@ -44,6 +48,12 @@ public class TableSetUp extends GeneralController {
         startDateTableColumn.setCellValueFactory(new PropertyValueFactory<>("startDate"));
         endDateTableColumn.setCellValueFactory(new PropertyValueFactory<>("endDate"));
         serviceTypeTableColumn.setCellValueFactory(new PropertyValueFactory<>("serviceType"));
+    }
+
+    protected ObservableList<Advertisement> getAdsFromCustomer(Customer customer) {
+        List<Advertisement> getUserAds = customer.getUserAdvertisements();
+        ObservableList<Advertisement> adsTable = FXCollections.observableArrayList(getUserAds);
+        return adsTable;
     }
 
     protected boolean isTableRowSelected(TableView<Advertisement> tableView) {

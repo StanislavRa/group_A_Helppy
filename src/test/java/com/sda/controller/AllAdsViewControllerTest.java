@@ -16,7 +16,7 @@ import java.util.List;
 public class AllAdsViewControllerTest {
 
     String connectionToDatabaseCreate = "hibernateUnitTest.cfg.xml";
-    //String connectionToDatabaseCreate = "hibernateCreate.cfg.xml";
+    //String connectionToDatabaseCreate = "hibernate.cfg.xml";
 
     //declare dao
     CountryDao countryDao;
