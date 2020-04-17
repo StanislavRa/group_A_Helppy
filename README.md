@@ -57,7 +57,7 @@ The rest of the tests can be run as usual without any restrictions.
 
 *  MyAdsController.java: 
     * After Customer creates or updates advertisement
-     selecting row in the table does not populate fields anymore.
+     selecting row in the table does not populate datepicker fields anymore.
 
 
 ## Built With
