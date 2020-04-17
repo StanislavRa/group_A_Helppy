@@ -94,7 +94,13 @@ public class MyAdsController extends TableSetUp implements Initializable {
                                 "Make sure that price number format is xx.xx") &&
                 Validator.checkTextLength(descriptionTextField.getText(),
                         1000,
-                        "Make sure that description length is not longer than 1000 symbols");
+                        "Make sure that description length is not longer than 1000 symbols") &&
+                Validator.checkTextLength(subjectTextField.getText(),
+                        100,
+                        "Make sure that subject length is not longer than 100 symbols") &&
+                Validator.checkTextLength(priceTextField.getText(),
+                        100,
+                        "Make sure that description length is not longer than 100 symbols");
     }
 
     protected Advertisement.ServiceType serviceTypeSelected() {
