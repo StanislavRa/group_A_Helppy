@@ -12,79 +12,64 @@ import java.util.List;
 
 public class DummyData {
 
-    String connectionToDatabaseCreate = "hibernateCreate.cfg.xml";
+    private final CustomerDao customerDao;
+    private final AdvertisementDao advertisementDao;
+    private final CategoryDao categoryDao;
+    private final CityDao cityDao;
+    private final CountryDao countryDao;
+    private final AddressDao addressDao;
 
-    CustomerDao customerDao;
-    AdvertisementDao advertisementDao;
-    CategoryDao categoryDao;
-    CityDao cityDao;
-    CountryDao countryDao;
-    AddressDao addressDao;
-
-    List<Country> countryList;
-
-    List<City> estonianCityList;
-    List<City> finnishCityList;
-    List<City> swedishCityList;
-
-    List<Address> addressList;
-
-    List<Category> superCategoryList;
-    List<Category> rentSubCategoryList;
-    List<Category> cleanSubCategoryList;
-
-    List<Customer> customerList;
-
-    List<Advertisement> advertisementList;
+    private final List<Address> addressList;
 
     public DummyData() throws ParseException {
 
-        cityDao = new CityDao(connectionToDatabaseCreate);
-        countryDao = new CountryDao(connectionToDatabaseCreate);
-        addressDao = new AddressDao(connectionToDatabaseCreate);
-        categoryDao = new CategoryDao(connectionToDatabaseCreate);
-        customerDao = new CustomerDao(connectionToDatabaseCreate);
-        advertisementDao = new AdvertisementDao(connectionToDatabaseCreate);
+        String DB_SETTINGS = "hibernate.cfg.xml";
+        cityDao = new CityDao(DB_SETTINGS);
+        countryDao = new CountryDao(DB_SETTINGS);
+        addressDao = new AddressDao(DB_SETTINGS);
+        categoryDao = new CategoryDao(DB_SETTINGS);
+        customerDao = new CustomerDao(DB_SETTINGS);
+        advertisementDao = new AdvertisementDao(DB_SETTINGS);
 
-        countryList = Arrays.asList(
+        List<Country> countryList = Arrays.asList(
                 new Country("Estonia"),
                 new Country("Finland"),
                 new Country("Sweden"));
-        estonianCityList = Arrays.asList(
+        List<City> estonianCityList = Arrays.asList(
                 new City("Tallinn"),
                 new City("Narva"),
                 new City("Tartu"));
-        finnishCityList = Arrays.asList(
+        List<City> finnishCityList = Arrays.asList(
                 new City("Helsinki"),
                 new City("Tampere"),
                 new City("Turku"));
-        swedishCityList = Arrays.asList(
+        List<City> swedishCityList = Arrays.asList(
                 new City("Stockholm"),
                 new City("Upsala"),
                 new City("Malmö"));
 
         addressList = new ArrayList<>();
 
-        superCategoryList = Arrays.asList(
+        List<Category> superCategoryList = Arrays.asList(
                 new Category("Rent"),
                 new Category("Clean")
         );
 
-        rentSubCategoryList = Arrays.asList(
+        List<Category> rentSubCategoryList = Arrays.asList(
                 new Category("Car Rent"),
                 new Category("Ship Rent")
         );
 
-        cleanSubCategoryList = Arrays.asList(
+        List<Category> cleanSubCategoryList = Arrays.asList(
                 new Category("Office Cleaning"),
                 new Category("Apartment Cleaning")
         );
 
-        customerList = Arrays.asList(
-                new Customer("Pjotr", "123456", "Petr III"),
-                new Customer("Dima", "qwe", "Dmitry Peskov"),
-                new Customer("Olga", "0000", "Olga Demina"),
-                new Customer("John", "1111", "John Smith")
+        List<Customer> customerList = Arrays.asList(
+                new Customer("Demi", "0000", "Demiko Avaliani"),
+                new Customer("Mariam", "1111", "Mariam Dgebuadze"),
+                new Customer("Oleks", "2222", "Oleksandr Shpakovski"),
+                new Customer("Stan", "3333", "Stanislav Ratšinski")
         );
 
         settingCityListToCountry(estonianCityList, countryList.get(0));
@@ -109,10 +94,14 @@ public class DummyData {
 
         saveCustomersToDB(customerList);
 
-        advertisementList = Arrays.asList(
+        List<Advertisement> advertisementList = Arrays.asList(
                 new Advertisement(
                         "Clean Fast",
-                        "blablabla",
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor" +
+                                " incididunt ut labore et dolore magna aliqua. Fringilla urna porttitor rhoncus dolor" +
+                                " purus non enim. Vitae et leo duis ut diam. Massa tincidunt dui ut ornare lectus sit" +
+                                " amet. Id diam maecenas ultricies mi eget mauris. Aliquet nibh praesent tristique" +
+                                " magna.",
                         "2.5",
                         new SimpleDateFormat("dd/MM/yyyy").parse("31/12/1998"),
                         new SimpleDateFormat("dd/MM/yyyy").parse("31/12/2021"),
@@ -122,7 +111,13 @@ public class DummyData {
                         addressList.get(1)),
                 new Advertisement(
                         "Car Rent",
-                        "some dummy description2",
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor" +
+                                " incididunt ut labore et dolore magna aliqua. Erat velit scelerisque in dictum non." +
+                                " Ligula ullamcorper malesuada proin libero nunc. Condimentum lacinia quis vel eros." +
+                                " Facilisis mauris sit amet massa vitae tortor condimentum." +
+                                " Purus faucibus ornare suspendisse sed nisi lacus sed viverra tellus." +
+                                " Lacus sed turpis tincidunt id aliquet." +
+                                " Ullamcorper malesuada proin libero nunc consequat interdum varius sit.",
                         "103.3",
                         new SimpleDateFormat("dd/MM/yyyy").parse("21/02/2005"),
                         new SimpleDateFormat("dd/MM/yyyy").parse("31/12/2020"),
@@ -135,14 +130,19 @@ public class DummyData {
                         "some dummy description3",
                         "152",
                         new SimpleDateFormat("dd/MM/yyyy").parse("13/01/2001"),
-                        new SimpleDateFormat("dd/MM/yyyy").parse("31/12/2019"),
+                        new SimpleDateFormat("dd/MM/yyyy").parse("17/04/2020"),
                         Advertisement.ServiceType.REQUEST,
                         superCategoryList.get(1),
                         customerList.get(2),
                         addressList.get(2)),
                 new Advertisement(
                         "Rent Equipment from Us!!",
-                        "some dummy description4",
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor" +
+                                " incididunt ut labore et dolore magna aliqua." +
+                                " Cras fermentum odio eu feugiat pretium nibh ipsum." +
+                                " Nec dui nunc mattis enim ut." +
+                                " Sit amet luctus venenatis lectus magna fringilla urna porttitor." +
+                                " Eu augue ut lectus arcu bibendum at varius vel pharetra.",
                         "152",
                         new SimpleDateFormat("dd/MM/yyyy").parse("13/01/2019"),
                         new SimpleDateFormat("dd/MM/yyyy").parse("31/12/2022"),
@@ -152,10 +152,16 @@ public class DummyData {
                         addressList.get(3)),
                 new Advertisement(
                         "Clean your home!!",
-                        "some dummy description5",
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit," +
+                                " sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." +
+                                " Sit amet porttitor eget dolor morbi non." +
+                                " Tincidunt eget nullam non nisi est." +
+                                " Non nisi est sit amet facilisis magna etiam tempor." +
+                                " Consequat mauris nunc congue nisi." +
+                                " Tristique magna sit amet purus gravida quis blandit turpis cursus.",
                         "152",
                         new SimpleDateFormat("dd/MM/yyyy").parse("13/01/2019"),
-                        new SimpleDateFormat("dd/MM/yyyy").parse("01/01/2022"),
+                        new SimpleDateFormat("dd/MM/yyyy").parse("17/04/2022"),
                         Advertisement.ServiceType.REQUEST,
                         superCategoryList.get(1),
                         customerList.get(2),

@@ -8,7 +8,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 
-
 public class App extends Application {
 
     @Override
@@ -20,6 +19,5 @@ public class App extends Application {
         primaryStage.setTitle("My First App");
         primaryStage.setScene(new Scene(root, 1280, 800));
         primaryStage.show();
-        //Runtime.getRuntime().addShutdownHook(new Thread(this::shutdown));
     }
 }

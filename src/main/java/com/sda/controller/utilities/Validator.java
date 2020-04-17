@@ -58,4 +58,12 @@ public class Validator {
         }
         return true;
     }
+
+    public static boolean checkTextLength(String text, int length, String message) {
+        if (text.length() > length) {
+            AlertBox.validation(message);
+            return false;
+        }
+        return true;
+    }
 }

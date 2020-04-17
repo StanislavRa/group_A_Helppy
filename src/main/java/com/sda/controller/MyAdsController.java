@@ -48,12 +48,10 @@ public class MyAdsController extends TableSetUp implements Initializable {
 
     protected void initData() {
 
-        List<Advertisement> getUserAds = customer.getUserAdvertisements();
-        ObservableList<Advertisement> adsTable = FXCollections.observableArrayList(getUserAds);
-
-        mainTableView.setItems(adsTable);
+        mainTableView.setItems(getAdsFromCustomer(customer));
         countryComboBox.getItems().addAll(countryDao.getAllCountriesNamesList(countryDao.getAll()));
         categoryComboBox.getItems().addAll((categoryDao.getAllCategoryNames()));
+        mainTableView.refresh();
     }
 
     @FXML
@@ -93,7 +91,16 @@ public class MyAdsController extends TableSetUp implements Initializable {
                         "Make sure that you don't choose End Date from past") &&
                 Validator.stringMatcherValidation
                         (priceTextField.getText(), "[0-9]*['.']?[0-9]*",
-                                "Make sure that price number format is xx.xx");
+                                "Make sure that price number format is xx.xx") &&
+                Validator.checkTextLength(descriptionTextField.getText(),
+                        1000,
+                        "Make sure that description length is not longer than 1000 symbols") &&
+                Validator.checkTextLength(subjectTextField.getText(),
+                        100,
+                        "Make sure that subject length is not longer than 100 symbols") &&
+                Validator.checkTextLength(priceTextField.getText(),
+                        100,
+                        "Make sure that description length is not longer than 100 symbols");
     }
 
     protected Advertisement.ServiceType serviceTypeSelected() {

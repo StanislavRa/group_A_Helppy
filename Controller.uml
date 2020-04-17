@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>com.sda.controller.GeneralController</OriginalElement>
+  <nodes>
+    <node x="546.0" y="928.0">com.sda.controller.MyAdsController</node>
+    <node x="1497.84375" y="562.0">com.sda.controller.LogInViewController</node>
+    <node x="1218.84375" y="562.0">com.sda.controller.SignUpViewController</node>
+    <node x="754.84375" y="628.0">com.sda.controller.HomeViewController</node>
+    <node x="0.0" y="906.0">com.sda.controller.AllAdsViewController</node>
+    <node x="241.84375" y="452.0">com.sda.controller.TableSetUp</node>
+    <node x="822.0" y="0.0">com.sda.controller.GeneralController</node>
+    <node x="966.84375" y="518.0">com.sda.controller.AdDetailsViewController</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.sda.controller.MyAdsController" target="com.sda.controller.TableSetUp">
+      <point x="0.0" y="-279.0" />
+      <point x="709.0" y="881.0" />
+      <point x="611.59375" y="881.0" />
+      <point x="123.25" y="202.0" />
+    </edge>
+    <edge source="com.sda.controller.HomeViewController" target="com.sda.controller.GeneralController">
+      <point x="0.0" y="-26.0" />
+      <point x="850.84375" y="432.0" />
+      <point x="977.1" y="432.0" />
+      <point x="-103.39999999999998" y="201.0" />
+    </edge>
+    <edge source="com.sda.controller.TableSetUp" target="com.sda.controller.GeneralController">
+      <point x="0.0" y="-202.0" />
+      <point x="488.34375" y="422.0" />
+      <point x="873.7" y="422.0" />
+      <point x="-206.79999999999995" y="201.0" />
+    </edge>
+    <edge source="com.sda.controller.AllAdsViewController" target="com.sda.controller.TableSetUp">
+      <point x="0.0" y="-301.0" />
+      <point x="263.0" y="881.0" />
+      <point x="365.09375" y="881.0" />
+      <point x="-123.25" y="202.0" />
+    </edge>
+    <edge source="com.sda.controller.AdDetailsViewController" target="com.sda.controller.GeneralController">
+      <point x="0.0" y="-136.0" />
+      <point x="1082.84375" y="432.0" />
+      <point x="1080.5" y="432.0" />
+      <point x="0.0" y="201.0" />
+    </edge>
+    <edge source="com.sda.controller.LogInViewController" target="com.sda.controller.GeneralController">
+      <point x="0.0" y="-92.0" />
+      <point x="1639.84375" y="422.0" />
+      <point x="1287.3" y="422.0" />
+      <point x="206.79999999999995" y="201.0" />
+    </edge>
+    <edge source="com.sda.controller.SignUpViewController" target="com.sda.controller.GeneralController">
+      <point x="0.0" y="-92.0" />
+      <point x="1348.34375" y="432.0" />
+      <point x="1183.9" y="432.0" />
+      <point x="103.40000000000009" y="201.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.6000000000000001" x="507.66666666666674" y="934.6666666666665" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

@@ -1,90 +1,84 @@
 # group_A_Helppy
 
-One Paragraph of project description goes here
+Desktop application which simulates a social platform for sharing job advertisements.<br>
+Version of the current application is Minimum Viable Product (MVP).
+So that some parts of source code have potential to be extended and scaled.  
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-
-### Prerequisites
-
-What things you need to install the software and how to install them
-
+To run this application you need
+ * Version of JDK 8
+ * MySql with settings 
+    * hostname: localhost
+    * port: 3306
+    * username: root
+    * password: root
+ 
+App can be launched by calling method in:
 ```
-Give examples
+com.sda.main.App
 ```
+Automatically will be created 4 dummy data accounts.<br> 
+These accounts have already some Advertisements.<br> 
+Accounts for logging in:
 
-### Installing
+| Login         | Password      |
+| ------------- | ------------- |
+| Demi          | 0000          |
+| Mariam        | 1111          |
+| Oleks         | 2222          |
+| Stan          | 3333          |
 
-A step by step series of examples that tell you how to get a development env running
+## Application Core Architecture
 
-Say what the step will be
+Main architecture is based on Model-View-Controller Pattern.
 
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
+UML, ERD, User Story and User Story Views can be found here:
+* [drawi.io](https://www.draw.io/#HStanislavRa%2Fgroup_A_Helppy%2Fmaster%2FHelppyDiagrams.drawio) - link
 
 ## Running the tests
 
-Explain how to run the automated tests for this system
+All tests are unit tests.<br> 
+So called ...DaoTests should be run manually one-by-one.<br> 
+Reason:<br> 
+DaoTest methods work correctly if current database tables are empty. 
+So running bulk of methods will lead to collisions between data indexes.
+<br> 
+The rest of the tests can be run as usual without any restrictions. 
 
-### Break down into end to end tests
+## Extendable parts of code
 
-Explain what these tests test and why
+* Can add new type of users, e.g. manager, special customer etc.
+* Can use subcategories.
+* Can use HomeView window for some new features, e.g. shortcuts to search with specific criteria.
+* Can find all advertisements of particular user
 
-```
-Give an example
-```
+## Bugs
 
-### And coding style tests
+*  MyAdsController.java: 
+    * After Customer creates or updates advertisement
+     selecting row in the table does not populate datepicker fields anymore.
 
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
 
 ## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
+* [Java FX](https://openjfx.io/) - Software platform for creating and delivering desktop applications
 * [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+* [Hibernate](https://hibernate.org/) - Object-relational mapping tool
+* [JUnit](https://junit.org/) - Unit testing framework
 
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
 
 ## Authors
 
-* **Demi** - *Initial work* - [Demi](https://github.com/demiavalian)
-* **Mariam** - *Initial work* - [Dgebu](https://github.com/Dgebu)
-* **Oleksandr** - *Initial work* - [Oleks Oleks](https://github.com/Shpakovsky94)
-* **Stanislav** - *Initial work* - [Stanislav](https://github.com/StanislavRa)
-
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+* **Demi** - *Front End* - [Demi](https://github.com/demiavalian)
+* **Mariam** - *Code* - [Dgebu](https://github.com/Dgebu)
+* **Oleksandr** - *Database* - [Oleks Oleks](https://github.com/Shpakovsky94)
+* **Stanislav** - *Testing* - [Stanislav](https://github.com/StanislavRa)
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+* Inspiration of Java advanced by [Hatef Palizgar](https://www.linkedin.com/in/hatefpalizgar/)
+* Inspiration of DB by [Zino Adidi](https://github.com/zinoadidi)
+* Used some code parts of [Jaret Wright](https://github.com/JaretWright/GUIDemo) in controllers 
+
 
