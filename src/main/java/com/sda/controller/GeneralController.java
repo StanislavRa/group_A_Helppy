@@ -23,7 +23,7 @@ public abstract class GeneralController {
 
     protected Customer customer;
     protected Parser parser = new Parser();
-    private final String DB_SETTINGS = "hibernateCreate.cfg.xml";
+    private final String DB_SETTINGS = "hibernate.cfg.xml";
     protected AdvertisementDao adDao = new AdvertisementDao(DB_SETTINGS);
     protected CustomerDao customerDao = new CustomerDao(DB_SETTINGS);
     protected CategoryDao categoryDao = new CategoryDao(DB_SETTINGS);

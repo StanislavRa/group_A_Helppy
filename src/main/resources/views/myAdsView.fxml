@@ -128,7 +128,7 @@
                         <VBox prefHeight="305.0" prefWidth="1278.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
                                 <TextField fx:id="subjectTextField" prefHeight="41.0" prefWidth="1278.0" promptText="Add subject" VBox.vgrow="NEVER" />
-                                <TextArea fx:id="descriptionTextField" prefHeight="308.0" prefWidth="1278.0" promptText="Add full description" />
+                                <TextArea fx:id="descriptionTextField" prefHeight="308.0" prefWidth="1278.0" promptText="Add full description" wrapText="true" />
                             </children>
                         </VBox>
                     </children>

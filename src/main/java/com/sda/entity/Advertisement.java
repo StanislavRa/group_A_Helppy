@@ -37,7 +37,7 @@ public class Advertisement {
     @Column(name = "SUBJECT", nullable = false, length = 100)
     private String subject;
 
-    @Column(name = "DESCRIPTION", nullable = false, length = 300)
+    @Column(name = "DESCRIPTION", nullable = false, length = 1000)
     private String description;
 
     @Column(name = "PRICE", nullable = false, length = 100)
