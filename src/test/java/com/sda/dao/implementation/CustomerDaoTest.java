@@ -80,8 +80,6 @@ public class CustomerDaoTest {
                 shouldGetCustomerById,
                 addressTest1);
 
-        advertisement1.setServiceState(Advertisement.ServiceState.INACTIVE);
-
         advertisementDao.save(advertisement1);
 
 
@@ -195,7 +193,6 @@ public class CustomerDaoTest {
                 category,
                 customer,
                 addressTest1);
-        advertisement1.setServiceState(Advertisement.ServiceState.INACTIVE);
 
         Advertisement advertisement2 = new Advertisement(
                 "Car Rent",
@@ -207,7 +204,6 @@ public class CustomerDaoTest {
                 category,
                 customer,
                 addressTest2);
-        advertisement2.setServiceState(Advertisement.ServiceState.INACTIVE);
 
         advertisementDao.save(advertisement1);
         advertisementDao.save(advertisement2);

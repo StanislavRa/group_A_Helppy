@@ -48,7 +48,6 @@ public class AdvertisementDaoTest {
         String cityTest1 = new String("LA");
         Address addressTest1 = new Address(countryTest1, cityTest1);
         Address addressTest2 = new Address(countryTest1, cityTest1);
-        //addressDao.save(addressTest1);
 
         Category category = new Category("Rent");
         categoryDao.save(category);
@@ -75,7 +74,6 @@ public class AdvertisementDaoTest {
                 category,
                 customer,
                 addressTest1);
-        advertisement1.setServiceState(Advertisement.ServiceState.INACTIVE);
 
         Advertisement advertisement2 = new Advertisement(
                 "Car Rent",
@@ -87,7 +85,6 @@ public class AdvertisementDaoTest {
                 category,
                 customer,
                 addressTest2);
-        advertisement2.setServiceState(Advertisement.ServiceState.INACTIVE);
 
         advertisementDao.save(advertisement1);
         advertisementDao.save(advertisement2);
@@ -140,8 +137,6 @@ public class AdvertisementDaoTest {
                 customer,
                 addressTest1);
 
-        advertisement1.setServiceState(Advertisement.ServiceState.INACTIVE);
-
         advertisementDao.save(advertisement1);
 
         Advertisement shouldGetAdvertisementById = advertisementDao.get(1L);
@@ -189,7 +184,6 @@ public class AdvertisementDaoTest {
                 new Category("CLEANING"),
                 customer,
                 addressTest1);
-        advertisement1.setServiceState(Advertisement.ServiceState.INACTIVE);
 
         Advertisement advertisement2 = new Advertisement(
                 "Car Rent",
@@ -201,7 +195,6 @@ public class AdvertisementDaoTest {
                 new Category("RENTING"),
                 customer,
                 addressTest1);
-        advertisement2.setServiceState(Advertisement.ServiceState.INACTIVE);
 
         advertisementDao.save(advertisement1);
         advertisementDao.save(advertisement2);
@@ -245,8 +238,6 @@ public class AdvertisementDaoTest {
                 new Category("CLEANING"),
                 customer,
                 addressTest1);
-        advertisement1.setServiceState(Advertisement.ServiceState.INACTIVE);
-
 
         advertisementDao.save(advertisement1);
         Assert.assertNotNull(advertisementDao.get(1L));
@@ -298,8 +289,6 @@ public class AdvertisementDaoTest {
                 new Category("CLEANING"),
                 customer,
                 addressTest1);
-        advertisement1.setServiceState(Advertisement.ServiceState.INACTIVE);
-
 
         advertisementDao.save(advertisement1);
 
@@ -351,7 +340,6 @@ public class AdvertisementDaoTest {
                 new Category("CLEANING"),
                 customer,
                 addressTest1);
-        advertisement1.setServiceState(Advertisement.ServiceState.INACTIVE);
 
         Advertisement advertisement2 = new Advertisement(
                 "Car Rent",
@@ -363,7 +351,6 @@ public class AdvertisementDaoTest {
                 new Category("RENTING"),
                 customer,
                 addressTest1);
-        advertisement2.setServiceState(Advertisement.ServiceState.INACTIVE);
 
         advertisementDao.save(advertisement1);
         advertisementDao.save(advertisement2);
@@ -394,7 +381,6 @@ public class AdvertisementDaoTest {
         String cityTest2 = new String("LA");
         Address addressTest1 = new Address(countryTest1, cityTest1);
         Address addressTest2 = new Address(countryTest2, cityTest2);
-        // addressDao.save(addressTest1);
 
         Category category = new Category("Rent");
         categoryDao.save(category);
@@ -423,7 +409,6 @@ public class AdvertisementDaoTest {
                 category,
                 customer,
                 addressTest1);
-        advertisement1.setServiceState(Advertisement.ServiceState.INACTIVE);
 
         Advertisement advertisement2 = new Advertisement(
                 "Car Rent",
@@ -435,7 +420,6 @@ public class AdvertisementDaoTest {
                 category,
                 customer,
                 addressTest2);
-        advertisement2.setServiceState(Advertisement.ServiceState.INACTIVE);
 
         advertisementDao.save(advertisement1);
         advertisementDao.save(advertisement2);
@@ -444,12 +428,6 @@ public class AdvertisementDaoTest {
 
         Advertisement shouldBeSavedAd = advertisementDao.get(2L);
 
-/*        Assert.assertNotNull(shouldBeSavedAd);
-        shouldBeSavedAd.setCustomer(null);
-        advertisementDao.update(shouldBeSavedAd);
-
-
-        Advertisement shouldBeUpdatedAd = advertisementDao.get(2L);*/
         advertisementDao.delete(shouldBeSavedAd);
 
         Address shouldBeDeletedAd = addressDao.get(2L);

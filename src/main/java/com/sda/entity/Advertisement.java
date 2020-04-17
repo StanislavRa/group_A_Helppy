@@ -15,14 +15,9 @@ import java.util.Objects;
 
 @NamedNativeQueries({
         @NamedNativeQuery(
-                name = "Advertisement_GetAll",
-                query = "select * from ADVERTISEMENT advertisement ",
-                resultClass = Advertisement.class),
-
-        @NamedNativeQuery(
-                name = "Advertisement_GetAllByState",
+                name = "Advertisement_GetAllActive",
                 query = "select * from ADVERTISEMENT advertisement " +
-                        "where advertisement.STATE=:state",
+                        "where advertisement.END_DATE > CURDATE() - 1",
                 resultClass = Advertisement.class),
 
 })
@@ -56,10 +51,6 @@ public class Advertisement {
     @Column
     @UpdateTimestamp
     private LocalDateTime UPDATED_ON;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "STATE", nullable = false, length = 50)
-    private ServiceState serviceState;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "TYPE", nullable = false, length = 50)
@@ -99,9 +90,6 @@ public class Advertisement {
         this.customer = customer;
         this.address = address;
 
-        if (!this.endDate.before(new Date())) {
-            this.serviceState = ServiceState.ACTIVE;
-        } else this.serviceState = ServiceState.INACTIVE;
     }
 
     public Long getId() {
@@ -160,14 +148,6 @@ public class Advertisement {
         this.address = address;
     }
 
-    public ServiceState getServiceState() {
-        return serviceState;
-    }
-
-    public void setServiceState(ServiceState serviceState) {
-        this.serviceState = serviceState;
-    }
-
     public ServiceType getServiceType() {
         return serviceType;
     }
@@ -216,21 +196,6 @@ public class Advertisement {
         }
     }
 
-    public enum ServiceState {
-        ACTIVE("Active"),
-        INACTIVE("Inactive");
-        String state;
-
-        ServiceState(String state) {
-            this.state = state;
-        }
-
-        @Override
-        public String toString() {
-            return state;
-        }
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -240,7 +205,6 @@ public class Advertisement {
                 Objects.equals(getDescription(), that.getDescription()) &&
                 Objects.equals(getStartDate(), that.getStartDate()) &&
                 Objects.equals(getEndDate(), that.getEndDate()) &&
-                getServiceState() == that.getServiceState() &&
                 getServiceType() == that.getServiceType() &&
                 Objects.equals(getCategory(), that.getCategory()) &&
                 Objects.equals(getAddress(), that.getAddress()) &&
@@ -249,6 +213,6 @@ public class Advertisement {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getSubject(), getDescription(), getStartDate(), getEndDate(), getServiceState(), getServiceType(), getCategory(), getAddress(), getCustomer());
+        return Objects.hash(getSubject(), getDescription(), getStartDate(), getEndDate(), getServiceType(), getCategory(), getAddress(), getCustomer());
     }
 }

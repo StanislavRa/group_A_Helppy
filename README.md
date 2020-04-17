@@ -1,60 +1,72 @@
 # group_A_Helppy
 
-Desktop application which simulates a social platform for sharing job advertisements.
+Desktop application which simulates a social platform for sharing job advertisements.<br>
+Version of the current application is Minimum Viable Product (MVP).
+So that some parts of source code have potential to be extended and scaled.  
 
 ## Getting Started
 
-To run this application version of JDK 8 should be installed on your computer.
+To run this application you need
+ * Version of JDK 8
+ * MySql with settings 
+    * hostname: localhost
+    * port: 3306
+    * username: root
+    * password: root
  
 App can be launched by calling method in:
 ```
 com.sda.main.App
 ```
-Automatically will be created dummy data with 4 users accounts:
+Automatically will be created 4 dummy data accounts.<br> 
+These accounts have already some Advertisements.<br> 
+Accounts for logging in:
 
-| Login         | Password        |
+| Login         | Password      |
 | ------------- | ------------- |
 | Demi          | 0000          |
 | Mariam        | 1111          |
 | Oleks         | 2222          |
 | Stan          | 3333          |
 
+## Application Core Architecture
 
-### Installing
+Main architecture is based on Model-View-Controller Pattern.
 
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
+UML, ERD, User Story and User Story Views can be found here:
+* [drawi.io](https://www.draw.io/#HStanislavRa%2Fgroup_A_Helppy%2Fmaster%2FHelppyDiagrams.drawio) - link
 
 ## Running the tests
 
-Explain how to run the automated tests for this system
+All tests are unit tests.<br> 
+So called ...DaoTests should be run manually one-by-one.<br> 
+Reason:<br> 
+DaoTest methods work correctly if current database tables are empty. 
+So running bulk of methods will lead to collisions between data indexes.
+<br> 
+The rest of the tests can be run as usual without any restrictions. 
 
-### Break down into end to end tests
+## Extendable parts of code
 
-Explain what these tests test and why
+* Can add new type of users, e.g. manager, special customer etc.
+* Can use subcategories.
+* Can use HomeView window for some new features, e.g. shortcuts to search with specific criteria.
+* Can find all advertisements of particular user
 
-```
-Give an example
-```
+## Bugs
+
+*  MyAdsController.java: 
+    * After Customer creates or updates advertisement
+     selecting row in the table does not populate fields anymore.
+
 
 ## Built With
 
 * [Java FX](https://openjfx.io/) - Software platform for creating and delivering desktop applications
 * [Maven](https://maven.apache.org/) - Dependency Management
 * [Hibernate](https://hibernate.org/) - Object-relational mapping tool
+* [JUnit](https://junit.org/) - Unit testing framework
+
 
 ## Authors
 
