@@ -173,7 +173,7 @@ public class AllAdsViewController extends TableSetUp implements Initializable {
         List<Advertisement> getAllAdvertisementsByDate = new ArrayList<>();
 
         for (Advertisement advertisement : getAllAdvertisementsList) {
-            if (advertisement.getStartDate().after(startDate) && advertisement.getEndDate().before(endDate)) {
+            if (!advertisement.getStartDate().before(startDate) && !advertisement.getEndDate().after(endDate)) {
                 getAllAdvertisementsByDate.add(advertisement);
             }
         }

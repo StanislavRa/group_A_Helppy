@@ -10,7 +10,6 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import java.util.ArrayList;
 import java.util.List;
 
 public class AdvertisementDao extends SessionUtil implements Dao<Advertisement> {
@@ -120,24 +119,10 @@ public class AdvertisementDao extends SessionUtil implements Dao<Advertisement> 
     public List<Advertisement> getAllActiveAds() {
         openTransactionAndSession();
         Session session = getSession();
-        String state = Advertisement.ServiceState.ACTIVE.toString();
 
-        Query<Advertisement> getAllActiveAdvertisementList = session.createNamedQuery("Advertisement_GetAllByState",
+        Query<Advertisement> getAllActiveAdvertisementList = session.createNamedQuery("Advertisement_GetAllActive",
                 Advertisement.class);
-        getAllActiveAdvertisementList.setParameter("state", state);
 
         return getAllActiveAdvertisementList.getResultList();
-    }
-
-    public List<Advertisement> getAllInactiveAds() {
-        openTransactionAndSession();
-        Session session = getSession();
-        String state = Advertisement.ServiceState.INACTIVE.toString();
-
-        Query<Advertisement> getAllInactiveAdvertisementList = session.createNamedQuery("Advertisement_GetAllByState",
-                Advertisement.class);
-        getAllInactiveAdvertisementList.setParameter("state", state);
-
-        return getAllInactiveAdvertisementList.getResultList();
     }
 }
