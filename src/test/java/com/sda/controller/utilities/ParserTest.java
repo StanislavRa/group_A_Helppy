@@ -1,5 +1,6 @@
 package com.sda.controller.utilities;
 
+import com.sda.entity.Advertisement;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -60,4 +61,38 @@ public class ParserTest {
 
         Assert.assertEquals(localDateTest1, localDateTest2);
     }
+
+    @Test
+    public void shouldConvertSQLDateToLocalDate() throws ParseException {
+
+        LocalDate localDateTest1 = LocalDate.of(2013, 2, 1);
+
+        String startDate="01-02-2013";
+        SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy");
+        java.util.Date date = sdf1.parse(startDate);
+        java.sql.Date sqlStartDate = new java.sql.Date(date.getTime());
+
+        LocalDate localDateTest2 = parser.convertSQLDateToLocalDate(sqlStartDate);
+
+        Assert.assertEquals(localDateTest1, localDateTest2);
+    }
+
+    @Test
+    public void shouldDoDateParser() throws ParseException {
+        String startDateString2 = "11/11/2019";
+        Date dateTest = new SimpleDateFormat("dd/MM/yyyy").parse(startDateString2);
+        String formattedDateTest =  "2019-11-11";
+        String dateFromParser = parser.dateParser(dateTest);
+
+        Assert.assertEquals(formattedDateTest, dateFromParser);
+    }
+
+    @Test
+    public void shouldGetNames() {
+               String[] gottenNamesFromAdvertisement = parser.getNames(Advertisement.ServiceType.class);
+               String offer = "OFFER";
+               String request = "REQUEST";
+               Assert.assertEquals(gottenNamesFromAdvertisement[0], offer);
+               Assert.assertEquals(gottenNamesFromAdvertisement[1], request);
+        }
 }
