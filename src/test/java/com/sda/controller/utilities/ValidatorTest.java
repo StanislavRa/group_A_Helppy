@@ -23,7 +23,7 @@ public class ValidatorTest {
         LocalDate startDate = LocalDate.of(2019, 10, 8);
         LocalDate endDate = LocalDate.of(2019, 11, 6);
         String message = "testing date validator";
-        boolean result = validator.startDateIsBeforeEndDate(startDate, endDate, message);
+        boolean result = Validator.startDateIsBeforeEndDate(startDate, endDate, message);
 
         Assert.assertTrue(result);
     }
@@ -33,8 +33,8 @@ public class ValidatorTest {
         LocalDate startDate = LocalDate.of(2019, 10, 8);
         LocalDate endDate = LocalDate.of(2019, 11, 6);
         String message = "testing date validator";
-        boolean result1 = validator.dateIsNotPast(startDate, message);
-        boolean result2 = validator.dateIsNotPast(endDate, message);
+        boolean result1 = Validator.dateIsNotPast(startDate, message);
+        boolean result2 = Validator.dateIsNotPast(endDate, message);
 
         Assert.assertTrue(result1);
         Assert.assertTrue(result2);
@@ -44,7 +44,7 @@ public class ValidatorTest {
     @Test(expected = NullPointerException.class)
     public void positiveIsTextFieldEmpty() {
         TextField textField = null;
-        String message = textField.getText();
+        String message = "testing Test Field validator";
 
         Assert.assertTrue(Validator.isTextFieldEmpty(textField, message));
 
