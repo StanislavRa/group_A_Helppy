@@ -71,8 +71,8 @@ public class MyAdsController extends TableSetUp implements Initializable {
                         countryComboBox.getSelectionModel().isEmpty() ||
                         cityComboBox.getSelectionModel().isEmpty() ||
                         subjectTextField.getText().isEmpty() ||
-                        descriptionTextField.getText().isEmpty() &&
-                                (offerServiceRadioButton == null || requestServiceRadioButton == null)
+                        descriptionTextField.getText().isEmpty() ||
+                                (offerServiceRadioButton == null && requestServiceRadioButton == null)
         ) {
             AlertBox.validation("Make sure you fill all necessary data");
             return false;
