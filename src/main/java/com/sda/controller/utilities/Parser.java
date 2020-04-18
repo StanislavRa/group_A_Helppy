@@ -40,7 +40,7 @@ public class Parser {
     }
 
     public String dateParser(java.util.Date date) {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         return formatter.format(date);
     }
 

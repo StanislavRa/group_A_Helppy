@@ -53,6 +53,7 @@ public abstract class GeneralController {
 
         AllAdsViewController allAdsViewController = changeScreen(event, "/views/allAdsView.fxml").getController();
         allAdsViewController.setCustomer(customer);
+        allAdsViewController.setUpTableColumns();
     }
 
     @FXML

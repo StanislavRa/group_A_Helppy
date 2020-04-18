@@ -1,8 +1,6 @@
 package com.sda.util;
 
 import org.hibernate.SessionFactory;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
 public class HibernateUtil {
@@ -12,7 +10,7 @@ public class HibernateUtil {
 
     private HibernateUtil() {
     }
-//maling the Hibernate SessionFactory object as singleton
+//making the Hibernate SessionFactory object as singleton
 
     public static synchronized SessionFactory getSessionFactory(String configFile) {
 
