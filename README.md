@@ -60,6 +60,12 @@ The rest of the tests can be run as usual without any restrictions.
     * After Customer creates or updates advertisement
      selecting row in the table does not populate datepicker fields anymore.
 * Created information in your localhost will not be erased automatically
+* Validator class methods has Java FX objects, and it causes multithreading problems while testing this class.
+    * So methods in Validator use: runLater() method to overcome these problems, which is not a good approach.
+        ```
+      Platform.runLater(() ->  AlertBox.validation(message));
+      ```
+    * Better would be test such methods with Test FX library. 
 
 
 ## Built With

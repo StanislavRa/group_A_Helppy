@@ -5,12 +5,11 @@ import com.sda.entity.Advertisement;
 import com.sda.entity.Category;
 import com.sda.entity.Customer;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -20,184 +19,95 @@ import java.util.logging.Logger;
 
 public class AdvertisementDaoTest {
 
-    Logger log = Logger.getLogger(AdvertisementDaoTest.class.getName());
     String connectionToDatabaseCreate = "hibernateUnitTest.cfg.xml";
 
-    CustomerDao customerDao = new CustomerDao(connectionToDatabaseCreate);
-    AdvertisementDao advertisementDao = new AdvertisementDao(connectionToDatabaseCreate);
-    CategoryDao categoryDao = new CategoryDao(connectionToDatabaseCreate);
-    AddressDao addressDao = new AddressDao(connectionToDatabaseCreate);
-    CountryDao countryDao = new CountryDao(connectionToDatabaseCreate);
-    CityDao cityDao = new CityDao(connectionToDatabaseCreate);
+    Logger log = Logger.getLogger(AdvertisementDaoTest.class.getName());
 
-    @Test
-    public void shouldSaveAdvertisement() throws ParseException {
+    CustomerDao customerDao;
+    AdvertisementDao advertisementDao;
+    CategoryDao categoryDao;
+    AddressDao addressDao;
 
-        log.info("...shouldSaveAdvertisement...");
+    Customer customer;
+    Category rentSuperCategory;
+    Category rentSubCategory;
+    Advertisement advertisement1;
+    Advertisement advertisement2;
 
-        Customer customer = new Customer();
+    @Before
+    public void setUp() throws ParseException {
+
+        addressDao = new AddressDao(connectionToDatabaseCreate);
+        customerDao = new CustomerDao(connectionToDatabaseCreate);
+        advertisementDao = new AdvertisementDao(connectionToDatabaseCreate);
+        categoryDao = new CategoryDao(connectionToDatabaseCreate);
+
+        customer = new Customer();
         customer.setLogin("Pjotr");
         customer.setPassword("123456");
         customer.setFullName("Petr III");
 
-        customerDao.save(customer);
-        Assert.assertNotNull(customerDao.get(1L));
+        rentSuperCategory = new Category(null, "Rent");
 
-        //create address
-        String countryTest1 = new String("USA");
-        String cityTest1 = new String("LA");
-        Address addressTest1 = new Address(countryTest1, cityTest1);
-        Address addressTest2 = new Address(countryTest1, cityTest1);
+        rentSubCategory = new Category(rentSuperCategory, "Car Rent");
 
-        Category category = new Category("Rent");
-        categoryDao.save(category);
-
-        String startDateString1 = "31/12/1998";
-        Date startDate1 = new SimpleDateFormat("dd/MM/yyyy").parse(startDateString1);
-
-        String endDateString1 = "31/12/1998";
-        Date endDate1 = new SimpleDateFormat("dd/MM/yyyy").parse(endDateString1);
-
-        String startDateString2 = "21/02/2005";
-        Date startDate2 = new SimpleDateFormat("dd/MM/yyyy").parse(startDateString2);
-
-        String endDateString2 = "13/01/2001";
-        Date endDate2 = new SimpleDateFormat("dd/MM/yyyy").parse(endDateString2);
-
-        Advertisement advertisement1 = new Advertisement(
+        advertisement1 = new Advertisement(
                 "Clean Fast",
                 "blablabla",
                 "2.5",
-                startDate1,
-                endDate1,
+                new SimpleDateFormat("dd/MM/yyyy").parse("31/12/1998"),
+                new SimpleDateFormat("dd/MM/yyyy").parse("31/12/1998"),
                 Advertisement.ServiceType.OFFER,
-                category,
+                rentSuperCategory,
                 customer,
-                addressTest1);
+                new Address("Estonia", "Tallinn"));
 
-        Advertisement advertisement2 = new Advertisement(
-                "Car Rent",
-                "ohohoho",
-                "103.3",
-                startDate2,
-                endDate2,
+        advertisement2 = new Advertisement(
+                "Rent Car",
+                "dudududu",
+                "100",
+                new SimpleDateFormat("dd/MM/yyyy").parse("31/12/2008"),
+                new SimpleDateFormat("dd/MM/yyyy").parse("31/12/2009"),
                 Advertisement.ServiceType.REQUEST,
-                category,
+                rentSubCategory,
                 customer,
-                addressTest2);
+                new Address("USA", "LA"));
+
+        customerDao.save(customer);
+        categoryDao.save(rentSuperCategory);
+        categoryDao.save(rentSubCategory);
 
         advertisementDao.save(advertisement1);
         advertisementDao.save(advertisement2);
+    }
 
+    @Test
+    public void shouldSaveAdvertisement() {
+
+        log.info("...shouldSaveAdvertisement...");
+
+        Assert.assertNotNull(customerDao.get(1L));
         Assert.assertNotNull(advertisementDao.get(1L));
         Assert.assertNotNull(advertisementDao.get(2L));
     }
 
 
     @Test
-    public void shouldGetAdvertisementById() throws ParseException {
+    public void shouldGetAdvertisementById() {
 
         log.info("...shouldGetAdvertisementById...");
 
-        Customer customer = new Customer();
-        customer.setLogin("Pjotr");
-        customer.setPassword("123456");
-        customer.setFullName("Petr III");
+        Advertisement shouldGetAdvertisementById1 = advertisementDao.get(1L);
+        Advertisement shouldGetAdvertisementById2 = advertisementDao.get(2L);
 
-        customerDao.save(customer);
-
-        //create address
-        String countryTest1 = new String("Estonia");
-        String cityTest1 = new String("Tallinn");
-        Address addressTest1 = new Address(countryTest1, cityTest1);
-        addressDao.save(addressTest1);
-
-        Category rentSuperCategory = new Category(null, "Rent");
-        categoryDao.save(rentSuperCategory);
-
-        Category rentSubCategory1 = new Category(rentSuperCategory, "Car Rent");
-        categoryDao.save(rentSubCategory1);
-
-
-        String startDateString1 = "31/12/1998";
-        Date startDate1 = new SimpleDateFormat("dd/MM/yyyy").parse(startDateString1);
-
-        String endDateString1 = "31/12/1998";
-        Date endDate1 = new SimpleDateFormat("dd/MM/yyyy").parse(endDateString1);
-
-
-        Advertisement advertisement1 = new Advertisement(
-                "Clean Fast",
-                "blablabla",
-                "2.5",
-                startDate1,
-                endDate1,
-                Advertisement.ServiceType.OFFER,
-                rentSubCategory1,
-                customer,
-                addressTest1);
-
-        advertisementDao.save(advertisement1);
-
-        Advertisement shouldGetAdvertisementById = advertisementDao.get(1L);
-
-        Assert.assertEquals(advertisement1, shouldGetAdvertisementById);
+        Assert.assertEquals(advertisement1, shouldGetAdvertisementById1);
+        Assert.assertEquals(advertisement2, shouldGetAdvertisementById2);
     }
 
     @Test
-    public void shouldGetAllAdvertisements() throws ParseException {
+    public void shouldGetAllAdvertisements() {
 
         log.info("...shouldGetAllAdvertisements...");
-
-        Customer customer = new Customer();
-        customer.setLogin("Pjotr");
-        customer.setPassword("123456");
-        customer.setFullName("Petr III");
-
-        customerDao.save(customer);
-
-        //create address
-        String countryTest1 = new String("Estonia");
-        String cityTest1 = new String("Tallinn");
-        Address addressTest1 = new Address(countryTest1, cityTest1);
-        addressDao.save(addressTest1);
-
-        String startDateString1 = "31/12/1998";
-        Date startDate1 = new SimpleDateFormat("dd/MM/yyyy").parse(startDateString1);
-
-        String endDateString1 = "31/12/1998";
-        Date endDate1 = new SimpleDateFormat("dd/MM/yyyy").parse(endDateString1);
-
-        String startDateString2 = "21/02/2005";
-        Date startDate2 = new SimpleDateFormat("dd/MM/yyyy").parse(startDateString2);
-
-        String endDateString2 = "13/01/2001";
-        Date endDate2 = new SimpleDateFormat("dd/MM/yyyy").parse(endDateString2);
-
-        Advertisement advertisement1 = new Advertisement(
-                "Clean Fast",
-                "blablabla",
-                "2.5",
-                startDate1,
-                endDate1,
-                Advertisement.ServiceType.OFFER,
-                new Category("CLEANING"),
-                customer,
-                addressTest1);
-
-        Advertisement advertisement2 = new Advertisement(
-                "Car Rent",
-                "ohohoho",
-                "103.3",
-                startDate2,
-                endDate2,
-                Advertisement.ServiceType.REQUEST,
-                new Category("RENTING"),
-                customer,
-                addressTest1);
-
-        advertisementDao.save(advertisement1);
-        advertisementDao.save(advertisement2);
 
         List<Advertisement> getAllAdvertisements = advertisementDao.getAll();
 
@@ -205,51 +115,14 @@ public class AdvertisementDaoTest {
     }
 
     @Test
-    public void shouldUpdateAdvertisementSubject() throws ParseException {
+    public void shouldUpdateAdvertisementSubject() {
 
         log.info("...shouldUpdateAdvertisementSubject...");
 
-        Customer customer = new Customer();
-        customer.setLogin("Pjotr");
-        customer.setPassword("123456");
-        customer.setFullName("Petr III");
-
-        customerDao.save(customer);
-
-        //create address
-        String countryTest1 = new String("Estonia");
-        String cityTest1 = new String("Tallinn");
-        Address addressTest1 = new Address(countryTest1, cityTest1);
-        addressDao.save(addressTest1);
-
-        String startDateString1 = "31/12/1998";
-        Date startDate1 = new SimpleDateFormat("dd/MM/yyyy").parse(startDateString1);
-
-        String endDateString1 = "31/12/1998";
-        Date endDate1 = new SimpleDateFormat("dd/MM/yyyy").parse(endDateString1);
-
-        Advertisement advertisement1 = new Advertisement(
-                "Clean Fast",
-                "blablabla",
-                "2.5",
-                startDate1,
-                endDate1,
-                Advertisement.ServiceType.OFFER,
-                new Category("CLEANING"),
-                customer,
-                addressTest1);
-
-        advertisementDao.save(advertisement1);
-        Assert.assertNotNull(advertisementDao.get(1L));
-
         Advertisement shouldUpdateAdvertisementSubject = advertisementDao.get(1L);
-
         String newAdvertisementSubject = "Renting";
-
         shouldUpdateAdvertisementSubject.setSubject(newAdvertisementSubject);
-
         advertisementDao.update(shouldUpdateAdvertisementSubject);
-
         Advertisement updatedAdvertisement = advertisementDao.get(1L);
 
         Assert.assertEquals(newAdvertisementSubject, updatedAdvertisement.getSubject());
@@ -257,40 +130,9 @@ public class AdvertisementDaoTest {
 
 
     @Test
-    public void shouldSaveAdvertisementWithCreatedAndUpdatedTimeStamp() throws ParseException {
+    public void shouldSaveAdvertisementWithCreatedAndUpdatedTimeStamp() {
 
         log.info("...shouldSaveAdvertisementWithCreatedAndUpdatedTimeStamp...");
-        Customer customer = new Customer();
-        customer.setLogin("Pjotr");
-        customer.setPassword("123456");
-        customer.setFullName("Petr III");
-
-        customerDao.save(customer);
-
-        //create address
-        String countryTest1 = new String("Estonia");
-        String cityTest1 = new String("Tallinn");
-        Address addressTest1 = new Address(countryTest1, cityTest1);
-        addressDao.save(addressTest1);
-
-        String startDateString1 = "31/12/1998";
-        Date startDate1 = new SimpleDateFormat("dd/MM/yyyy").parse(startDateString1);
-
-        String endDateString1 = "31/12/1998";
-        Date endDate1 = new SimpleDateFormat("dd/MM/yyyy").parse(endDateString1);
-
-        Advertisement advertisement1 = new Advertisement(
-                "Clean Fast",
-                "blablabla",
-                "2.5",
-                startDate1,
-                endDate1,
-                Advertisement.ServiceType.OFFER,
-                new Category("CLEANING"),
-                customer,
-                addressTest1);
-
-        advertisementDao.save(advertisement1);
 
         Advertisement shouldGetAdvertisementById = advertisementDao.get(1L);
 
@@ -299,63 +141,9 @@ public class AdvertisementDaoTest {
     }
 
     @Test
-    public void shouldSaveAdvertisementAsListToCustomer() throws ParseException {
+    public void shouldSaveAdvertisementAsListToCustomer() {
 
         log.info("...shouldSaveAdvertisementAsListToCustomer...");
-
-        //create customer
-        Customer customer = new Customer();
-        customer.setLogin("Pjotr");
-        customer.setPassword("123456");
-        customer.setFullName("Petr III");
-        customerDao.save(customer);
-
-        //create address
-        String countryTest1 = new String("Estonia");
-        String cityTest1 = new String("Tallinn");
-        Address addressTest1 = new Address(countryTest1, cityTest1);
-        addressDao.save(addressTest1);
-
-        //create dates
-        String startDateString1 = "31/12/1998";
-        Date startDate1 = new SimpleDateFormat("dd/MM/yyyy").parse(startDateString1);
-
-        String endDateString1 = "31/12/1998";
-        Date endDate1 = new SimpleDateFormat("dd/MM/yyyy").parse(endDateString1);
-
-        String startDateString2 = "21/02/2005";
-        Date startDate2 = new SimpleDateFormat("dd/MM/yyyy").parse(startDateString2);
-
-        String endDateString2 = "13/01/2001";
-        Date endDate2 = new SimpleDateFormat("dd/MM/yyyy").parse(endDateString2);
-
-        //create advertisement
-        Advertisement advertisement1 = new Advertisement(
-                "Clean Fast",
-                "blablabla",
-                "2.5",
-                startDate1,
-                endDate1,
-                Advertisement.ServiceType.OFFER,
-                new Category("CLEANING"),
-                customer,
-                addressTest1);
-
-        Advertisement advertisement2 = new Advertisement(
-                "Car Rent",
-                "ohohoho",
-                "103.3",
-                startDate2,
-                endDate2,
-                Advertisement.ServiceType.REQUEST,
-                new Category("RENTING"),
-                customer,
-                addressTest1);
-
-        advertisementDao.save(advertisement1);
-        advertisementDao.save(advertisement2);
-
-        customer.setUserAdvertisements(Arrays.asList(advertisement1, advertisement2));
 
         Assert.assertEquals(2,
                 customerDao.getByLogin(
@@ -363,68 +151,9 @@ public class AdvertisementDaoTest {
     }
 
     @Test
-    public void shouldDeleteAdvertisement() throws ParseException {
+    public void shouldDeleteAdvertisement() {
 
         log.info("...shouldDeleteAdvertisement...");
-
-        //create customer
-        Customer customer = new Customer();
-        customer.setLogin("Pjotr");
-        customer.setPassword("123456");
-        customer.setFullName("Petr III");
-        customerDao.save(customer);
-
-        //create address
-        String countryTest1 = new String("Estonia");
-        String countryTest2 = new String("USA");
-        String cityTest1 = new String("Tallinn");
-        String cityTest2 = new String("LA");
-        Address addressTest1 = new Address(countryTest1, cityTest1);
-        Address addressTest2 = new Address(countryTest2, cityTest2);
-
-        Category category = new Category("Rent");
-        categoryDao.save(category);
-
-        //create dates
-        String startDateString1 = "31/12/1998";
-        Date startDate1 = new SimpleDateFormat("dd/MM/yyyy").parse(startDateString1);
-
-        String endDateString1 = "31/12/1998";
-        Date endDate1 = new SimpleDateFormat("dd/MM/yyyy").parse(endDateString1);
-
-        String startDateString2 = "21/02/2005";
-        Date startDate2 = new SimpleDateFormat("dd/MM/yyyy").parse(startDateString2);
-
-        String endDateString2 = "13/01/2001";
-        Date endDate2 = new SimpleDateFormat("dd/MM/yyyy").parse(endDateString2);
-
-        //create advertisement
-        Advertisement advertisement1 = new Advertisement(
-                "Clean Fast",
-                "blablabla",
-                "2.5",
-                startDate1,
-                endDate1,
-                Advertisement.ServiceType.OFFER,
-                category,
-                customer,
-                addressTest1);
-
-        Advertisement advertisement2 = new Advertisement(
-                "Car Rent",
-                "ohohoho",
-                "103.3",
-                startDate2,
-                endDate2,
-                Advertisement.ServiceType.REQUEST,
-                category,
-                customer,
-                addressTest2);
-
-        advertisementDao.save(advertisement1);
-        advertisementDao.save(advertisement2);
-
-        customer.setUserAdvertisements(Arrays.asList(advertisement1, advertisement2));
 
         Advertisement shouldBeSavedAd = advertisementDao.get(2L);
 
@@ -432,6 +161,5 @@ public class AdvertisementDaoTest {
 
         Address shouldBeDeletedAd = addressDao.get(2L);
         Assert.assertNull(shouldBeDeletedAd);
-
     }
 }
