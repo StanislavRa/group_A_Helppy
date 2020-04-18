@@ -2,8 +2,10 @@ package com.sda.dao.implementation;
 
 import com.sda.entity.Category;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -12,25 +14,35 @@ import java.util.logging.Logger;
  */
 
 public class CategoryDaoTest {
-    Logger log = Logger.getLogger(CategoryDaoTest.class.getName());
-
     String connectionToDatabaseCreate = "hibernateUnitTest.cfg.xml";
 
-    CategoryDao categoryDao = new CategoryDao(connectionToDatabaseCreate);
+    Logger log = Logger.getLogger(AdvertisementDaoTest.class.getName());
+
+    CategoryDao categoryDao;
+
+    Category rentSuperCategory;
+    Category rentSubCategory1;
+    Category rentSubCategory2;
+
+    @Before
+    public void setUp() {
+
+        categoryDao = new CategoryDao(connectionToDatabaseCreate);
+
+        rentSuperCategory = new Category(null, "Rent");
+
+        rentSubCategory1 = new Category(rentSuperCategory, "Car Rent");
+        rentSubCategory2 = new Category(rentSuperCategory, "Apartment Rent");
+
+        categoryDao.save(rentSuperCategory);
+        categoryDao.save(rentSubCategory1);
+        categoryDao.save(rentSubCategory2);
+    }
 
     @Test
     public void shouldSaveCategoryWithSubcategory() {
 
         log.info("...shouldSaveCategoryWithSubcategory...");
-
-        Category rentSuperCategory = new Category(null, "Rent");
-        categoryDao.save(rentSuperCategory);
-
-        Category rentSubCategory1 = new Category(rentSuperCategory, "Car Rent");
-        categoryDao.save(rentSubCategory1);
-
-        Category rentSubCategory2 = new Category(rentSuperCategory, "Apartment Rent");
-        categoryDao.save(rentSubCategory2);
 
         Assert.assertEquals("Rent", categoryDao.get(2L).getSuperCategory().getName());
         Assert.assertEquals(2, categoryDao.get(1L).getSubCategories().size());
@@ -42,16 +54,9 @@ public class CategoryDaoTest {
 
         log.info("...shouldGetCategoryById...");
 
-        Category rentSuperCategory = new Category(null, "Rent");
-        categoryDao.save(rentSuperCategory);
-
-        Category rentSubCategory1 = new Category(rentSuperCategory, "Car Rent");
-        categoryDao.save(rentSubCategory1);
-
         Category shouldGetCategoryById = categoryDao.get(1L);
 
         Assert.assertEquals(shouldGetCategoryById, rentSuperCategory);
-
     }
 
     @Test
@@ -59,28 +64,15 @@ public class CategoryDaoTest {
 
         log.info("...shouldGetAllSuperCategory...");
 
-        Category rentSuperCategory = new Category(null, "Rent");
-        categoryDao.save(rentSuperCategory);
-
-        Category rentSubCategory1 = new Category(rentSuperCategory, "Car Rent");
-        categoryDao.save(rentSubCategory1);
-
-        Category rentSubCategory3 = new Category(rentSuperCategory, "Bike Rent");
-        categoryDao.save(rentSubCategory3);
-
         List<Category> getAllCategory = categoryDao.getAll();
 
         Assert.assertEquals(3, getAllCategory.size());
-
     }
 
     @Test
     public void shouldUpdateCategoryName() {
 
         log.info("...shouldUpdateCategoryName...");
-
-        Category rentSuperCategory = new Category(null, "Rent");
-        categoryDao.save(rentSuperCategory);
 
         Category category = categoryDao.get(1L);
 
@@ -100,16 +92,6 @@ public class CategoryDaoTest {
 
         log.info("...shouldDeleteCategory...");
 
-        Category rentSuperCategory = new Category(null, "Rent");
-        categoryDao.save(rentSuperCategory);
-
-        Category rentSubCategory1 = new Category(rentSuperCategory, "Car Rent");
-        categoryDao.save(rentSubCategory1);
-
-        Category rentSubCategory3 = new Category(rentSuperCategory, "Bike Rent");
-        categoryDao.save(rentSubCategory3);
-
-
         Category shouldBeSavedCategory = categoryDao.get(2L);
         Assert.assertNotNull(shouldBeSavedCategory);
 
@@ -123,11 +105,6 @@ public class CategoryDaoTest {
     public void shouldSaveCategoryWithCreatedAndUpdatedTimeStamp() {
 
         log.info("...shouldSaveCategoryWithCreatedAndUpdatedTimeStamp...");
-
-        Category rentSuperCategory = new Category(null, "Rent");
-        categoryDao.save(rentSuperCategory);
-
-        categoryDao.save(rentSuperCategory);
 
         Category shouldGetCategoryById = categoryDao.get(1L);
 

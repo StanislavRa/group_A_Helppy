@@ -2,6 +2,7 @@ package com.sda.dao.implementation;
 
 import com.sda.entity.Country;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
@@ -14,30 +15,39 @@ import java.util.logging.Logger;
 
 public class CountryDaoTest {
 
-    Logger log = Logger.getLogger(CountryDaoTest.class.getName());
-
     String connectionToDatabaseCreate = "hibernateUnitTest.cfg.xml";
 
-    CountryDao countryDao = new CountryDao(connectionToDatabaseCreate);
+    Logger log = Logger.getLogger(AdvertisementDaoTest.class.getName());
+
+    CountryDao countryDao;
+
+    Country countryTest1;
+    Country countryTest2;
+
+    @Before
+    public void setUp() {
+
+        countryDao = new CountryDao(connectionToDatabaseCreate);
+
+        countryTest1 = new Country("Estonia");
+        countryTest2 = new Country("France");
+
+        countryDao.save(countryTest1);
+        countryDao.save(countryTest2);
+    }
 
     @Test
-    public void shouldSaveAddressCountry() {
+    public void shouldSaveCountry() {
 
-        log.info("...shouldSaveAddressCountry...");
-
-        Country countryTest1 = new Country("Estonia");
-        countryDao.save(countryTest1);
+        log.info("...shouldSaveCountry...");
 
         Assert.assertNotNull(countryDao.get(1L));
     }
 
     @Test
-    public void shouldGetAddressCountryById() {
+    public void shouldGetCountryById() {
 
-        log.info("...shouldGetAddressCountryById...");
-
-        Country countryTest1 = new Country("Estonia");
-        countryDao.save(countryTest1);
+        log.info("...shouldGetCountryById...");
 
         Country shouldGetCountryById = countryDao.get(1L);
 
@@ -45,31 +55,19 @@ public class CountryDaoTest {
     }
 
     @Test
-    public void shouldGetAllAddressesCountries() {
+    public void shouldGetAllCountries() {
 
-        log.info("...shouldGetAllAddressesCountries...");
-
-        Country countryTest1 = new Country("Estonia");
-        countryDao.save(countryTest1);
-
-        Country addressCityTest2 = new Country("Sweden");
-        countryDao.save(addressCityTest2);
+        log.info("...shouldGetAllCountries...");
 
         List<Country> getAllAddressesCountries = countryDao.getAll();
 
         Assert.assertEquals(2, getAllAddressesCountries.size());
-
     }
 
     @Test
-    public void shouldUpdateAddressCountry() {
+    public void shouldUpdateCountry() {
 
-        log.info("...shouldUpdateAddressCountry...");
-
-        Country countryTest1 = new Country("Estonia");
-        countryDao.save(countryTest1);
-
-        Country countryTest2 = new Country("Latvia");
+        log.info("...shouldUpdateCountry...");
 
         countryTest1.setCountryName("Latvia");
 
@@ -81,34 +79,27 @@ public class CountryDaoTest {
     }
 
     @Test
-    public void shouldDeleteAddressCountry() {
+    public void shouldDeleteCountry() {
 
-        log.info("...shouldDeleteAddressCountry...");
+        log.info("...shouldDeleteCountry...");
 
-        Country countryTest1 = new Country("Estonia");
-        countryDao.save(countryTest1);
+        Country shouldBeSavedCountry = countryDao.get(2L);
+        Assert.assertNotNull(shouldBeSavedCountry);
 
-        Country countryTest2 = new Country("Sweden");
-        countryDao.save(countryTest2);
-
-        countryDao.delete(countryTest2);
+        countryDao.delete(shouldBeSavedCountry);
 
         Country shouldBeDeletedCountry = countryDao.get(2L);
         Assert.assertNull(shouldBeDeletedCountry);
     }
 
     @Test
-    public void shouldSaveAddressCountryWithCreatedAndUpdatedTimeStamp() {
+    public void shouldSaveCountryWithCreatedAndUpdatedTimeStamp() {
 
-        log.info("...shouldSaveAddressCountryWithCreatedAndUpdatedTimeStamp...");
-
-        Country countryTest1 = new Country("Estonia");
-        countryDao.save(countryTest1);
+        log.info("...shouldSaveCountryWithCreatedAndUpdatedTimeStamp...");
 
         Country shouldGetCountryById = countryDao.get(1L);
 
         Assert.assertNotNull(shouldGetCountryById.getCREATED_ON().toString());
         Assert.assertNotNull(shouldGetCountryById.getUPDATED_ON().toString());
-
     }
 }

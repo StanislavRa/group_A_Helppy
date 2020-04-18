@@ -1,7 +1,6 @@
 package com.sda.dao.implementation;
 
 import com.sda.entity.Address;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,76 +17,51 @@ public class AddressDaoTest {
 
     static String connectionToDatabaseCreate = "hibernateUnitTest.cfg.xml";
 
-    AddressDao addressDao = new AddressDao(connectionToDatabaseCreate);
+    AddressDao addressDao;
 
     String countryTest1 = "USA";
     String cityTest1 = "NY";
     String countryTest2 = "UK";
     String cityTest2 = "London";
 
-    Address addressTest1 = new Address(countryTest1, cityTest1);
-    Address addressTest2 = new Address(countryTest2, cityTest2);
+    Address addressTest1;
+    Address addressTest2;
 
     Logger log = Logger.getLogger(AddressDaoTest.class.getName());
 
     @Before
     public void setUp() {
 
-    }
-
-    @After
-    public void tearDown() {
-        addressDao.deleteAll();
-        System.out.println("After");
+        addressDao = new AddressDao(connectionToDatabaseCreate);
+        addressTest1 = new Address(countryTest1, cityTest1);
+        addressTest2 = new Address(countryTest2, cityTest2);
+        addressDao.save(addressTest1);
+        addressDao.save(addressTest2);
     }
 
     @Test
     public void shouldSaveAddress() {
 
-        String countryTest1 = "USA";
-        String cityTest1 = "NY";
-        String countryTest2 = "UK";
-        String cityTest2 = "London";
-
-        Address addressTest1 = new Address(countryTest1, cityTest1);
-        Address addressTest2 = new Address(countryTest2, cityTest2);
         log.info("...shouldSaveAddress...");
 
-        addressDao.save(addressTest1);
-
         Assert.assertNotNull(addressDao.get(1L));
-
     }
 
     @Test
     public void shouldGetAddressById() {
-        String countryTest3 = "USA";
-        String cityTest3 = "NY";
-        String countryTest4 = "UK";
-        String cityTest5 = "London";
-
-        Address addressTest1 = new Address(countryTest3, cityTest3);
-        Address addressTest2 = new Address(countryTest4, cityTest5);
 
         log.info("...shouldGetAddressById...");
-
-        addressDao.save(addressTest1);
 
         Address shouldGetAddressById = addressDao.get(1L);
 
         Assert.assertEquals(shouldGetAddressById, addressTest1);
-
 
     }
 
     @Test
     public void shouldGetAllAddresses() {
 
-
         log.info("...shouldGetAllAddresses...");
-
-        addressDao.save(addressTest1);
-        addressDao.save(addressTest2);
 
         List<Address> getAllAddresses = addressDao.getAll();
 
@@ -97,10 +71,7 @@ public class AddressDaoTest {
     @Test
     public void shouldUpdateAddressCity() {
 
-
         log.info("...shouldUpdateAddressCity...");
-
-        addressDao.save(addressTest1);
 
         addressTest1.setCity(cityTest2);
 
@@ -109,17 +80,12 @@ public class AddressDaoTest {
         Address updatedAddressCity = addressDao.get(1L);
 
         Assert.assertEquals(cityTest2, updatedAddressCity.getCity());
-
     }
 
     @Test
     public void shouldDeleteAddress() {
 
-
         log.info("...shouldDeleteAddress...");
-
-        addressDao.save(addressTest1);
-        addressDao.save(addressTest2);
 
         Address shouldBeSavedAddress = addressDao.get(2L);
         Assert.assertNotNull(shouldBeSavedAddress);
@@ -134,32 +100,22 @@ public class AddressDaoTest {
     @Test
     public void shouldSaveAddressWithCreatedAndUpdatedTimeStamp() {
 
-
         log.info("...shouldSaveAddressWithCreatedAndUpdatedTimeStamp...");
-
-        addressDao.save(addressTest1);
 
         Address shouldGetAddressById = addressDao.get(1L);
 
         Assert.assertNotNull(shouldGetAddressById.getCREATED_ON().toString());
         Assert.assertNotNull(shouldGetAddressById.getUPDATED_ON().toString());
-
-
     }
 
     @Test
     public void shouldGetEqualObjects() {
 
-
         log.info("...shouldGetEqualObjects...");
 
-        addressDao.save(addressTest1);
-        addressDao.save(addressTest1);
-
         Address addressGet1 = addressDao.get(1L);
-        Address addressGet2 = addressDao.get(2L);
 
-        Assert.assertEquals(addressGet1, addressGet2);
+        Assert.assertEquals(addressGet1, new Address("USA", "NY"));
 
     }
 }

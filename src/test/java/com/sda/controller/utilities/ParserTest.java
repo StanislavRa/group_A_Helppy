@@ -19,19 +19,17 @@ public class ParserTest {
         parser = new Parser();
     }
 
-
     @Test
     public void shouldConvertToDateViaSqlDate() throws ParseException {
 
         String startDateString2 = "11/01/2019";
 
-        LocalDate localDateTest = LocalDate.of(2019, 01, 11);
+        LocalDate localDateTest = LocalDate.of(2019, 1, 11);
 
         Date dateTest1 = new SimpleDateFormat("dd/MM/yyyy").parse(startDateString2);
         Date dateTest2 = parser.convertToDateViaSqlDate(localDateTest);
 
         Assert.assertEquals(dateTest1, dateTest2);
-
     }
 
     @Test
@@ -57,7 +55,7 @@ public class ParserTest {
         String startDateString2 = "11/01/2019";
         Date dateTest = new SimpleDateFormat("dd/MM/yyyy").parse(startDateString2);
 
-        LocalDate localDateTest1 = LocalDate.of(2019, 01, 11);
+        LocalDate localDateTest1 = LocalDate.of(2019, 1, 11);
         LocalDate localDateTest2 = parser.convertToLocalDateViaInstant(dateTest);
 
         Assert.assertEquals(localDateTest1, localDateTest2);
