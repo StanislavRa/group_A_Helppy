@@ -64,7 +64,7 @@
                         <Insets />
                      </GridPane.margin>
                   </ComboBox>
-                  <RadioButton fx:id="categoryRadioButton" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                  <RadioButton fx:id="categoryRadioButton" mnemonicParsing="false" selected="true" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <padding>
                         <Insets left="15.0" />
                      </padding>

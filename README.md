@@ -8,7 +8,7 @@ So that some parts of source code have potential to be extended and scaled.
 
 To run this application you need
  * Version of JDK 8
- * MySql with settings 
+ * MySQL with settings 
     * hostname: localhost
     * port: 3306
     * username: root
@@ -20,6 +20,7 @@ com.sda.main.App
 ```
 Automatically will be created 4 dummy data accounts.<br> 
 These accounts have already some Advertisements.<br> 
+Every time you launch an app, the old information erased.<br> 
 Accounts for logging in:
 
 | Login         | Password      |
@@ -58,12 +59,14 @@ The rest of the tests can be run as usual without any restrictions.
 *  MyAdsController.java: 
     * After Customer creates or updates advertisement
      selecting row in the table does not populate datepicker fields anymore.
+* Created information in your localhost will not be erased automatically
 
 
 ## Built With
 
 * [Java FX](https://openjfx.io/) - Software platform for creating and delivering desktop applications
 * [Maven](https://maven.apache.org/) - Dependency Management
+* [MySQL ](https://www.mysql.com/) -  Relational database management system 
 * [Hibernate](https://hibernate.org/) - Object-relational mapping tool
 * [JUnit](https://junit.org/) - Unit testing framework
 
@@ -73,7 +76,7 @@ The rest of the tests can be run as usual without any restrictions.
 * **Demi** - *Front End* - [Demi](https://github.com/demiavalian)
 * **Mariam** - *Code* - [Dgebu](https://github.com/Dgebu)
 * **Oleksandr** - *Database* - [Oleks Oleks](https://github.com/Shpakovsky94)
-* **Stanislav** - *Testing* - [Stanislav](https://github.com/StanislavRa)
+* **Stanislav** - *Code, Database, Testing* - [Stanislav](https://github.com/StanislavRa)
 
 ## Acknowledgments
 
