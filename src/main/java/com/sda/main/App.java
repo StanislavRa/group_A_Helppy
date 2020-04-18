@@ -13,7 +13,7 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        //new DummyData();
+        new DummyData();
 
         Parent root = FXMLLoader.load(getClass().getResource("/views/homeView.fxml"));
         primaryStage.setTitle("My First App");
