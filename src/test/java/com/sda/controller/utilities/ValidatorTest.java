@@ -42,7 +42,7 @@ public class ValidatorTest {
     }
 
     @Test(expected = NullPointerException.class)
-    public void positiveIsTextFieldEmpty() {
+    public void textFieldShouldBeEmpty() {
         TextField textField = null;
         String message = "testing Test Field validator";
 
