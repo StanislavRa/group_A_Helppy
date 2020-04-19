@@ -2,34 +2,36 @@ package com.sda.dao.implementation;
 
 import com.sda.entity.Category;
 import org.junit.Assert;
-import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
-import java.text.ParseException;
 import java.util.List;
 import java.util.logging.Logger;
 
-/**
- * Work only one-by-one
- */
-
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class CategoryDaoTest {
-    String connectionToDatabaseCreate = "hibernateUnitTest.cfg.xml";
+    private static CategoryDao categoryDao;
+    private static Category rentSuperCategory;
+    private static Category rentSuperCategoryToBeDeleted;
+    private static Category rentSuperCategoryToBeUpdated;
+    private static Category rentSubCategory1;
+    private static Category rentSubCategory2;
+    private static String connectionToDatabaseCreate;
 
     Logger log = Logger.getLogger(AdvertisementDaoTest.class.getName());
 
-    CategoryDao categoryDao;
+    @BeforeClass
+    public static void setUp() {
 
-    Category rentSuperCategory;
-    Category rentSubCategory1;
-    Category rentSubCategory2;
-
-    @Before
-    public void setUp() {
+        connectionToDatabaseCreate = "hibernateUnitTest.cfg.xml";
 
         categoryDao = new CategoryDao(connectionToDatabaseCreate);
 
         rentSuperCategory = new Category(null, "Rent");
+        rentSuperCategoryToBeDeleted = new Category(null, "Clean");
+        rentSuperCategoryToBeUpdated = new Category(null, "Baking");
 
         rentSubCategory1 = new Category(rentSuperCategory, "Car Rent");
         rentSubCategory2 = new Category(rentSuperCategory, "Apartment Rent");
@@ -37,10 +39,12 @@ public class CategoryDaoTest {
         categoryDao.save(rentSuperCategory);
         categoryDao.save(rentSubCategory1);
         categoryDao.save(rentSubCategory2);
+        categoryDao.save(rentSuperCategoryToBeUpdated);
+        categoryDao.save(rentSuperCategoryToBeDeleted);
     }
 
     @Test
-    public void shouldSaveCategoryWithSubcategory() {
+    public void should1SaveCategoryWithSubcategory() {
 
         log.info("...shouldSaveCategoryWithSubcategory...");
 
@@ -50,7 +54,18 @@ public class CategoryDaoTest {
     }
 
     @Test
-    public void shouldGetCategoryById() {
+    public void should2SaveCategoryWithCreatedAndUpdatedTimeStamp() {
+
+        log.info("...shouldSaveCategoryWithCreatedAndUpdatedTimeStamp...");
+
+        Category shouldGetCategoryById = categoryDao.get(1L);
+
+        Assert.assertNotNull(shouldGetCategoryById.getCREATED_ON().toString());
+        Assert.assertNotNull(shouldGetCategoryById.getUPDATED_ON().toString());
+    }
+
+    @Test
+    public void should3GetCategoryById() {
 
         log.info("...shouldGetCategoryById...");
 
@@ -60,21 +75,21 @@ public class CategoryDaoTest {
     }
 
     @Test
-    public void shouldGetAllCategory() {
+    public void should4GetAllCategory() {
 
         log.info("...shouldGetAllSuperCategory...");
 
         List<Category> getAllCategory = categoryDao.getAll();
 
-        Assert.assertEquals(3, getAllCategory.size());
+        Assert.assertEquals(5, getAllCategory.size());
     }
 
     @Test
-    public void shouldUpdateCategoryName() {
+    public void should5UpdateCategoryName() {
 
         log.info("...shouldUpdateCategoryName...");
 
-        Category category = categoryDao.get(1L);
+        Category category = categoryDao.get(4L);
 
         String newCategoryName = "Renting";
 
@@ -82,33 +97,23 @@ public class CategoryDaoTest {
 
         categoryDao.update(category);
 
-        Category updatedCategory = categoryDao.get(1L);
+        Category updatedCategory = categoryDao.get(4L);
 
         Assert.assertEquals(newCategoryName, updatedCategory.getName());
     }
 
     @Test
-    public void shouldDeleteCategory() {
+    public void should6DeleteCategory() {
 
         log.info("...shouldDeleteCategory...");
 
-        Category shouldBeSavedCategory = categoryDao.get(2L);
+        Category shouldBeSavedCategory = categoryDao.get(5L);
         Assert.assertNotNull(shouldBeSavedCategory);
 
         categoryDao.delete(shouldBeSavedCategory);
 
-        Category shouldBeDeletedCategory = categoryDao.get(2L);
+        Category shouldBeDeletedCategory = categoryDao.get(5L);
         Assert.assertNull(shouldBeDeletedCategory);
     }
 
-    @Test
-    public void shouldSaveCategoryWithCreatedAndUpdatedTimeStamp() {
-
-        log.info("...shouldSaveCategoryWithCreatedAndUpdatedTimeStamp...");
-
-        Category shouldGetCategoryById = categoryDao.get(1L);
-
-        Assert.assertNotNull(shouldGetCategoryById.getCREATED_ON().toString());
-        Assert.assertNotNull(shouldGetCategoryById.getUPDATED_ON().toString());
-    }
 }
