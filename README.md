@@ -39,13 +39,7 @@ UML, ERD, User Story and User Story Views can be found here:
 
 ## Running the tests
 
-All tests are unit tests.<br> 
-So called ...DaoTests should be run manually one-by-one.<br> 
-Reason:<br> 
-DaoTest methods work correctly if current database tables are empty. 
-So running bulk of methods will lead to collisions between data indexes.
-<br> 
-The rest of the tests can be run as usual without any restrictions. 
+All tests are unit tests used JUnit4.<br> 
 
 ## Extendable parts of code
 
@@ -59,7 +53,7 @@ The rest of the tests can be run as usual without any restrictions.
 *  MyAdsController.java: 
     * After Customer creates or updates advertisement
      selecting row in the table does not populate datepicker fields anymore.
-* Created information in your localhost will not be erased automatically
+* Created information in your localhost will not be erased automatically.
 * Validator class methods has Java FX objects, and it causes multithreading problems while testing this class.
     * So methods in Validator use: runLater() method to overcome these problems, which is not a good approach.
         ```

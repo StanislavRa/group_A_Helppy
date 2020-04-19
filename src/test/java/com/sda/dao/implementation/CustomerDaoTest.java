@@ -2,30 +2,32 @@ package com.sda.dao.implementation;
 
 import com.sda.entity.Customer;
 import org.junit.Assert;
-import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
-import java.text.ParseException;
 import java.util.List;
 import java.util.logging.Logger;
 
-/**
- * Work only one-by-one
- */
-
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class CustomerDaoTest {
 
-    String connectionToDatabaseCreate = "hibernateUnitTest.cfg.xml";
+    static String connectionToDatabaseCreate;
 
     Logger log = Logger.getLogger(AdvertisementDaoTest.class.getName());
 
-    CustomerDao customerDao;
+    static CustomerDao customerDao;
 
-    Customer customer1;
-    Customer customer2;
+    static Customer customer1;
+    static Customer customer2;
+    static Customer customerToBeUpdated;
+    static Customer customerToBeDeleted;
 
-    @Before
-    public void setUp() {
+    @BeforeClass
+    public static void setUp() {
+
+        connectionToDatabaseCreate = "hibernateUnitTest.cfg.xml";
 
         customerDao = new CustomerDao(connectionToDatabaseCreate);
 
@@ -39,12 +41,24 @@ public class CustomerDaoTest {
         customer2.setPassword("VasjaPass");
         customer2.setFullName("Vasja Petrov");
 
+        customerToBeUpdated = new Customer();
+        customerToBeUpdated.setLogin("StanLogin");
+        customerToBeUpdated.setPassword("StanPass");
+        customerToBeUpdated.setFullName("Stan Ra");
+
+        customerToBeDeleted = new Customer();
+        customerToBeDeleted.setLogin("AlexLogin");
+        customerToBeDeleted.setPassword("AlexPass");
+        customerToBeDeleted.setFullName("Alex Mighty");
+
         customerDao.save(customer1);
         customerDao.save(customer2);
+        customerDao.save(customerToBeUpdated);
+        customerDao.save(customerToBeDeleted);
     }
 
     @Test
-    public void shouldSaveCustomer() {
+    public void should1SaveCustomer() {
 
         log.info("...shouldSaveCustomer...");
 
@@ -53,7 +67,7 @@ public class CustomerDaoTest {
     }
 
     @Test
-    public void shouldGetCustomerById() {
+    public void should2GetCustomerById() {
 
         log.info("...shouldGetCustomerById...");
 
@@ -62,43 +76,43 @@ public class CustomerDaoTest {
         Assert.assertEquals(shouldGetCustomerById, customer1);
     }
 
-
     @Test
-    public void shouldUpdateCustomerPassword() {
-
-        log.info("...shouldUpdateCustomerPassword...");
-
-        Customer customer = customerDao.get(1L);
-
-        String newCustomerPassword = "qwerty";
-        customer.setPassword(newCustomerPassword);
-
-        customerDao.update(customer);
-        Customer updatedCustomer = customerDao.get(1L);
-
-        Assert.assertEquals(newCustomerPassword, updatedCustomer.getPassword());
-    }
-
-    @Test
-    public void shouldGetAllCustomers() {
+    public void should3GetAllCustomers() {
 
         log.info("...shouldGetAllCustomers...");
 
         List<Customer> getAllCustomers = customerDao.getAll();
 
-        Assert.assertEquals(2, getAllCustomers.size());
+        Assert.assertEquals(4, getAllCustomers.size());
     }
 
     @Test
-    public void shouldDeleteCustomer() {
+    public void should4UpdateCustomerPassword() {
+
+        log.info("...shouldUpdateCustomerPassword...");
+
+        Customer customer = customerDao.get(3L);
+
+        String newCustomerPassword = "qwerty";
+        customer.setPassword(newCustomerPassword);
+
+        customerDao.update(customer);
+        Customer updatedCustomer = customerDao.get(3L);
+
+        Assert.assertEquals(newCustomerPassword, updatedCustomer.getPassword());
+    }
+
+
+    @Test
+    public void should5DeleteCustomer() {
 
         log.info("...shouldDeleteCustomer...");
 
-        Customer shouldBeSavedCustomer = customerDao.get(1L);
+        Customer shouldBeSavedCustomer = customerDao.get(4L);
 
         customerDao.delete(shouldBeSavedCustomer);
 
-        Customer shouldBeDeletedCustomer = customerDao.get(1L);
+        Customer shouldBeDeletedCustomer = customerDao.get(4L);
         Assert.assertNull(shouldBeDeletedCustomer);
     }
 }

@@ -14,9 +14,9 @@
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/helppyTest?createDatabaseIfNotExist=true&amp;serverTimezone = UTC</property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">root</property>
-        <property name="hibernate.connection.pool_size">10</property>
+        <property name="hibernate.connection.pool_size">100</property>
         <property name="hibernate.show_sql">true</property>
-        <property name="hibernate.hbm2ddl.auto">create</property>
+        <property name="hibernate.hbm2ddl.auto">create-drop</property>
 
         <mapping class="com.sda.entity.Advertisement"/>
         <mapping class="com.sda.entity.Address"/>

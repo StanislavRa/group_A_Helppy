@@ -2,45 +2,55 @@ package com.sda.dao.implementation;
 
 import com.sda.entity.Address;
 import org.junit.Assert;
-import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import java.util.List;
 import java.util.logging.Logger;
 
-
-/**
- * Work only one-by-one
- */
-
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class AddressDaoTest {
 
-    static String connectionToDatabaseCreate = "hibernateUnitTest.cfg.xml";
+    static String connectionToDatabaseCreate;
 
-    AddressDao addressDao;
+    static AddressDao addressDao;
 
-    String countryTest1 = "USA";
-    String cityTest1 = "NY";
-    String countryTest2 = "UK";
-    String cityTest2 = "London";
+    static String countryTest1;
+    static String cityTest1;
+    static String countryTest2;
+    static String cityTest2;
 
-    Address addressTest1;
-    Address addressTest2;
+    static Address addressTest1;
+    static Address addressTest2;
+    static Address addressForUpdate;
 
     Logger log = Logger.getLogger(AddressDaoTest.class.getName());
 
-    @Before
-    public void setUp() {
+    @BeforeClass
+    public static void beforeClass() {
+
+        connectionToDatabaseCreate = "hibernateUnitTest.cfg.xml";
+
+        countryTest1 = "USA";
+        cityTest1 = "NY";
+
+        countryTest2 = "UK";
+        cityTest2 = "London";
 
         addressDao = new AddressDao(connectionToDatabaseCreate);
         addressTest1 = new Address(countryTest1, cityTest1);
         addressTest2 = new Address(countryTest2, cityTest2);
+        addressForUpdate = new Address(countryTest2, cityTest2);
+
         addressDao.save(addressTest1);
         addressDao.save(addressTest2);
+        addressDao.save(addressForUpdate);
     }
 
     @Test
-    public void shouldSaveAddress() {
+    public void should1SaveAddress() {
 
         log.info("...shouldSaveAddress...");
 
@@ -48,7 +58,7 @@ public class AddressDaoTest {
     }
 
     @Test
-    public void shouldGetAddressById() {
+    public void should2GetAddressById() {
 
         log.info("...shouldGetAddressById...");
 
@@ -59,46 +69,7 @@ public class AddressDaoTest {
     }
 
     @Test
-    public void shouldGetAllAddresses() {
-
-        log.info("...shouldGetAllAddresses...");
-
-        List<Address> getAllAddresses = addressDao.getAll();
-
-        Assert.assertEquals(2, getAllAddresses.size());
-    }
-
-    @Test
-    public void shouldUpdateAddressCity() {
-
-        log.info("...shouldUpdateAddressCity...");
-
-        addressTest1.setCity(cityTest2);
-
-        addressDao.update(addressTest1);
-
-        Address updatedAddressCity = addressDao.get(1L);
-
-        Assert.assertEquals(cityTest2, updatedAddressCity.getCity());
-    }
-
-    @Test
-    public void shouldDeleteAddress() {
-
-        log.info("...shouldDeleteAddress...");
-
-        Address shouldBeSavedAddress = addressDao.get(2L);
-        Assert.assertNotNull(shouldBeSavedAddress);
-
-        addressDao.delete(shouldBeSavedAddress);
-
-        Address shouldBeDeletedAddress = addressDao.get(2L);
-        Assert.assertNull(shouldBeDeletedAddress);
-
-    }
-
-    @Test
-    public void shouldSaveAddressWithCreatedAndUpdatedTimeStamp() {
+    public void should3SaveAddressWithCreatedAndUpdatedTimeStamp() {
 
         log.info("...shouldSaveAddressWithCreatedAndUpdatedTimeStamp...");
 
@@ -109,13 +80,54 @@ public class AddressDaoTest {
     }
 
     @Test
-    public void shouldGetEqualObjects() {
+    public void should4GetAllAddresses() {
+
+        log.info("...shouldGetAllAddresses...");
+
+        List<Address> getAllAddresses = addressDao.getAll();
+
+        Assert.assertEquals(3, getAllAddresses.size());
+    }
+
+    @Test
+    public void should5GetEqualObjects() {
 
         log.info("...shouldGetEqualObjects...");
 
         Address addressGet1 = addressDao.get(1L);
 
         Assert.assertEquals(addressGet1, new Address("USA", "NY"));
+    }
+
+    @Test
+    public void should6UpdateAddressCity() {
+
+        log.info("...shouldUpdateAddressCity...");
+
+        Address updatableCity = addressDao.get(3L);
+
+        updatableCity.setCity("Narva");
+
+        addressDao.update(updatableCity);
+
+        Address updatedAddressCity = addressDao.get(3L);
+
+        Assert.assertEquals("Narva", updatedAddressCity.getCity());
+    }
+
+
+    @Test
+    public void should7DeleteAddress() {
+
+        log.info("...shouldDeleteAddress...");
+
+        Address shouldBeSavedAddress = addressDao.get(2L);
+        Assert.assertNotNull(shouldBeSavedAddress);
+
+        addressDao.delete(shouldBeSavedAddress);
+
+        Address shouldBeDeletedAddress = addressDao.get(2L);
+        Assert.assertNull(shouldBeDeletedAddress);
 
     }
 }

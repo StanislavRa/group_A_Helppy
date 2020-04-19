@@ -3,40 +3,44 @@ package com.sda.dao.implementation;
 import com.sda.entity.City;
 import com.sda.entity.Country;
 import org.junit.Assert;
-import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import java.util.List;
 import java.util.logging.Logger;
 
-
-/**
- * Work only one-by-one
- */
-
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class CityDaoTest {
 
-    String connectionToDatabaseCreate = "hibernateUnitTest.cfg.xml";
+    static String connectionToDatabaseCreate;
 
     Logger log = Logger.getLogger(AdvertisementDaoTest.class.getName());
 
-    CityDao cityDao;
-    CountryDao countryDao;
+    static CityDao cityDao;
+    static CountryDao countryDao;
 
-    City cityTest1;
-    City cityTest2;
-    City cityTest3;
-    Country countryTest1;
-    Country countryTest2;
+    static City cityTest1;
+    static City cityTest2;
+    static City cityTest3;
+    static City cityTestToBeUpdated;
+    static City cityTestToBeDeleted;
+    static Country countryTest1;
+    static Country countryTest2;
+    static Country countryTest3;
 
-    @Before
-    public void setUp() {
+    @BeforeClass
+    public static void setUp() {
+
+        connectionToDatabaseCreate = "hibernateUnitTest.cfg.xml";
 
         cityDao = new CityDao(connectionToDatabaseCreate);
         countryDao = new CountryDao(connectionToDatabaseCreate);
 
         countryTest1 = new Country("Estonia");
         countryTest2 = new Country("France");
+        countryTest3 = new Country("USA");
 
         cityTest1 = new City("Tallinn");
         cityTest2 = new City("Narva");
@@ -48,16 +52,25 @@ public class CityDaoTest {
 
         cityTest3.setCountry(countryTest2);
 
+        cityTestToBeUpdated = new City("LA");
+        cityTestToBeDeleted = new City("NY");
+
+        cityTestToBeUpdated.setCountry(countryTest3);
+        cityTestToBeDeleted.setCountry(countryTest3);
+
         countryDao.save(countryTest1);
         countryDao.save(countryTest2);
+        countryDao.save(countryTest3);
 
         cityDao.save(cityTest1);
         cityDao.save(cityTest2);
         cityDao.save(cityTest3);
+        cityDao.save(cityTestToBeUpdated);
+        cityDao.save(cityTestToBeDeleted);
     }
 
     @Test
-    public void shouldSaveCity() {
+    public void should1SaveCity() {
 
         log.info("...shouldSaveCity...");
 
@@ -65,57 +78,7 @@ public class CityDaoTest {
     }
 
     @Test
-    public void shouldGetCityById() {
-
-        log.info("...shouldGetCityById...");
-
-        City shouldGetCityById = cityDao.get(1L);
-
-        Assert.assertEquals(shouldGetCityById, cityTest1);
-    }
-
-    @Test
-    public void shouldGetAllCities() {
-
-        log.info("...shouldGetAllCities...");
-
-        List<City> getAllAddressesCities = cityDao.getAll();
-
-        Assert.assertEquals(3, getAllAddressesCities.size());
-    }
-
-    @Test
-    public void shouldUpdateCity() {
-
-        log.info("...shouldUpdateCity...");
-
-        City shouldGetCityById = cityDao.get(1L);
-
-        shouldGetCityById.setCityName("Tartu");
-
-        cityDao.update(shouldGetCityById);
-
-        City updatedCity = cityDao.get(1L);
-
-        Assert.assertEquals("Tartu", updatedCity.getCityName());
-    }
-
-    @Test
-    public void shouldDeleteCity() {
-
-        log.info("...shouldDeleteCity...");
-
-        City shouldBeSavedCity = cityDao.get(2L);
-        Assert.assertNotNull(shouldBeSavedCity);
-
-        cityDao.delete(shouldBeSavedCity);
-
-        City shouldBeDeletedAddress = cityDao.get(2L);
-        Assert.assertNull(shouldBeDeletedAddress);
-    }
-
-    @Test
-    public void shouldSaveCityWithCreatedAndUpdatedTimeStamp() {
+    public void should2SaveCityWithCreatedAndUpdatedTimeStamp() {
 
         log.info("...shouldSaveCityWithCreatedAndUpdatedTimeStamp...");
 
@@ -126,12 +89,61 @@ public class CityDaoTest {
     }
 
     @Test
-    public void shouldGetAllCityNamesByCountry() {
+    public void should3GetCityById() {
+
+        log.info("...shouldGetCityById...");
+
+        City shouldGetCityById = cityDao.get(1L);
+
+        Assert.assertEquals(shouldGetCityById, cityTest1);
+    }
+
+    @Test
+    public void should4GetAllCities() {
+
+        log.info("...shouldGetAllCities...");
+
+        List<City> getAllAddressesCities = cityDao.getAll();
+
+        Assert.assertEquals(5, getAllAddressesCities.size());
+    }
+    @Test
+    public void should5GetAllCityNamesByCountry() {
 
         log.info("...shouldGetAllCityNamesByCountry...");
 
         List<String> getAllAddressesCities = cityDao.getAllCityNamesByCountry("Estonia");
 
         Assert.assertEquals(2, getAllAddressesCities.size());
+    }
+
+    @Test
+    public void should6UpdateCity() {
+
+        log.info("...shouldUpdateCity...");
+
+        City shouldGetCityById = cityDao.get(4L);
+
+        shouldGetCityById.setCityName("Tartu");
+
+        cityDao.update(shouldGetCityById);
+
+        City updatedCity = cityDao.get(4L);
+
+        Assert.assertEquals("Tartu", updatedCity.getCityName());
+    }
+
+    @Test
+    public void should7DeleteCity() {
+
+        log.info("...shouldDeleteCity...");
+
+        City shouldBeSavedCity = cityDao.get(5L);
+        Assert.assertNotNull(shouldBeSavedCity);
+
+        cityDao.delete(shouldBeSavedCity);
+
+        City shouldBeDeletedAddress = cityDao.get(5L);
+        Assert.assertNull(shouldBeDeletedAddress);
     }
 }

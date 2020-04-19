@@ -5,51 +5,48 @@ import com.sda.entity.Advertisement;
 import com.sda.entity.Category;
 import com.sda.entity.Customer;
 import org.junit.Assert;
-import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.logging.Logger;
 
-/**
- * Work only one-by-one
- */
-
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class AdvertisementDaoTest {
 
-    String connectionToDatabaseCreate = "hibernateUnitTest.cfg.xml";
+    private static AddressDao addressDao;
+    private static CustomerDao customerDao;
+    private static AdvertisementDao advertisementDao;
+
+    private static Customer customer;
+    private static Advertisement advertisement1;
+    private static Advertisement advertisement2;
+    private static Advertisement advertisementToBeDeleted;
 
     Logger log = Logger.getLogger(AdvertisementDaoTest.class.getName());
 
-    CustomerDao customerDao;
-    AdvertisementDao advertisementDao;
-    CategoryDao categoryDao;
-    AddressDao addressDao;
+    @BeforeClass
+    public static void setUp() throws ParseException {
 
-    Customer customer;
-    Category rentSuperCategory;
-    Category rentSubCategory;
-    Advertisement advertisement1;
-    Advertisement advertisement2;
-
-    @Before
-    public void setUp() throws ParseException {
+        String connectionToDatabaseCreate = "hibernateUnitTest.cfg.xml";
 
         addressDao = new AddressDao(connectionToDatabaseCreate);
         customerDao = new CustomerDao(connectionToDatabaseCreate);
         advertisementDao = new AdvertisementDao(connectionToDatabaseCreate);
-        categoryDao = new CategoryDao(connectionToDatabaseCreate);
+        CategoryDao categoryDao = new CategoryDao(connectionToDatabaseCreate);
 
         customer = new Customer();
         customer.setLogin("Pjotr");
         customer.setPassword("123456");
         customer.setFullName("Petr III");
 
-        rentSuperCategory = new Category(null, "Rent");
+        Category rentSuperCategory = new Category(null, "Rent");
 
-        rentSubCategory = new Category(rentSuperCategory, "Car Rent");
+        Category rentSubCategory = new Category(rentSuperCategory, "Car Rent");
 
         advertisement1 = new Advertisement(
                 "Clean Fast",
@@ -73,16 +70,28 @@ public class AdvertisementDaoTest {
                 customer,
                 new Address("USA", "LA"));
 
+        advertisementToBeDeleted = new Advertisement(
+                "Rent Bike",
+                "lallaala",
+                "26.0",
+                new SimpleDateFormat("dd/MM/yyyy").parse("31/12/1996"),
+                new SimpleDateFormat("dd/MM/yyyy").parse("31/12/2006"),
+                Advertisement.ServiceType.REQUEST,
+                rentSubCategory,
+                null,
+                new Address("France", "Paris"));
+
         customerDao.save(customer);
         categoryDao.save(rentSuperCategory);
         categoryDao.save(rentSubCategory);
 
         advertisementDao.save(advertisement1);
         advertisementDao.save(advertisement2);
+        advertisementDao.save(advertisementToBeDeleted);
     }
 
     @Test
-    public void shouldSaveAdvertisement() {
+    public void should1SaveAdvertisement() {
 
         log.info("...shouldSaveAdvertisement...");
 
@@ -91,9 +100,29 @@ public class AdvertisementDaoTest {
         Assert.assertNotNull(advertisementDao.get(2L));
     }
 
+    @Test
+    public void should2SaveAdvertisementWithCreatedAndUpdatedTimeStamp() {
+
+        log.info("...shouldSaveAdvertisementWithCreatedAndUpdatedTimeStamp...");
+
+        Advertisement shouldGetAdvertisementById = advertisementDao.get(1L);
+
+        Assert.assertNotNull(shouldGetAdvertisementById.getCREATED_ON().toString());
+        Assert.assertNotNull(shouldGetAdvertisementById.getUPDATED_ON().toString());
+    }
 
     @Test
-    public void shouldGetAdvertisementById() {
+    public void should3SaveAdvertisementAsListToCustomer() {
+
+        log.info("...shouldSaveAdvertisementAsListToCustomer...");
+
+        Assert.assertEquals(2,
+                customerDao.getByLogin(
+                        customer.getLogin()).getUserAdvertisements().size());
+    }
+
+    @Test
+    public void should4GetAdvertisementById() {
 
         log.info("...shouldGetAdvertisementById...");
 
@@ -105,17 +134,17 @@ public class AdvertisementDaoTest {
     }
 
     @Test
-    public void shouldGetAllAdvertisements() {
+    public void should5GetAllAdvertisements() {
 
         log.info("...shouldGetAllAdvertisements...");
 
         List<Advertisement> getAllAdvertisements = advertisementDao.getAll();
 
-        Assert.assertEquals(2, getAllAdvertisements.size());
+        Assert.assertEquals(3, getAllAdvertisements.size());
     }
 
     @Test
-    public void shouldUpdateAdvertisementSubject() {
+    public void should6UpdateAdvertisementSubject() {
 
         log.info("...shouldUpdateAdvertisementSubject...");
 
@@ -128,38 +157,16 @@ public class AdvertisementDaoTest {
         Assert.assertEquals(newAdvertisementSubject, updatedAdvertisement.getSubject());
     }
 
-
     @Test
-    public void shouldSaveAdvertisementWithCreatedAndUpdatedTimeStamp() {
-
-        log.info("...shouldSaveAdvertisementWithCreatedAndUpdatedTimeStamp...");
-
-        Advertisement shouldGetAdvertisementById = advertisementDao.get(1L);
-
-        Assert.assertNotNull(shouldGetAdvertisementById.getCREATED_ON().toString());
-        Assert.assertNotNull(shouldGetAdvertisementById.getUPDATED_ON().toString());
-    }
-
-    @Test
-    public void shouldSaveAdvertisementAsListToCustomer() {
-
-        log.info("...shouldSaveAdvertisementAsListToCustomer...");
-
-        Assert.assertEquals(2,
-                customerDao.getByLogin(
-                        customer.getLogin()).getUserAdvertisements().size());
-    }
-
-    @Test
-    public void shouldDeleteAdvertisement() {
+    public void should7DeleteAdvertisement() {
 
         log.info("...shouldDeleteAdvertisement...");
 
-        Advertisement shouldBeSavedAd = advertisementDao.get(2L);
+        Advertisement shouldBeSavedAd = advertisementDao.get(3L);
 
         advertisementDao.delete(shouldBeSavedAd);
 
-        Address shouldBeDeletedAd = addressDao.get(2L);
+        Address shouldBeDeletedAd = addressDao.get(3L);
         Assert.assertNull(shouldBeDeletedAd);
     }
 }
