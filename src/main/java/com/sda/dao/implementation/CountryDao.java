@@ -1,7 +1,6 @@
 package com.sda.dao.implementation;
 
 import com.sda.dao.Dao;
-import com.sda.entity.City;
 import com.sda.entity.Country;
 import com.sda.util.SessionUtil;
 import org.hibernate.Session;
@@ -14,10 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CountryDao extends SessionUtil implements Dao<Country> {
-
-    public CountryDao(String hibernateConfigurationFilePath) {
-        super(hibernateConfigurationFilePath);
-    }
 
     @Override
     public Country get(Long id) {

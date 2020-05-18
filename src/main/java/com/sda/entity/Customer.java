@@ -1,13 +1,17 @@
 package com.sda.entity;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-
+// Try to be consistent with documentation. You should apply JavaDoc to all classes.
 /**
  * @author StanislavR
  */
+@Data
+@NoArgsConstructor
 @Entity
 @Table(name = "CUSTOMER")
 
@@ -36,57 +40,16 @@ import java.util.Objects;
 })
 
 public class Customer extends User {
-
+    // You could put fullName as a User field not Customer. Thus, there was no need for line 45-46 and 52-55
     @Column(name = "FULL_NAME", nullable = false, length = 60)
     private String fullName;
 
+    // Why EAGER and not Lazy loading?
     @OneToMany(mappedBy = "customer",  fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Advertisement> userAdvertisements = new ArrayList<>();
-
-    public Customer() {
-    }
 
     public Customer(String login, String password, String fullName) {
         super(login, password);
         this.fullName = fullName;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public List<Advertisement> getUserAdvertisements() {
-        return userAdvertisements;
-    }
-
-    public void setUserAdvertisements(List<Advertisement> userAdvertisements) {
-        this.userAdvertisements = userAdvertisements;
-    }
-
-    @Override
-    public String toString() {
-        return "Customer{" +
-                "fullName='" + fullName + '\'' +
-                ", userAdvertisements=" + userAdvertisements +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Customer)) return false;
-        Customer customer = (Customer) o;
-        return Objects.equals(getFullName(), customer.getFullName()) &&
-                Objects.equals(getLogin(), customer.getLogin())&&
-                Objects.equals(getPassword(), customer.getPassword());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getFullName(), getLogin(), getPassword());
     }
 }

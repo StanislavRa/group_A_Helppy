@@ -3,14 +3,12 @@ package com.sda.util;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import static com.sda.util.Constants.DB_SETTINGS;
+
+
 public abstract class SessionUtil {
 	private Session session;
 	private Transaction transaction;
-	private final String CONFIG_FILE;
-
-	public SessionUtil(String CONFIG_FILE) {
-		this.CONFIG_FILE = CONFIG_FILE;
-	}
 
 	public Session getSession() {
 		return session;
@@ -21,13 +19,12 @@ public abstract class SessionUtil {
 	}
 
 	public Session openSession() {
-		return HibernateUtil.getSessionFactory(CONFIG_FILE).openSession();
+		return HibernateUtil.getSessionFactory(DB_SETTINGS).openSession();
 	}
 
-	public Session openTransactionAndSession() {
+	public void openTransactionAndSession() {
 		session = openSession();
 		transaction = session.beginTransaction();
-		return session;
 	}
 
 	public void closeSession() {

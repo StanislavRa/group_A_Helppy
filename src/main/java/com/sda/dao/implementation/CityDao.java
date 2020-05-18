@@ -15,10 +15,6 @@ import java.util.List;
 
 public class CityDao extends SessionUtil implements Dao<City> {
 
-    public CityDao(String hibernateConfigurationFilePath) {
-        super(hibernateConfigurationFilePath);
-    }
-
     @Override
     public City get(Long id) {
 
@@ -56,6 +52,10 @@ public class CityDao extends SessionUtil implements Dao<City> {
             if (getTransaction() != null) {
                 getTransaction().rollback();
             }
+            /* Use Logger to log
+            Loggers should be used instead to print Throwables, as they have many advantages:
+            1. Users are able to easily retrieve the logs.
+            2. The format of log messages is uniform and allow users to browse the logs easily.*/
             e.printStackTrace();
         }
     }

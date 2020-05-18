@@ -13,7 +13,6 @@ import java.util.logging.Logger;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class CustomerDaoTest {
 
-    static String connectionToDatabaseCreate;
 
     Logger log = Logger.getLogger(AdvertisementDaoTest.class.getName());
 
@@ -27,9 +26,8 @@ public class CustomerDaoTest {
     @BeforeClass
     public static void setUp() {
 
-        connectionToDatabaseCreate = "hibernateUnitTest.cfg.xml";
 
-        customerDao = new CustomerDao(connectionToDatabaseCreate);
+        customerDao = new CustomerDao();
 
         customer1 = new Customer();
         customer1.setLogin("Pjotr");

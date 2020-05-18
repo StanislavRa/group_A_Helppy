@@ -35,5 +35,9 @@ public class AlertBox {
         alert.setContentText(message);
         alert.showAndWait();
     }
-
+   /* Code Smell: Utility classes should not have public constructors.
+    Utility classes, which are collections of static members, are not meant to be instantiated.
+    Even abstract utility classes, which can be extended, should not have public constructors.*/
+    private AlertBox() {
+    }
 }

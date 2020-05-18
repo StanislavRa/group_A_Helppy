@@ -13,7 +13,6 @@ import java.util.logging.Logger;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class AddressDaoTest {
 
-    static String connectionToDatabaseCreate;
 
     static AddressDao addressDao;
 
@@ -30,16 +29,14 @@ public class AddressDaoTest {
 
     @BeforeClass
     public static void beforeClass() {
-
-        connectionToDatabaseCreate = "hibernateUnitTest.cfg.xml";
-
+        
         countryTest1 = "USA";
         cityTest1 = "NY";
 
         countryTest2 = "UK";
         cityTest2 = "London";
 
-        addressDao = new AddressDao(connectionToDatabaseCreate);
+        addressDao = new AddressDao();
         addressTest1 = new Address(countryTest1, cityTest1);
         addressTest2 = new Address(countryTest2, cityTest2);
         addressForUpdate = new Address(countryTest2, cityTest2);

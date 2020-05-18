@@ -1,12 +1,17 @@
 package com.sda.entity;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
+// Using Project Lombok, your code looks pretty smaller in size and cleaner.
+@Data
+@NoArgsConstructor
 @Entity
 @Table(name = "CITY")
 
@@ -44,69 +49,8 @@ public class City {
         private LocalDateTime UPDATED_ON;
 
 
-        public City() {
-        }
-
         public City(String cityName) {
             this.cityName = cityName;
         }
-
-        public Long getId() {
-            return id;
-        }
-
-        public void setId(Long id) {
-            this.id = id;
-        }
-
-
-        public String getCityName() {
-            return cityName;
-        }
-
-        public void setCityName(String cityName) {
-            this.cityName = cityName;
-        }
-
-
-        public LocalDateTime getCREATED_ON() {
-            return CREATED_ON;
-        }
-
-        public LocalDateTime getUPDATED_ON() {
-            return UPDATED_ON;
-        }
-
-        public Country getCountry() {
-                return country;
-        }
-
-        public void setCountry(Country country) {
-                this.country = country;
-        }
-
-        @Override
-        public String toString() {
-                return "City{" +
-                        "id=" + id +
-                        ", city='" + cityName + '\'' +
-                        ", country=" + country +
-                        ", CREATED_ON=" + CREATED_ON +
-                        ", UPDATED_ON=" + UPDATED_ON +
-                        '}';
-        }
-
-        @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        City that = (City) o;
-        return getCityName().equals(that.getCityName());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getCityName());
-    }
 }
 

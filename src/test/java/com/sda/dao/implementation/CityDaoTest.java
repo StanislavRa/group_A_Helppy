@@ -14,7 +14,6 @@ import java.util.logging.Logger;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class CityDaoTest {
 
-    static String connectionToDatabaseCreate;
 
     Logger log = Logger.getLogger(AdvertisementDaoTest.class.getName());
 
@@ -33,10 +32,9 @@ public class CityDaoTest {
     @BeforeClass
     public static void setUp() {
 
-        connectionToDatabaseCreate = "hibernateUnitTest.cfg.xml";
 
-        cityDao = new CityDao(connectionToDatabaseCreate);
-        countryDao = new CountryDao(connectionToDatabaseCreate);
+        cityDao = new CityDao();
+        countryDao = new CountryDao();
 
         countryTest1 = new Country("Estonia");
         countryTest2 = new Country("France");

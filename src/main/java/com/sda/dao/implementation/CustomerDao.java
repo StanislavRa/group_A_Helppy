@@ -1,7 +1,6 @@
 package com.sda.dao.implementation;
 
 import com.sda.dao.Dao;
-import com.sda.entity.City;
 import com.sda.entity.Customer;
 import com.sda.util.SessionUtil;
 import org.hibernate.Session;
@@ -13,10 +12,6 @@ import javax.persistence.criteria.Root;
 import java.util.List;
 
 public class CustomerDao extends SessionUtil implements Dao<Customer> {
-
-    public CustomerDao(String hibernateConfigurationFilePath) {
-        super(hibernateConfigurationFilePath);
-    }
 
     @Override
     public Customer get(Long id) {
@@ -81,14 +76,15 @@ public class CustomerDao extends SessionUtil implements Dao<Customer> {
 
     @Override
     public void delete(Customer customer) {
-
+          /* Remove Unneccassary code comments.
+             Try to write your code in a self-descriptive manner*/
         try {
-            // open session with a transaction
-            //openTransactionAndSession();
+           
+        
             Session session = getSession();
             session.delete(customer);
 
-            // close session with a transaction
+           
             closeTransactionAndSession();
 
         } catch (Exception e) {

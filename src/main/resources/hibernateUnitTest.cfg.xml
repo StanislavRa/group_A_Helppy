@@ -1,3 +1,4 @@
+<!-- For doing database integration test and checking your SQL scripts it is advised to use in-memory databases like H2 -->
 <?xml version='1.0' encoding='utf-8'?>
 <!--
   -->

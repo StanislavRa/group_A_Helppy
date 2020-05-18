@@ -14,10 +14,6 @@ import java.util.List;
 
 public class AddressDao extends SessionUtil implements Dao<Address> {
 
-    public AddressDao(String hibernateConfigurationFilePath) {
-        super(hibernateConfigurationFilePath);
-    }
-
     @Override
     public Address get(Long id) {
 
@@ -42,23 +38,18 @@ public class AddressDao extends SessionUtil implements Dao<Address> {
 
     @Override
     public void save(Address address) {
-        Session session = openSession();
-        Transaction transaction = session.beginTransaction();
-
-        try {
-
-            session.save(address);
-
-            transaction.commit();
-
-            session.close();
-
-        } catch (Exception e) {
-
-            if (transaction != null) {
-                transaction.rollback();
+        // Resources should be closed
+        try (Session session = openSession()) {
+            Transaction transaction = session.beginTransaction();
+            try {
+                session.save(address);
+                transaction.commit();
+            } catch (Exception e) {
+                if (transaction != null) {
+                    transaction.rollback();
+                }
+                e.printStackTrace();    // Use Logger
             }
-            e.printStackTrace();
         }
     }
 

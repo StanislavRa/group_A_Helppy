@@ -14,10 +14,6 @@ import java.util.List;
 
 public class AdvertisementDao extends SessionUtil implements Dao<Advertisement> {
 
-    public AdvertisementDao(String hibernateConfigurationFilePath) {
-        super(hibernateConfigurationFilePath);
-    }
-
     @Override
     public Advertisement get(Long id) {
         openTransactionAndSession();

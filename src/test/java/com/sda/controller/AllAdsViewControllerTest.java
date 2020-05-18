@@ -13,11 +13,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import static com.sda.util.Constants.CONN_TO_DB_CREATE;
+import static com.sda.util.Constants.DATE_FORMAT;
+
+/*your tests are not well-written. better to use other assertion methods as well. You have just used assertEquals
+no null check is done*/
 public class AllAdsViewControllerTest {
-
-    String connectionToDatabaseCreate = "hibernateUnitTest.cfg.xml";
-    //String connectionToDatabaseCreate = "hibernate.cfg.xml";
-
+ //TODO: remove all redundant comments
     //declare dao
     CountryDao countryDao;
     CityDao cityDao;
@@ -56,6 +58,7 @@ public class AllAdsViewControllerTest {
     Category superCategoryRent;
     Category superCategoryClean;
 
+    // TODO: remove redundancies
     Category subCategoryRent1;
     Category subCategoryRent2;
     Category subCategoryClean1;
@@ -76,13 +79,13 @@ public class AllAdsViewControllerTest {
 
     @Before
     public void setUp() throws ParseException {
-
-        countryDao = new CountryDao(connectionToDatabaseCreate);
-        cityDao = new CityDao(connectionToDatabaseCreate);
-        addressDao = new AddressDao(connectionToDatabaseCreate);
-        categoryDao = new CategoryDao(connectionToDatabaseCreate);
-        customerDao = new CustomerDao(connectionToDatabaseCreate);
-        advertisementDao = new AdvertisementDao(connectionToDatabaseCreate);
+        // TODO: Since now the argument to your dao objects is removed, you need to create a test-specific HibernateUtil class.
+        countryDao = new CountryDao();
+        cityDao = new CityDao();
+        addressDao = new AddressDao();
+        categoryDao = new CategoryDao();
+        customerDao = new CustomerDao();
+        advertisementDao = new AdvertisementDao();
 
         //create countries
         estoniaCountry = new Country("Estonia");
@@ -165,8 +168,8 @@ public class AllAdsViewControllerTest {
                 "Clean Fast",
                 "blablabla",
                 "2.5",
-                new SimpleDateFormat("dd/MM/yyyy").parse("31/12/1998"),
-                new SimpleDateFormat("dd/MM/yyyy").parse("31/12/2520"),
+                new SimpleDateFormat(DATE_FORMAT).parse("31/12/1998"),
+                new SimpleDateFormat(DATE_FORMAT).parse("31/12/2520"),
                 Advertisement.ServiceType.OFFER,
                 superCategoryRent,
                 customer2,
@@ -176,8 +179,8 @@ public class AllAdsViewControllerTest {
                 "Car Rent",
                 "some dummy description2",
                 "103.3",
-                new SimpleDateFormat("dd/MM/yyyy").parse("21/02/2005"),
-                new SimpleDateFormat("dd/MM/yyyy").parse("31/12/2520"),
+                new SimpleDateFormat(DATE_FORMAT).parse("21/02/2005"),
+                new SimpleDateFormat(DATE_FORMAT).parse("31/12/2520"),
                 Advertisement.ServiceType.REQUEST,
                 superCategoryRent,
                 customer1,
@@ -187,8 +190,8 @@ public class AllAdsViewControllerTest {
                 "Clean Your Office!",
                 "some dummy description3",
                 "152",
-                new SimpleDateFormat("dd/MM/yyyy").parse("13/01/2001"),
-                new SimpleDateFormat("dd/MM/yyyy").parse("31/12/2019"),
+                new SimpleDateFormat(DATE_FORMAT).parse("13/01/2001"),
+                new SimpleDateFormat(DATE_FORMAT).parse("31/12/2019"),
                 Advertisement.ServiceType.REQUEST,
                 superCategoryClean,
                 customer2,
@@ -197,8 +200,8 @@ public class AllAdsViewControllerTest {
                 "Rent Equipment from Us!!",
                 "some dummy description4",
                 "152",
-                new SimpleDateFormat("dd/MM/yyyy").parse("13/01/2019"),
-                new SimpleDateFormat("dd/MM/yyyy").parse("31/12/2022"),
+                new SimpleDateFormat(DATE_FORMAT).parse("13/01/2019"),
+                new SimpleDateFormat(DATE_FORMAT).parse("31/12/2022"),
                 Advertisement.ServiceType.OFFER,
                 superCategoryClean,
                 customer3,
@@ -208,8 +211,8 @@ public class AllAdsViewControllerTest {
                 "Clean your home!!",
                 "some dummy description5",
                 "152",
-                new SimpleDateFormat("dd/MM/yyyy").parse("13/01/2019"),
-                new SimpleDateFormat("dd/MM/yyyy").parse("01/01/2022"),
+                new SimpleDateFormat(DATE_FORMAT).parse("13/01/2019"),
+                new SimpleDateFormat(DATE_FORMAT).parse("01/01/2022"),
                 Advertisement.ServiceType.REQUEST,
                 superCategoryClean,
                 customer3,
@@ -236,6 +239,7 @@ public class AllAdsViewControllerTest {
     public void shouldGetListOfCityNames() throws ParseException {
 
         String estoniaCountryTest = estoniaCountry.getCountryName();
+        // method name is not proper. better to use getAllCityNames
         List<String> getAllAdvertisementsByCountry = new AllAdsViewController().getListOfCityNamesByCountry(
                 estoniaCountryTest,
                 cityDao);
@@ -290,10 +294,10 @@ public class AllAdsViewControllerTest {
     public void shouldFindActiveAdvertisementByDate() throws ParseException {
 
         String startDateString2 = "11/01/2019";
-        Date startDateTest = new SimpleDateFormat("dd/MM/yyyy").parse(startDateString2);
+        Date startDateTest = new SimpleDateFormat(DATE_FORMAT).parse(startDateString2);
 
         String endDateString2 = "01/01/2023";
-        Date endDaterTest = new SimpleDateFormat("dd/MM/yyyy").parse(endDateString2);
+        Date endDaterTest = new SimpleDateFormat(DATE_FORMAT).parse(endDateString2);
 
         List<Advertisement> getAllAdvertisementsByDate = new AllAdsViewController().findActiveAdvertisementByDate(
                 startDateTest, endDaterTest);

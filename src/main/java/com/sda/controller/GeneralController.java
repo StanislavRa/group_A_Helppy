@@ -19,16 +19,17 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.List;
 
+
+
 public abstract class GeneralController {
 
     protected Customer customer;
     protected Parser parser = new Parser();
-    private final String DB_SETTINGS = "hibernate.cfg.xml";
-    protected AdvertisementDao adDao = new AdvertisementDao(DB_SETTINGS);
-    protected CustomerDao customerDao = new CustomerDao(DB_SETTINGS);
-    protected CategoryDao categoryDao = new CategoryDao(DB_SETTINGS);
-    protected CountryDao countryDao = new CountryDao(DB_SETTINGS);
-    protected CityDao cityDao = new CityDao(DB_SETTINGS);
+    protected AdvertisementDao adDao = new AdvertisementDao();
+    protected CustomerDao customerDao = new CustomerDao();
+    protected CategoryDao categoryDao = new CategoryDao();
+    protected CountryDao countryDao = new CountryDao();
+    protected CityDao cityDao = new CityDao();
 
     protected FXMLLoader changeScreen(Event event, String viewName) {
 
@@ -43,7 +44,7 @@ public abstract class GeneralController {
             window.setScene(tableViewScene);
             window.show();
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace();    // Use logger to print Throwable
         }
         return loader;
     }

@@ -17,8 +17,10 @@ public class Parser {
 
 
     public boolean compareTwoStrings(String s1, String s2){
-
-        return s1.toLowerCase().equals(s2.toLowerCase());
+        /* Case insensitive string comparisons should be made without intermediate upper or lower casing.
+        Using toLowerCase() or toUpperCase() to make case insensitive comparisons is inefficient
+        because it requires the creation of temporary, intermediate String objects.*/
+        return s1.equalsIgnoreCase(s2);
     }
 
     public boolean compareTwoBigDecimal (BigDecimal bigDecimalBottomRate,

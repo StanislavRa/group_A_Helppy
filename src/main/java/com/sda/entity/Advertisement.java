@@ -1,5 +1,8 @@
 package com.sda.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -7,12 +10,14 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.Objects;
 
-
+@Data
+@NoArgsConstructor
 @Entity
 @Table(name = "ADVERTISEMENT")
-
+ /* Annotation repetitions should not be wrapped.
+    Before Java 8 if you needed to use multiple instances of the same annotation, they had to be wrapped in a container annotation.
+    With Java 8, that's no longer necessary, allowing for cleaner, more readable code.*/
 @NamedNativeQueries({
         @NamedNativeQuery(
                 name = "Advertisement_GetAllActive",
@@ -46,11 +51,11 @@ public class Advertisement {
 
     @Column
     @CreationTimestamp
-    private LocalDateTime CREATED_ON;
+    private LocalDateTime CREATED_ON;   // Violating naming convention
 
     @Column
     @UpdateTimestamp
-    private LocalDateTime UPDATED_ON;
+    private LocalDateTime UPDATED_ON;   // Violating naming convention
 
     @Enumerated(EnumType.STRING)
     @Column(name = "TYPE", nullable = false, length = 50)
@@ -67,10 +72,9 @@ public class Advertisement {
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JoinColumn(name = "FK_CUSTOMER_ID")
     private Customer customer;
-
-    public Advertisement() {
-    }
-
+    /*Having constructor with more than 4 parameters is a sign of code smell
+    A long parameter list can indicate that a new structure should be created to wrap the numerous parameters
+    or that the function is doing too many things. (Violating Single Responsibility)*/
     public Advertisement(String subject,
                          String description,
                          String price,
@@ -92,95 +96,6 @@ public class Advertisement {
 
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getSubject() {
-        return subject;
-    }
-
-    public void setSubject(String subject) {
-        this.subject = subject;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(String price) {
-        this.price = new BigDecimal(price);
-    }
-
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
-    public ServiceType getServiceType() {
-        return serviceType;
-    }
-
-    public void setServiceType(ServiceType serviceType) {
-        this.serviceType = serviceType;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public LocalDateTime getCREATED_ON() {
-        return CREATED_ON;
-    }
-
-    public LocalDateTime getUPDATED_ON() {
-        return UPDATED_ON;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
-
     public enum ServiceType {
         OFFER("Offer"),
         REQUEST("Request");
@@ -194,25 +109,5 @@ public class Advertisement {
         public String toString() {
             return type;
         }
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Advertisement that = (Advertisement) o;
-        return Objects.equals(getSubject(), that.getSubject()) &&
-                Objects.equals(getDescription(), that.getDescription()) &&
-                Objects.equals(getStartDate(), that.getStartDate()) &&
-                Objects.equals(getEndDate(), that.getEndDate()) &&
-                getServiceType() == that.getServiceType() &&
-                Objects.equals(getCategory(), that.getCategory()) &&
-                Objects.equals(getAddress(), that.getAddress()) &&
-                Objects.equals(getCustomer(), that.getCustomer());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getSubject(), getDescription(), getStartDate(), getEndDate(), getServiceType(), getCategory(), getAddress(), getCustomer());
     }
 }

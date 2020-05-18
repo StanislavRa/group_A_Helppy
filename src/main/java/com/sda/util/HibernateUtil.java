@@ -5,7 +5,7 @@ import org.hibernate.cfg.Configuration;
 
 public class HibernateUtil {
 
-    public static SessionFactory factory;
+    private static SessionFactory factory;
 //to disallow creating objects by other classes.
 
     private HibernateUtil() {
@@ -18,6 +18,10 @@ public class HibernateUtil {
             factory = new Configuration().configure(configFile).
                     buildSessionFactory();
         }
+        return factory;
+    }
+    // provide accessor(getter) for factory rather than declaring it public at line 8 above.
+    public static SessionFactory getFactory() {
         return factory;
     }
 }

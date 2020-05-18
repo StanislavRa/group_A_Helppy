@@ -15,10 +15,6 @@ import java.util.List;
 
 public class CategoryDao extends SessionUtil implements Dao<Category> {
 
-    public CategoryDao(String hibernateConfigurationFilePath) {
-        super(hibernateConfigurationFilePath);
-    }
-
     @Override
     public Category get(Long id) {
 

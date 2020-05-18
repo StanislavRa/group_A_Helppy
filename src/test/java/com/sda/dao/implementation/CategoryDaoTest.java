@@ -14,27 +14,20 @@ import java.util.logging.Logger;
 public class CategoryDaoTest {
     private static CategoryDao categoryDao;
     private static Category rentSuperCategory;
-    private static Category rentSuperCategoryToBeDeleted;
-    private static Category rentSuperCategoryToBeUpdated;
-    private static Category rentSubCategory1;
-    private static Category rentSubCategory2;
-    private static String connectionToDatabaseCreate;
-
+    
     Logger log = Logger.getLogger(AdvertisementDaoTest.class.getName());
 
     @BeforeClass
     public static void setUp() {
 
-        connectionToDatabaseCreate = "hibernateUnitTest.cfg.xml";
 
-        categoryDao = new CategoryDao(connectionToDatabaseCreate);
+        categoryDao = new CategoryDao();
 
         rentSuperCategory = new Category(null, "Rent");
-        rentSuperCategoryToBeDeleted = new Category(null, "Clean");
-        rentSuperCategoryToBeUpdated = new Category(null, "Baking");
-
-        rentSubCategory1 = new Category(rentSuperCategory, "Car Rent");
-        rentSubCategory2 = new Category(rentSuperCategory, "Apartment Rent");
+        Category rentSuperCategoryToBeDeleted = new Category(null, "Clean");
+        Category rentSuperCategoryToBeUpdated = new Category(null, "Baking");
+        Category rentSubCategory1 = new Category(rentSuperCategory, "Car Rent");
+        Category rentSubCategory2 = new Category(rentSuperCategory, "Apartment Rent");
 
         categoryDao.save(rentSuperCategory);
         categoryDao.save(rentSubCategory1);

@@ -194,8 +194,6 @@ public class AllAdsViewController extends TableSetUp implements Initializable {
     }
 
     protected List<String> getListOfCityNamesByCountry(String country, CityDao cityDao) {
-        List<String> listOfCityNames = cityDao.getAllCityNamesByCountry(country);
-
-        return listOfCityNames;
+        return cityDao.getAllCityNamesByCountry(country);
     }
 }

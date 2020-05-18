@@ -4,7 +4,6 @@ import com.sda.controller.utilities.AlertBox;
 import com.sda.controller.utilities.Validator;
 import com.sda.entity.Address;
 import com.sda.entity.Advertisement;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 
+import java.math.BigDecimal;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -126,7 +126,8 @@ public class MyAdsController extends TableSetUp implements Initializable {
 
         advertisement.setSubject(subjectTextField.getText());
         advertisement.setDescription(descriptionTextField.getText());
-        advertisement.setPrice(priceTextField.getText());
+        // How you store String inside BigDecimal???
+        advertisement.setPrice(BigDecimal.valueOf(Long.parseLong(priceTextField.getText())));
         advertisement.setStartDate(parser.convertToDateViaSqlDate(startDatePicker.getValue()));
         advertisement.setEndDate(parser.convertToDateViaSqlDate(endDatePicker.getValue()));
         advertisement.setServiceType(serviceTypeSelected());

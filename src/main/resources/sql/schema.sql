@@ -1,0 +1,1 @@
+-- There should be your SQL commands for creating a sample schema (database) and associated tables

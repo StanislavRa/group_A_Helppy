@@ -15,6 +15,9 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.logging.Logger;
 
+import static com.sda.util.Constants.DATE_FORMAT;
+
+
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class AdvertisementDaoTest {
 
@@ -25,19 +28,17 @@ public class AdvertisementDaoTest {
     private static Customer customer;
     private static Advertisement advertisement1;
     private static Advertisement advertisement2;
-    private static Advertisement advertisementToBeDeleted;
-
+    
     Logger log = Logger.getLogger(AdvertisementDaoTest.class.getName());
 
     @BeforeClass
     public static void setUp() throws ParseException {
 
-        String connectionToDatabaseCreate = "hibernateUnitTest.cfg.xml";
 
-        addressDao = new AddressDao(connectionToDatabaseCreate);
-        customerDao = new CustomerDao(connectionToDatabaseCreate);
-        advertisementDao = new AdvertisementDao(connectionToDatabaseCreate);
-        CategoryDao categoryDao = new CategoryDao(connectionToDatabaseCreate);
+        addressDao = new AddressDao();
+        customerDao = new CustomerDao();
+        advertisementDao = new AdvertisementDao();
+        CategoryDao categoryDao = new CategoryDao();
 
         customer = new Customer();
         customer.setLogin("Pjotr");
@@ -52,8 +53,8 @@ public class AdvertisementDaoTest {
                 "Clean Fast",
                 "blablabla",
                 "2.5",
-                new SimpleDateFormat("dd/MM/yyyy").parse("31/12/1998"),
-                new SimpleDateFormat("dd/MM/yyyy").parse("31/12/1998"),
+                new SimpleDateFormat(DATE_FORMAT).parse("31/12/1998"),
+                new SimpleDateFormat(DATE_FORMAT).parse("31/12/1998"),
                 Advertisement.ServiceType.OFFER,
                 rentSuperCategory,
                 customer,
@@ -63,19 +64,18 @@ public class AdvertisementDaoTest {
                 "Rent Car",
                 "dudududu",
                 "100",
-                new SimpleDateFormat("dd/MM/yyyy").parse("31/12/2008"),
-                new SimpleDateFormat("dd/MM/yyyy").parse("31/12/2009"),
+                new SimpleDateFormat(DATE_FORMAT).parse("31/12/2008"),
+                new SimpleDateFormat(DATE_FORMAT).parse("31/12/2009"),
                 Advertisement.ServiceType.REQUEST,
                 rentSubCategory,
                 customer,
                 new Address("USA", "LA"));
-
-        advertisementToBeDeleted = new Advertisement(
+        Advertisement advertisementToBeDeleted = new Advertisement(
                 "Rent Bike",
                 "lallaala",
                 "26.0",
-                new SimpleDateFormat("dd/MM/yyyy").parse("31/12/1996"),
-                new SimpleDateFormat("dd/MM/yyyy").parse("31/12/2006"),
+                new SimpleDateFormat(DATE_FORMAT).parse("31/12/1996"),
+                new SimpleDateFormat(DATE_FORMAT).parse("31/12/2006"),
                 Advertisement.ServiceType.REQUEST,
                 rentSubCategory,
                 null,
