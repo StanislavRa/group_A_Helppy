@@ -39,6 +39,7 @@ UML, ERD, User Story and User Story Views can be found here:
 
 ## Running the tests
 
+Use Maven profile *test* to use testing database.<br> 
 All tests are unit tests used JUnit4.<br> 
 
 ## Extendable parts of code
@@ -68,7 +69,8 @@ All tests are unit tests used JUnit4.<br>
 * [Maven](https://maven.apache.org/) - Dependency Management
 * [MySQL ](https://www.mysql.com/) -  Relational database management system 
 * [Hibernate](https://hibernate.org/) - Object-relational mapping tool
-* [JUnit](https://junit.org/) - Unit testing framework
+* [JUnit](https://junit.org/) and [Mockito](https://site.mockito.org/) - Testing frameworks
+* 
 
 
 ## Authors
@@ -76,7 +78,7 @@ All tests are unit tests used JUnit4.<br>
 * **Demi** - *Front End* - [Demi](https://github.com/demiavalian)
 * **Mariam** - *Code* - [Dgebu](https://github.com/Dgebu)
 * **Oleksandr** - *Database* - [Oleks Oleks](https://github.com/Shpakovsky94)
-* **Stanislav** - *Code, Database, Testing* - [Stanislav](https://github.com/StanislavRa)
+* **Stanislav** - *Full-Stack Craftsman* - [Stanislav](https://github.com/StanislavRa)
 
 ## Acknowledgments
 

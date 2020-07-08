@@ -51,5 +51,27 @@ C:/Users/Stanislavr/OneDrive/Documents/Private/Java/Projects/group_A_Helppy/src/
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://localhost:3306/helppy?serverTimezone = UTC</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="persistence" uuid="789effc6-2bb8-460b-98dd-5910f46ebbc9">
+      <driver-ref>h2.unified</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>jdbc.properties
+
+C:/Asus WebStorage/s.ratsinski@gmail.com/MySyncFolder/IT/Back-End Projects/Projects/group_A_Helppy-bug-fix/src/test/resources/persistence.properties</remarks>
+      <jdbc-driver>org.h2.Driver</jdbc-driver>
+      <jdbc-url>jdbc:h2:mem:myDb;DB_CLOSE_DELAY=-1</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="group_A_Helppy/Hibernate" uuid="505641c3-36ad-42bb-93af-464da0f31562">
+      <imported>true</imported>
+      <remarks>Hibernate</remarks>
+      <jdbc-driver>${hibernate.connection.driver_class}</jdbc-driver>
+      <jdbc-url>${hibernate.connection.url}</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="helppy@localhost" uuid="da05a2eb-2c6e-41a1-922d-b58a999c088c">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/helppy</jdbc-url>
+    </data-source>
   </component>
 </project>

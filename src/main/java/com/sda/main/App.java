@@ -14,7 +14,6 @@ public class App extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         new DummyData();
-
         Parent root = FXMLLoader.load(getClass().getResource("/views/homeView.fxml"));
         primaryStage.setTitle("My First App");
         primaryStage.setScene(new Scene(root, 1280, 800));

@@ -1,7 +1,6 @@
 package com.sda.controller;
 
-import com.sda.controller.utilities.Validator;
-import com.sda.dao.implementation.CityDao;
+import com.sda.dao.implementation.AdvertisementDao;
 import com.sda.entity.Advertisement;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,6 +17,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import static com.sda.controller.utilities.Parser.*;
+import static com.sda.controller.utilities.Validator.*;
 
 public class AllAdsViewController extends TableSetUp implements Initializable {
 
@@ -57,7 +59,7 @@ public class AllAdsViewController extends TableSetUp implements Initializable {
         mainTableView.setItems(convertFromListToObservableList(adDao.getAllActiveAds()));
         countryComboBox.getItems().addAll(countryDao.getAllCountriesNamesList(countryDao.getAll()));
         categoryComboBox.getItems().addAll((categoryDao.getAllCategoryNames()));
-        serviceTypeComboBox.getItems().addAll(parser.getNames(Advertisement.ServiceType.class));
+        serviceTypeComboBox.getItems().addAll(getNames(Advertisement.ServiceType.class));
     }
 
     @FXML
@@ -77,57 +79,56 @@ public class AllAdsViewController extends TableSetUp implements Initializable {
     protected void findButtonPushed(ActionEvent event) {
 
         if (categoryRadioButton.isSelected() &&
-                Validator.isComboboxHasValue(categoryComboBox,"Select category")) {
-            mainTableView.setItems(findActiveAdvertisementByCategory(categoryComboBox.getValue()));
+                isComboboxHasValue(categoryComboBox, "Select category")) {
+            mainTableView.setItems(findActiveAdvertisementByCategory(categoryComboBox.getValue(), adDao));
         }
         if (countryRadioButton.isSelected() &&
-                Validator.isComboboxHasValue(countryComboBox,"Select country")) {
-            mainTableView.setItems(findActiveAdvertisementByCountry(countryComboBox.getValue()));
+                isComboboxHasValue(countryComboBox, "Select country")) {
+            mainTableView.setItems(findActiveAdvertisementByCountry(countryComboBox.getValue(), adDao));
         }
         if (cityRadioButton.isSelected() &&
-                Validator.isComboboxHasValue(cityComboBox,"Select city and country")) {
-            mainTableView.setItems(findActiveAdvertisementByCity(cityComboBox.getValue()));
+                isComboboxHasValue(cityComboBox, "Select city and country")) {
+            mainTableView.setItems(findActiveAdvertisementByCity(cityComboBox.getValue(), adDao));
         }
         if (priceRadioButton.isSelected() &&
-                Validator.isTextFieldEmpty(priceToTextField, "Insert max. price") &&
-                Validator.isTextFieldEmpty(priceFromTextField, "Insert min. price") &&
-                Validator.stringMatcherValidation(priceToTextField.getText(), "[0-9]*['.']?[0-9]*",
-                        "Make sure that price number format is xx.xx"))
-        {
+                isTextFieldEmpty(priceToTextField, "Insert max. price") &&
+                isTextFieldEmpty(priceFromTextField, "Insert min. price") &&
+                stringMatcherValidation(priceToTextField.getText(), "[0-9]*['.']?[0-9]*",
+                        "Make sure that price number format is xx.xx")) {
             mainTableView.setItems(findActiveAdvertisementByPrice(new BigDecimal(priceFromTextField.getText()),
-                    new BigDecimal((priceToTextField.getText()))));
+                    new BigDecimal((priceToTextField.getText())), adDao));
         }
         if (dateRadioButton.isSelected() &&
-                Validator.isDatePickerEmpty(startDatePicker,"Select Start Date") &&
-                Validator.isDatePickerEmpty(endDatePicker,"Select End Date") &&
-                Validator.startDateIsBeforeEndDate(
+                isDatePickerEmpty(startDatePicker, "Select Start Date") &&
+                isDatePickerEmpty(endDatePicker, "Select End Date") &&
+                startDateIsBeforeEndDate(
                         startDatePicker.getValue(),
                         endDatePicker.getValue(),
                         "Make sure that End Date is after Start Date")) {
             mainTableView.setItems(findActiveAdvertisementByDate(
-                    parser.convertToDateViaSqlDate(startDatePicker.getValue()),
-                    parser.convertToDateViaSqlDate(endDatePicker.getValue())));
+                    convertToDateViaSqlDate(startDatePicker.getValue()),
+                    convertToDateViaSqlDate(endDatePicker.getValue()), adDao));
         }
         if (serviceTypeRadioButton.isSelected() &&
-                Validator.isComboboxHasValue(serviceTypeComboBox,"Select OFFER or REQUEST")) {
-            mainTableView.setItems(findActiveAdvertisementByServiceType(serviceTypeComboBox.getValue()));
+                isComboboxHasValue(serviceTypeComboBox, "Select OFFER or REQUEST")) {
+            mainTableView.setItems(findActiveAdvertisementByServiceType(serviceTypeComboBox.getValue(), adDao));
         }
     }
 
-    protected ObservableList<Advertisement> findActiveAdvertisementByCategory(String category) {
+    protected ObservableList<Advertisement> findActiveAdvertisementByCategory(String category, AdvertisementDao adDao) {
 
         List<Advertisement> getAllAdvertisementsList = adDao.getAllActiveAds();
         List<Advertisement> getAllAdvertisementsByCategory = new ArrayList<>();
 
         for (Advertisement advertisement : getAllAdvertisementsList) {
-            if (parser.compareTwoStrings(advertisement.getCategory().getName(), category)) {
+            if (compareTwoStrings(advertisement.getCategory().getName(), category)) {
                 getAllAdvertisementsByCategory.add(advertisement);
             }
         }
         return convertFromListToObservableList(getAllAdvertisementsByCategory);
     }
 
-    protected ObservableList<Advertisement> findActiveAdvertisementByCity(String city) {
+    protected ObservableList<Advertisement> findActiveAdvertisementByCity(String city, AdvertisementDao adDao) {
 
         List<Advertisement> getAllAdvertisementsList = adDao.getAllActiveAds();
         List<Advertisement> getAllAdvertisementsByCity = new ArrayList<>();
@@ -140,7 +141,7 @@ public class AllAdsViewController extends TableSetUp implements Initializable {
         return convertFromListToObservableList(getAllAdvertisementsByCity);
     }
 
-    protected ObservableList<Advertisement> findActiveAdvertisementByCountry(String country) {
+    protected ObservableList<Advertisement> findActiveAdvertisementByCountry(String country, AdvertisementDao adDao) {
 
         List<Advertisement> getAllAdvertisementsList = adDao.getAllActiveAds();
         List<Advertisement> getAllAdvertisementsByCountry = new ArrayList<>();
@@ -154,20 +155,20 @@ public class AllAdsViewController extends TableSetUp implements Initializable {
     }
 
     protected ObservableList<Advertisement> findActiveAdvertisementByPrice(BigDecimal bigDecimalBottomRate,
-                                                                        BigDecimal bigDecimalTopRate) {
+                                                                           BigDecimal bigDecimalTopRate, AdvertisementDao adDao) {
 
         List<Advertisement> getAllAdvertisementsList = adDao.getAllActiveAds();
         List<Advertisement> getAllAdvertisementsByPrice = new ArrayList<>();
 
         for (Advertisement advertisement : getAllAdvertisementsList) {
-            if (parser.compareTwoBigDecimal(bigDecimalBottomRate, bigDecimalTopRate, advertisement.getPrice())) {
+            if (compareTwoBigDecimal(bigDecimalBottomRate, bigDecimalTopRate, advertisement.getPrice())) {
                 getAllAdvertisementsByPrice.add(advertisement);
             }
         }
         return convertFromListToObservableList(getAllAdvertisementsByPrice);
     }
 
-    protected ObservableList<Advertisement> findActiveAdvertisementByDate(Date startDate, Date endDate) {
+    protected ObservableList<Advertisement> findActiveAdvertisementByDate(Date startDate, Date endDate, AdvertisementDao adDao) {
 
         List<Advertisement> getAllAdvertisementsList = adDao.getAllActiveAds();
         List<Advertisement> getAllAdvertisementsByDate = new ArrayList<>();
@@ -180,22 +181,16 @@ public class AllAdsViewController extends TableSetUp implements Initializable {
         return convertFromListToObservableList(getAllAdvertisementsByDate);
     }
 
-    protected ObservableList<Advertisement> findActiveAdvertisementByServiceType(String serviceType) {
+    protected ObservableList<Advertisement> findActiveAdvertisementByServiceType(String serviceType, AdvertisementDao adDao) {
 
         List<Advertisement> getAllAdvertisementsList = adDao.getAllActiveAds();
         List<Advertisement> getAllAdvertisementsByServiceTypeList = new ArrayList<>();
 
         for (Advertisement advertisement : getAllAdvertisementsList) {
-            if (parser.compareTwoStrings(advertisement.getServiceType().toString(), serviceType)) {
+            if (compareTwoStrings(advertisement.getServiceType().toString(), serviceType)) {
                 getAllAdvertisementsByServiceTypeList.add(advertisement);
             }
         }
         return convertFromListToObservableList(getAllAdvertisementsByServiceTypeList);
-    }
-
-    protected List<String> getListOfCityNamesByCountry(String country, CityDao cityDao) {
-        List<String> listOfCityNames = cityDao.getAllCityNamesByCountry(country);
-
-        return listOfCityNames;
     }
 }

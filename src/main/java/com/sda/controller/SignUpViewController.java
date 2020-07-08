@@ -1,12 +1,14 @@
 package com.sda.controller;
 
-import com.sda.controller.utilities.AlertBox;
-import com.sda.controller.utilities.Validator;
 import com.sda.entity.Customer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+
+import static com.sda.controller.utilities.AlertBox.error;
+import static com.sda.controller.utilities.AlertBox.success;
+import static com.sda.controller.utilities.Validator.checkTextLength;
 
 public class SignUpViewController extends GeneralController {
 
@@ -21,25 +23,19 @@ public class SignUpViewController extends GeneralController {
     protected void signUpButtonPushed(ActionEvent event) {
 
         if (checkFieldsLength()) {
-
             String loginText = userNameTextField.getText().trim();
             Customer customer = customerDao.getByLogin(loginText);
 
             if (customer == null) {
-
                 String loginPassword = passwordPasswordField.getText().trim();
                 String fullName = fullNameTextField.getText().trim();
-
                 Customer newCustomer = new Customer(loginText, loginPassword, fullName);
-
                 customerDao.save(newCustomer);
-
-                AlertBox.success("Success!");
-
+                success("Success!");
                 changeScreen(event, "/views/logInView.fxml");
 
             } else {
-                AlertBox.error(loginText + " login name is in use");
+                error(loginText + " login name is in use");
             }
         }
 
@@ -52,13 +48,13 @@ public class SignUpViewController extends GeneralController {
 
     private boolean checkFieldsLength() {
 
-        return Validator.checkTextLength(userNameTextField.getText(),
+        return checkTextLength(userNameTextField.getText(),
                 60,
                 "Make sure that your login is not longer than 60 symbols") &&
-                Validator.checkTextLength(passwordPasswordField.getText(),
+                checkTextLength(passwordPasswordField.getText(),
                         60,
                         "Make sure that your password is not longer than 60 symbols") &&
-                Validator.checkTextLength(fullNameTextField.getText(),
+                checkTextLength(fullNameTextField.getText(),
                         60,
                         "Make sure that your full name is not longer than 60 symbols");
 

@@ -67,4 +67,7 @@ public class Validator {
         }
         return true;
     }
+
+    private Validator() {
+    }
 }

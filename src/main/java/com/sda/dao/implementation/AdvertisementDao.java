@@ -2,9 +2,12 @@ package com.sda.dao.implementation;
 
 import com.sda.dao.Dao;
 import com.sda.entity.Advertisement;
-import com.sda.util.SessionUtil;
+import com.sda.util.HibernateUtil;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -12,85 +15,81 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
-public class AdvertisementDao extends SessionUtil implements Dao<Advertisement> {
+public class AdvertisementDao implements Dao<Advertisement> {
 
-    public AdvertisementDao(String hibernateConfigurationFilePath) {
-        super(hibernateConfigurationFilePath);
-    }
+    private static final Logger logger = LoggerFactory.getLogger(AdvertisementDao.class);
 
     @Override
     public Advertisement get(Long id) {
-        openTransactionAndSession();
-        return getSession().get(Advertisement.class, id);
+
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        Advertisement advertisement = session.get(Advertisement.class, id);
+        transaction.commit();
+        return advertisement;
     }
 
     @Override
     public List<Advertisement> getAll() {
-        openTransactionAndSession();
-        Session session = getSession();
 
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
         CriteriaBuilder cb = session.getCriteriaBuilder();
         CriteriaQuery<Advertisement> cq = cb.createQuery(Advertisement.class);
         Root<Advertisement> rootEntry = cq.from(Advertisement.class);
         CriteriaQuery<Advertisement> all = cq.select(rootEntry);
-
         TypedQuery<Advertisement> allQuery = session.createQuery(all);
-        return allQuery.getResultList();
+        List<Advertisement> advertisements = allQuery.getResultList();
+        transaction.commit();
+        return advertisements;
     }
 
     @Override
     public void save(Advertisement advertisement) {
 
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
         try {
-            openTransactionAndSession();
-            Session session = getSession();
             session.save(advertisement);
-
-            closeTransactionAndSession();
-
+            transaction.commit();
         } catch (Exception e) {
-
-            if (getTransaction() != null) {
-                getTransaction().rollback();
+            if (transaction != null) {
+                transaction.rollback();
             }
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
     }
 
     @Override
     public void update(Advertisement advertisement) {
 
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
         try {
-            openTransactionAndSession();
-            Session session = getSession();
             session.merge(advertisement);
-
-            closeTransactionAndSession();
-
+            transaction.commit();
         } catch (Exception e) {
-
-            if (getTransaction() != null) {
-                getTransaction().rollback();
+            if (transaction != null) {
+                transaction.rollback();
             }
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
     }
 
     @Override
     public void delete(Advertisement advertisement) {
 
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
         try {
-            Session session = getSession();
             session.delete(advertisement);
-
-            closeTransactionAndSession();
+            transaction.commit();
 
         } catch (Exception e) {
-
-            if (getTransaction() != null) {
-                getTransaction().rollback();
+            if (transaction != null) {
+                transaction.rollback();
             }
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
     }
 
@@ -98,31 +97,30 @@ public class AdvertisementDao extends SessionUtil implements Dao<Advertisement> 
     public void deleteAll() {
 
         List<Advertisement> advertisementList = getAll();
-
-        Session session = getSession();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
         try {
             for (Advertisement advertisement : advertisementList) {
-
                 session.delete(advertisement);
             }
-            closeTransactionAndSession();
-
+            transaction.commit();
         } catch (Exception e) {
 
-            if (getTransaction() != null) {
-                getTransaction().rollback();
+            if (transaction != null) {
+                transaction.rollback();
             }
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
     }
 
     public List<Advertisement> getAllActiveAds() {
-        openTransactionAndSession();
-        Session session = getSession();
 
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
         Query<Advertisement> getAllActiveAdvertisementList = session.createNamedQuery("Advertisement_GetAllActive",
                 Advertisement.class);
-
-        return getAllActiveAdvertisementList.getResultList();
+        List<Advertisement> advertisements = getAllActiveAdvertisementList.getResultList();
+        transaction.commit();
+        return advertisements;
     }
 }

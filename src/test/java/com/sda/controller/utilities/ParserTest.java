@@ -11,14 +11,11 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
 
+import static com.sda.controller.utilities.Parser.*;
+import static com.sda.util.Constants.DATE_FORMAT;
+
+
 public class ParserTest {
-
-    Parser parser;
-
-    @Before
-    public void setUp() {
-        parser = new Parser();
-    }
 
     @Test
     public void shouldConvertToDateViaSqlDate() throws ParseException {
@@ -27,8 +24,8 @@ public class ParserTest {
 
         LocalDate localDateTest = LocalDate.of(2019, 1, 11);
 
-        Date dateTest1 = new SimpleDateFormat("dd/MM/yyyy").parse(startDateString2);
-        Date dateTest2 = parser.convertToDateViaSqlDate(localDateTest);
+        Date dateTest1 = new SimpleDateFormat(DATE_FORMAT).parse(startDateString2);
+        Date dateTest2 = convertToDateViaSqlDate(localDateTest);
 
         Assert.assertEquals(dateTest1, dateTest2);
     }
@@ -38,7 +35,7 @@ public class ParserTest {
         String s1 = "NewString";
         String s2 = "NEWSTRING";
 
-        Assert.assertTrue(parser.compareTwoStrings(s1, s2));
+        Assert.assertTrue(compareTwoStrings(s1, s2));
     }
 
     @Test
@@ -47,17 +44,17 @@ public class ParserTest {
         BigDecimal bigDecimalTopRate = new BigDecimal(200);
         BigDecimal bigDecimalTest = new BigDecimal(150);
 
-        Assert.assertTrue(parser.compareTwoBigDecimal(bigDecimalBottomRate, bigDecimalTopRate, bigDecimalTest));
+        Assert.assertTrue(compareTwoBigDecimal(bigDecimalBottomRate, bigDecimalTopRate, bigDecimalTest));
     }
 
     @Test
     public void shouldConvertToLocalDateViaInstant() throws ParseException {
 
         String startDateString2 = "11/01/2019";
-        Date dateTest = new SimpleDateFormat("dd/MM/yyyy").parse(startDateString2);
+        Date dateTest = new SimpleDateFormat(DATE_FORMAT).parse(startDateString2);
 
         LocalDate localDateTest1 = LocalDate.of(2019, 1, 11);
-        LocalDate localDateTest2 = parser.convertToLocalDateViaInstant(dateTest);
+        LocalDate localDateTest2 = convertToLocalDateViaInstant(dateTest);
 
         Assert.assertEquals(localDateTest1, localDateTest2);
     }
@@ -72,7 +69,7 @@ public class ParserTest {
         java.util.Date date = sdf1.parse(startDate);
         java.sql.Date sqlStartDate = new java.sql.Date(date.getTime());
 
-        LocalDate localDateTest2 = parser.convertSQLDateToLocalDate(sqlStartDate);
+        LocalDate localDateTest2 = convertSQLDateToLocalDate(sqlStartDate);
 
         Assert.assertEquals(localDateTest1, localDateTest2);
     }
@@ -80,16 +77,16 @@ public class ParserTest {
     @Test
     public void shouldDoDateParser() throws ParseException {
         String startDateString2 = "11/11/2019";
-        Date dateTest = new SimpleDateFormat("dd/MM/yyyy").parse(startDateString2);
+        Date dateTest = new SimpleDateFormat(DATE_FORMAT).parse(startDateString2);
         String formattedDateTest =  "2019-11-11";
-        String dateFromParser = parser.dateParser(dateTest);
+        String dateFromParser = dateParser(dateTest);
 
         Assert.assertEquals(formattedDateTest, dateFromParser);
     }
 
     @Test
     public void shouldGetNames() {
-               String[] gottenNamesFromAdvertisement = parser.getNames(Advertisement.ServiceType.class);
+               String[] gottenNamesFromAdvertisement = getNames(Advertisement.ServiceType.class);
                String offer = "OFFER";
                String request = "REQUEST";
                Assert.assertEquals(gottenNamesFromAdvertisement[0], offer);

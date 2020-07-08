@@ -3,12 +3,11 @@ package com.sda.util;
 import com.sda.dao.implementation.*;
 import com.sda.entity.*;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
+import static com.sda.util.Constants.DATE_FORMAT;
 
 public class DummyData {
 
@@ -17,218 +16,128 @@ public class DummyData {
     private final CategoryDao categoryDao;
     private final CityDao cityDao;
     private final CountryDao countryDao;
-    private final AddressDao addressDao;
-
-    private final List<Address> addressList;
 
     public DummyData() throws ParseException {
 
-        String DB_SETTINGS = "hibernate.cfg.xml";
-        cityDao = new CityDao(DB_SETTINGS);
-        countryDao = new CountryDao(DB_SETTINGS);
-        addressDao = new AddressDao(DB_SETTINGS);
-        categoryDao = new CategoryDao(DB_SETTINGS);
-        customerDao = new CustomerDao(DB_SETTINGS);
-        advertisementDao = new AdvertisementDao(DB_SETTINGS);
+        cityDao = new CityDao();
+        countryDao = new CountryDao();
+        categoryDao = new CategoryDao();
+        customerDao = new CustomerDao();
+        advertisementDao = new AdvertisementDao();
 
-        List<Country> countryList = Arrays.asList(
-                new Country("Estonia"),
-                new Country("Finland"),
-                new Country("Sweden"));
-        List<City> estonianCityList = Arrays.asList(
-                new City("Tallinn"),
-                new City("Narva"),
-                new City("Tartu"));
-        List<City> finnishCityList = Arrays.asList(
-                new City("Helsinki"),
-                new City("Tampere"),
-                new City("Turku"));
-        List<City> swedishCityList = Arrays.asList(
-                new City("Stockholm"),
-                new City("Upsala"),
-                new City("Malmö"));
+        Country estonia = new Country("Estonia");
+        Country finland = new Country("Finland");
+        Country sweden = new Country("Sweden");
 
-        addressList = new ArrayList<>();
+        countryDao.save(estonia);
+        countryDao.save(finland);
+        countryDao.save(sweden);
 
-        List<Category> superCategoryList = Arrays.asList(
-                new Category("Rent"),
-                new Category("Clean")
-        );
+        City tallinn = new City("Tallinn", estonia);
+        City narva = new City("Narva", estonia);
+        City tartu = new City("Tartu", estonia);
+        City helsinki = new City("Helsinki", finland);
+        City tampere = new City("Tampere", finland);
+        City turku = new City("Turku", finland);
+        City stockholm = new City("Stockholm", sweden);
+        City uppsala = new City("Uppsala", sweden);
+        City malmo = new City("Malmö", sweden);
 
-        List<Category> rentSubCategoryList = Arrays.asList(
-                new Category("Car Rent"),
-                new Category("Ship Rent")
-        );
+        cityDao.save(tallinn);
+        cityDao.save(narva);
+        cityDao.save(tartu);
+        cityDao.save(helsinki);
+        cityDao.save(tampere);
+        cityDao.save(turku);
+        cityDao.save(stockholm);
+        cityDao.save(uppsala);
+        cityDao.save(malmo);
 
-        List<Category> cleanSubCategoryList = Arrays.asList(
-                new Category("Office Cleaning"),
-                new Category("Apartment Cleaning")
-        );
+        Category rentSuperCategory = new Category("Rent");
+        Category cleanSuperCategory = new Category("Clean");
 
-        List<Customer> customerList = Arrays.asList(
-                new Customer("Demi", "0000", "Demiko Avaliani"),
-                new Customer("Mariam", "1111", "Mariam Dgebuadze"),
-                new Customer("Oleks", "2222", "Oleksandr Shpakovski"),
-                new Customer("Stan", "3333", "Stanislav Ratšinski")
-        );
+        categoryDao.save(rentSuperCategory);
+        categoryDao.save(cleanSuperCategory);
 
-        settingCityListToCountry(estonianCityList, countryList.get(0));
-        settingCityListToCountry(finnishCityList, countryList.get(1));
-        settingCityListToCountry(swedishCityList, countryList.get(2));
+        Category carRentCategory = new Category(rentSuperCategory, "Car Rent");
+        Category shipRentCategory = new Category(rentSuperCategory, "Ship Rent");
 
-        settingAddressesFromCitiesList(estonianCityList);
-        settingAddressesFromCitiesList(finnishCityList);
-        settingAddressesFromCitiesList(swedishCityList);
+        Category officeCleaningCategory = new Category(cleanSuperCategory, "Office Cleaning");
+        Category apartmentCleaningCategory = new Category(cleanSuperCategory, "Apartment Cleaning");
 
-        settingSuperCategoryToSubCategory(rentSubCategoryList, superCategoryList.get(0));
-        settingSuperCategoryToSubCategory(cleanSubCategoryList, superCategoryList.get(1));
+        categoryDao.save(carRentCategory);
+        categoryDao.save(shipRentCategory);
+        categoryDao.save(officeCleaningCategory);
+        categoryDao.save(apartmentCleaningCategory);
 
-        saveCountriesToDB(countryList);
-        saveCitiesToDB(estonianCityList);
-        saveCitiesToDB(finnishCityList);
-        saveCitiesToDB(swedishCityList);
+        Customer demi = new Customer("Demi", "0000", "Demiko Avaliani");
+        Customer mariam = new Customer("Mariam", "1111", "Mariam Dgebuadze");
+        Customer oleks = new Customer("Oleks", "2222", "Oleksandr Shpakovski");
+        Customer stan = new Customer("Stan", "3333", "Stanislav Ratšinski");
 
-        saveCategoriesToDB(superCategoryList);
-        saveCategoriesToDB(rentSubCategoryList);
-        saveCategoriesToDB(cleanSubCategoryList);
+        customerDao.save(demi);
+        customerDao.save(mariam);
+        customerDao.save(oleks);
+        customerDao.save(stan);
 
-        saveCustomersToDB(customerList);
+        Advertisement demiAd = Advertisement.builder()
+                .subject("Clean Fast")
+                .description("Fringilla urna porttitor rhoncus dolor" +
+                        " purus non enim. Vitae et leo duis ut diam. Massa tincidunt dui ut ornare lectus sit" +
+                        " amet. Id diam maecenas ultricies mi eget mauris. Aliquet nibh praesent tristique" +
+                        " magna.")
+                .price(new BigDecimal("2.5"))
+                .startDate(new SimpleDateFormat(DATE_FORMAT).parse("31/12/1998"))
+                .endDate(new SimpleDateFormat(DATE_FORMAT).parse("31/12/2021"))
+                .serviceType(Advertisement.ServiceType.OFFER)
+                .category(rentSuperCategory)
+                .address(new Address(estonia.getCountryName(), tallinn.getCityName()))
+                .customer(demi)
+                .build();
+        Advertisement mariAd = Advertisement.builder()
+                .subject("Car Rent")
+                .description("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor" +
+                        " incididunt ut labore et dolore magna aliqua. Fringilla urna porttitor rhoncus dolor" +
+                        " purus non enim. Vitae et leo duis ut diam. Massa tincidunt dui ut ornare lectus sit" +
+                        " amet. Id diam maecenas ultricies mi eget mauris. Aliquet nibh praesent tristique" +
+                        " magna.")
+                .price(new BigDecimal("303.3"))
+                .startDate(new SimpleDateFormat(DATE_FORMAT).parse("21/02/2005"))
+                .endDate(new SimpleDateFormat(DATE_FORMAT).parse("31/12/2020"))
+                .serviceType(Advertisement.ServiceType.REQUEST)
+                .category(cleanSuperCategory)
+                .address(new Address(estonia.getCountryName(), narva.getCityName()))
+                .customer(mariam)
+                .build();
+        Advertisement oleksAd = Advertisement.builder()
+                .subject("Clean Your Office!")
+                .description("Massa tincidunt dui ut ornare lectus sit" +
+                        " amet. Id diam maecenas ultricies mi eget mauris. Aliquet nibh praesent tristique" +
+                        " magna.")
+                .price(new BigDecimal("152"))
+                .startDate(new SimpleDateFormat(DATE_FORMAT).parse("13/01/2016"))
+                .endDate(new SimpleDateFormat(DATE_FORMAT).parse("31/12/2022"))
+                .serviceType(Advertisement.ServiceType.OFFER)
+                .category(cleanSuperCategory)
+                .address(new Address(finland.getCountryName(), tampere.getCityName()))
+                .customer(oleks)
+                .build();
+        Advertisement stanAd = Advertisement.builder()
+                .subject("Rent Equipment from Us!!")
+                .description("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor" +
+                        " incididunt ut labore et dolore magna aliqua.")
+                .price(new BigDecimal("200"))
+                .startDate(new SimpleDateFormat(DATE_FORMAT).parse("13/01/2013"))
+                .endDate(new SimpleDateFormat(DATE_FORMAT).parse("17/04/2022"))
+                .serviceType(Advertisement.ServiceType.REQUEST)
+                .category(rentSuperCategory)
+                .address(new Address(sweden.getCountryName(), malmo.getCityName()))
+                .customer(stan)
+                .build();
 
-        List<Advertisement> advertisementList = Arrays.asList(
-                new Advertisement(
-                        "Clean Fast",
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor" +
-                                " incididunt ut labore et dolore magna aliqua. Fringilla urna porttitor rhoncus dolor" +
-                                " purus non enim. Vitae et leo duis ut diam. Massa tincidunt dui ut ornare lectus sit" +
-                                " amet. Id diam maecenas ultricies mi eget mauris. Aliquet nibh praesent tristique" +
-                                " magna.",
-                        "2.5",
-                        new SimpleDateFormat("dd/MM/yyyy").parse("31/12/1998"),
-                        new SimpleDateFormat("dd/MM/yyyy").parse("31/12/2021"),
-                        Advertisement.ServiceType.OFFER,
-                        superCategoryList.get(1),
-                        customerList.get(1),
-                        addressList.get(1)),
-                new Advertisement(
-                        "Car Rent",
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor" +
-                                " incididunt ut labore et dolore magna aliqua. Erat velit scelerisque in dictum non." +
-                                " Ligula ullamcorper malesuada proin libero nunc. Condimentum lacinia quis vel eros." +
-                                " Facilisis mauris sit amet massa vitae tortor condimentum." +
-                                " Purus faucibus ornare suspendisse sed nisi lacus sed viverra tellus." +
-                                " Lacus sed turpis tincidunt id aliquet." +
-                                " Ullamcorper malesuada proin libero nunc consequat interdum varius sit.",
-                        "103.3",
-                        new SimpleDateFormat("dd/MM/yyyy").parse("21/02/2005"),
-                        new SimpleDateFormat("dd/MM/yyyy").parse("31/12/2020"),
-                        Advertisement.ServiceType.REQUEST,
-                        superCategoryList.get(0),
-                        customerList.get(0),
-                        addressList.get(0)),
-                new Advertisement(
-                        "Clean Your Office!",
-                        "some dummy description3",
-                        "152",
-                        new SimpleDateFormat("dd/MM/yyyy").parse("13/01/2001"),
-                        new SimpleDateFormat("dd/MM/yyyy").parse("17/04/2020"),
-                        Advertisement.ServiceType.REQUEST,
-                        superCategoryList.get(1),
-                        customerList.get(2),
-                        addressList.get(2)),
-                new Advertisement(
-                        "Rent Equipment from Us!!",
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor" +
-                                " incididunt ut labore et dolore magna aliqua." +
-                                " Cras fermentum odio eu feugiat pretium nibh ipsum." +
-                                " Nec dui nunc mattis enim ut." +
-                                " Sit amet luctus venenatis lectus magna fringilla urna porttitor." +
-                                " Eu augue ut lectus arcu bibendum at varius vel pharetra.",
-                        "152",
-                        new SimpleDateFormat("dd/MM/yyyy").parse("13/01/2019"),
-                        new SimpleDateFormat("dd/MM/yyyy").parse("31/12/2022"),
-                        Advertisement.ServiceType.OFFER,
-                        superCategoryList.get(0),
-                        customerList.get(3),
-                        addressList.get(3)),
-                new Advertisement(
-                        "Clean your home!!",
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit," +
-                                " sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." +
-                                " Sit amet porttitor eget dolor morbi non." +
-                                " Tincidunt eget nullam non nisi est." +
-                                " Non nisi est sit amet facilisis magna etiam tempor." +
-                                " Consequat mauris nunc congue nisi." +
-                                " Tristique magna sit amet purus gravida quis blandit turpis cursus.",
-                        "152",
-                        new SimpleDateFormat("dd/MM/yyyy").parse("13/01/2019"),
-                        new SimpleDateFormat("dd/MM/yyyy").parse("17/04/2022"),
-                        Advertisement.ServiceType.REQUEST,
-                        superCategoryList.get(1),
-                        customerList.get(2),
-                        addressList.get(4))
-        );
-
-        saveAdvertisementsToDB(advertisementList);
-    }
-
-    private void settingCityListToCountry(List<City> cityList, Country country) {
-        for (City city : cityList) {
-            city.setCountry(country);
-        }
-    }
-
-    private void settingAddressesFromCitiesList(List<City> cityList) {
-        for (City city : cityList) {
-            addressList.add(new Address(city.getCountry().getCountryName(), city.getCityName()));
-        }
-    }
-
-    private void settingSuperCategoryToSubCategory(List<Category> subCategoryList, Category superCategory) {
-        for (Category category : subCategoryList) {
-            category.setSuperCategory(superCategory);
-        }
-    }
-
-    private void saveCountriesToDB(List<Country> countryList) {
-        for (Country country : countryList) {
-            countryDao.save(country);
-        }
-    }
-
-    private void saveCitiesToDB(List<City> cityList) {
-        for (City city : cityList) cityDao.save(city);
-    }
-
-
-    private void saveAddressesToDB(List<Address> addressList) {
-        for (Address address : addressList) {
-            addressDao.save(address);
-        }
-    }
-
-    private void saveCategoriesToDB(List<Category> categoryList) {
-        for (Category category : categoryList) {
-            categoryDao.save(category);
-        }
-    }
-
-    private void saveCustomersToDB(List<Customer> customerList) {
-        for (Customer customer : customerList) {
-            customerDao.save(customer);
-        }
-    }
-
-    private void saveAdvertisementsToDB(List<Advertisement> advertisementList) {
-        for (Advertisement advertisement : advertisementList) {
-            advertisementDao.save(advertisement);
-        }
-    }
-
-    private Customer settingAdvertisementToCustomer(Advertisement advertisement, Customer customer) {
-        List<Advertisement> ads = customer.getUserAdvertisements();
-        ads.add(advertisement);
-        customer.setUserAdvertisements(ads);
-
-        return customer;
+        advertisementDao.save(demiAd);
+        advertisementDao.save(mariAd);
+        advertisementDao.save(oleksAd);
+        advertisementDao.save(stanAd);
     }
 }

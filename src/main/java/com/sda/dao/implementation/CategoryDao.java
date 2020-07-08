@@ -2,9 +2,12 @@ package com.sda.dao.implementation;
 
 import com.sda.dao.Dao;
 import com.sda.entity.Category;
-import com.sda.util.SessionUtil;
+import com.sda.util.HibernateUtil;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -13,89 +16,82 @@ import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryDao extends SessionUtil implements Dao<Category> {
+public class CategoryDao implements Dao<Category> {
 
-    public CategoryDao(String hibernateConfigurationFilePath) {
-        super(hibernateConfigurationFilePath);
-    }
+    private static final Logger logger = LoggerFactory.getLogger(CategoryDao.class);
 
     @Override
     public Category get(Long id) {
 
-        openTransactionAndSession();
-        return getSession().get(Category.class, id);
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        Category category = session.get(Category.class, id);
+        transaction.commit();
+        return category;
     }
 
     @Override
     public List<Category> getAll() {
 
-        openTransactionAndSession();
-        Session session = getSession();
-
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
         CriteriaBuilder cb = session.getCriteriaBuilder();
         CriteriaQuery<Category> cq = cb.createQuery(Category.class);
         Root<Category> rootEntry = cq.from(Category.class);
         CriteriaQuery<Category> all = cq.select(rootEntry);
-
         TypedQuery<Category> allQuery = session.createQuery(all);
-        return allQuery.getResultList();
+        List<Category> categories = allQuery.getResultList();
+        transaction.commit();
+        return categories;
     }
 
     @Override
     public void save(Category category) {
 
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
         try {
-            openTransactionAndSession();
-            Session session = getSession();
             session.save(category);
-
-            closeTransactionAndSession();
-
+            transaction.commit();
         } catch (Exception e) {
-
-            if (getTransaction() != null) {
-                getTransaction().rollback();
+            if (transaction != null) {
+                transaction.rollback();
             }
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
     }
 
     @Override
     public void update(Category category) {
 
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
         try {
-
-            openTransactionAndSession();
-            Session session = getSession();
             session.merge(category);
-
-            closeTransactionAndSession();
-
+            transaction.commit();
         } catch (Exception e) {
 
-            if (getTransaction() != null) {
-                getTransaction().rollback();
+            if (transaction != null) {
+                transaction.rollback();
             }
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
     }
 
     @Override
     public void delete(Category category) {
 
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
         try {
-
-            Session session = getSession();
-            session.remove(category);
-
-            closeTransactionAndSession();
-
+            session.delete(category);
+            transaction.commit();
         } catch (Exception e) {
 
-            if (getTransaction() != null) {
-                getTransaction().rollback();
+            if (transaction != null) {
+                transaction.rollback();
             }
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
     }
 
@@ -103,42 +99,35 @@ public class CategoryDao extends SessionUtil implements Dao<Category> {
     public void deleteAll() {
 
         List<Category> categoryList = getAll();
-
-        Session session = getSession();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
         try {
-
             for (Category category : categoryList) {
-
                 session.delete(category);
             }
-        closeTransactionAndSession();
-
+            transaction.commit();
         } catch (Exception e) {
-
-            if (getTransaction() != null) {
-                getTransaction().rollback();
+            if (transaction != null) {
+                transaction.rollback();
             }
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
     }
 
     public Category getByName(String name) {
 
-        openTransactionAndSession();
-        Session session = getSession();
-
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
         Query<Category> getCategoryByName = session.createNamedQuery("Category_GetByName",
                 Category.class);
         getCategoryByName.setParameter("name", name);
-
-        return getCategoryByName.getSingleResult();
+        Category category = getCategoryByName.getSingleResult();
+        transaction.commit();
+        return category;
     }
 
-
     public List<String> getAllCategoryNames() {
-
         List<Category> getAllCategoryList = getAll();
-
         List<String> listOfSubcategories = new ArrayList<>();
         for (Category o : getAllCategoryList) {
             if (o.getSuperCategory() == null) {

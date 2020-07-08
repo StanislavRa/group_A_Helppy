@@ -6,7 +6,7 @@ import javafx.util.Duration;
 
 public class Animation {
 
-    private TranslateTransition translateTransition;
+    private final TranslateTransition translateTransition;
 
     public Animation(Node node) {
         translateTransition = new TranslateTransition(Duration.millis(70), node);

@@ -1,102 +1,97 @@
 package com.sda.dao.implementation;
 
 import com.sda.dao.Dao;
-import com.sda.entity.City;
 import com.sda.entity.Customer;
-import com.sda.util.SessionUtil;
+import com.sda.util.HibernateUtil;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
-public class CustomerDao extends SessionUtil implements Dao<Customer> {
+public class CustomerDao implements Dao<Customer> {
 
-    public CustomerDao(String hibernateConfigurationFilePath) {
-        super(hibernateConfigurationFilePath);
-    }
+    private static final Logger logger = LoggerFactory.getLogger(CustomerDao.class);
+    private final String fetchProfileName = "customer.userAdvertisements";
 
     @Override
     public Customer get(Long id) {
 
-        openTransactionAndSession();
-        return getSession().get(Customer.class, id);
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        session.enableFetchProfile(fetchProfileName);
+        Customer customer = session.get(Customer.class, id);
+        transaction.commit();
+        return customer;
     }
 
     @Override
     public List<Customer> getAll() {
 
-        openTransactionAndSession();
-        Session session = getSession();
-
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
         CriteriaBuilder cb = session.getCriteriaBuilder();
         CriteriaQuery<Customer> cq = cb.createQuery(Customer.class);
         Root<Customer> rootEntry = cq.from(Customer.class);
         CriteriaQuery<Customer> all = cq.select(rootEntry);
-
         TypedQuery<Customer> allQuery = session.createQuery(all);
-        return allQuery.getResultList();
+        List<Customer> customers = allQuery.getResultList();
+        transaction.commit();
+        return customers;
     }
 
     @Override
     public void save(Customer customer) {
 
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
         try {
-            openTransactionAndSession();
-            Session session = getSession();
             session.save(customer);
-
-            closeTransactionAndSession();
-
+            transaction.commit();
         } catch (Exception e) {
-
-            if (getTransaction() != null) {
-                getTransaction().rollback();
+            if (transaction != null) {
+                transaction.rollback();
             }
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
     }
 
     @Override
     public void update(Customer customer) {
 
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
         try {
-            openTransactionAndSession();
-            Session session = getSession();
             session.merge(customer);
-
-            // close session with a transaction
-            closeTransactionAndSession();
-
+            transaction.commit();
         } catch (Exception e) {
-
-            if (getTransaction() != null) {
-                getTransaction().rollback();
+            if (transaction != null) {
+                transaction.rollback();
             }
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
     }
 
     @Override
     public void delete(Customer customer) {
 
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
         try {
-            // open session with a transaction
-            //openTransactionAndSession();
-            Session session = getSession();
             session.delete(customer);
-
-            // close session with a transaction
-            closeTransactionAndSession();
-
+            transaction.commit();
         } catch (Exception e) {
 
-            if (getTransaction() != null) {
-                getTransaction().rollback();
+            if (transaction != null) {
+                transaction.rollback();
             }
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
     }
 
@@ -104,66 +99,48 @@ public class CustomerDao extends SessionUtil implements Dao<Customer> {
     public void deleteAll() {
 
         List<Customer> customerList = getAll();
-
-        Session session = getSession();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
         try {
             for (Customer customer : customerList) {
-
                 session.delete(customer);
             }
-            closeTransactionAndSession();
-
+            transaction.commit();
         } catch (Exception e) {
-
-            if (getTransaction() != null) {
-                getTransaction().rollback();
+            if (transaction != null) {
+                transaction.rollback();
             }
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
     }
 
     public Customer getByLogin(String login) {
 
         Customer customer = null;
-
-        openTransactionAndSession();
-        Session session = getSession();
-
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        session.enableFetchProfile(fetchProfileName);
         Query<Customer> query = session.createNamedQuery("Customer_GetByLogin", Customer.class);
         query.setParameter("login", login);
         if (!query.list().isEmpty()) {
             customer = query.getSingleResult();
         }
-        closeTransactionAndSession();
-
+        transaction.commit();
         return customer;
     }
 
     public Customer getByLoginAndPassword(String login, String password) {
 
         Customer customer = null;
-
-        openTransactionAndSession();
-        Session session = getSession();
-
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        session.enableFetchProfile( "customer.userAdvertisements" );
         Query<Customer> query = session.createNamedQuery("Customer_GetByLoginAndPassword", Customer.class);
-        query.setParameter("login", login).setParameter("password",password);
+        query.setParameter("login", login).setParameter("password", password);
         if (!query.list().isEmpty()) {
             customer = query.getSingleResult();
         }
-        closeTransactionAndSession();
-
+        transaction.commit();
         return customer;
-    }
-
-    public Customer getByFullName(String fullName) {
-
-        openTransactionAndSession();
-        Session session = getSession();
-
-        Query<Customer> query = session.createNamedQuery("Customer_GetByFullName", Customer.class);
-        query.setParameter("fullName", fullName);
-
-        return query.getSingleResult();
     }
 }

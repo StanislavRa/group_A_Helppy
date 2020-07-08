@@ -1,12 +1,13 @@
 package com.sda.controller;
 
-import com.sda.controller.utilities.AlertBox;
 import com.sda.controller.utilities.Animation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+
+import static com.sda.controller.utilities.AlertBox.error;
 
 public class LogInViewController extends GeneralController {
 
@@ -37,7 +38,7 @@ public class LogInViewController extends GeneralController {
                 controller.setCustomer(customer);
                 controller.initData();
             } else {
-                AlertBox.error("Login name and/or password is incorrect!");
+                error("Login name and/or password is incorrect!");
             }
 
         } else {

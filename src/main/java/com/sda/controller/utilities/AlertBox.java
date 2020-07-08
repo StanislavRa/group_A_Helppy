@@ -36,4 +36,6 @@ public class AlertBox {
         alert.showAndWait();
     }
 
+    private AlertBox() {
+    }
 }

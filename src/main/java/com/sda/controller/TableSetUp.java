@@ -52,8 +52,7 @@ public class TableSetUp extends GeneralController {
 
     protected ObservableList<Advertisement> getAdsFromCustomer(Customer customer) {
         List<Advertisement> getUserAds = customer.getUserAdvertisements();
-        ObservableList<Advertisement> adsTable = FXCollections.observableArrayList(getUserAds);
-        return adsTable;
+        return FXCollections.observableArrayList(getUserAds);
     }
 
     protected boolean isTableRowSelected(TableView<Advertisement> tableView) {

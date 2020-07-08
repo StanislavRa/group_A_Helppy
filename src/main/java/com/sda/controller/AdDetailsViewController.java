@@ -4,6 +4,8 @@ import com.sda.entity.Advertisement;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
+import static com.sda.controller.utilities.Parser.dateParser;
+
 public class AdDetailsViewController extends GeneralController {
 
     @FXML
@@ -29,8 +31,8 @@ public class AdDetailsViewController extends GeneralController {
 
         subjectLabel.setText(advertisement.getSubject());
         categoryLabel.setText(advertisement.getCategory().getName());
-        startDateLabel.setText(parser.dateParser(advertisement.getStartDate()));
-        endDateLabel.setText(parser.dateParser(advertisement.getEndDate()));
+        startDateLabel.setText(dateParser(advertisement.getStartDate()));
+        endDateLabel.setText(dateParser(advertisement.getEndDate()));
         addressLabel.setText(advertisement.getAddress().getCity());
         adTypeLabel.setText(advertisement.getServiceType().toString());
         priceLabel.setText(advertisement.getPrice().toString());

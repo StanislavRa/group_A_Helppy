@@ -3,7 +3,6 @@ package com.sda.controller;
 import com.sda.dao.implementation.*;
 import com.sda.entity.Advertisement;
 import com.sda.entity.Customer;
-import com.sda.controller.utilities.Parser;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,6 +14,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.List;
@@ -22,13 +23,13 @@ import java.util.List;
 public abstract class GeneralController {
 
     protected Customer customer;
-    protected Parser parser = new Parser();
-    private final String DB_SETTINGS = "hibernate.cfg.xml";
-    protected AdvertisementDao adDao = new AdvertisementDao(DB_SETTINGS);
-    protected CustomerDao customerDao = new CustomerDao(DB_SETTINGS);
-    protected CategoryDao categoryDao = new CategoryDao(DB_SETTINGS);
-    protected CountryDao countryDao = new CountryDao(DB_SETTINGS);
-    protected CityDao cityDao = new CityDao(DB_SETTINGS);
+    protected AdvertisementDao adDao = new AdvertisementDao();
+    protected CustomerDao customerDao = new CustomerDao();
+    protected CategoryDao categoryDao = new CategoryDao();
+    protected CountryDao countryDao = new CountryDao();
+    protected CityDao cityDao = new CityDao();
+
+    private static final Logger logger = LoggerFactory.getLogger(GeneralController.class);
 
     protected FXMLLoader changeScreen(Event event, String viewName) {
 
@@ -37,13 +38,12 @@ public abstract class GeneralController {
         try {
             Parent tableViewParent = loader.load();
             Scene tableViewScene = new Scene(tableViewParent);
-            //This line gets the Stage information
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
             window.setScene(tableViewScene);
             window.show();
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
         return loader;
     }
@@ -87,6 +87,7 @@ public abstract class GeneralController {
     protected ObservableList<Advertisement> convertFromListToObservableList(List<Advertisement> list) {
         return FXCollections.observableArrayList(list);
     }
+
     public Customer getCustomer() {
         return customer;
     }

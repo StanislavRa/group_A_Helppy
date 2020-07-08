@@ -1,5 +1,6 @@
 package com.sda.entity;
 
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -7,20 +8,18 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.Objects;
 
-
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "ADVERTISEMENT")
-
-@NamedNativeQueries({
-        @NamedNativeQuery(
-                name = "Advertisement_GetAllActive",
-                query = "select * from ADVERTISEMENT advertisement " +
-                        "where advertisement.END_DATE > CURDATE() - 1",
-                resultClass = Advertisement.class),
-
-})
+@NamedNativeQuery(
+        name = "Advertisement_GetAllActive",
+        query = "select * from ADVERTISEMENT advertisement " +
+                "where advertisement.END_DATE > CURDATE() - 1",
+        resultClass = Advertisement.class)
 
 public class Advertisement {
 
@@ -44,142 +43,32 @@ public class Advertisement {
     @Column(name = "END_DATE")
     private Date endDate;
 
-    @Column
+    @Column(name = "CREATED_ON")
     @CreationTimestamp
-    private LocalDateTime CREATED_ON;
+    private LocalDateTime createdOn;
 
-    @Column
+    @Column(name = "UPDATED_ON")
     @UpdateTimestamp
-    private LocalDateTime UPDATED_ON;
+    private LocalDateTime updatedOn;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "TYPE", nullable = false, length = 50)
     private ServiceType serviceType;
 
+    @ToString.Exclude
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "FK_CATEGORY_ID")
     private Category category;
 
+    @ToString.Exclude
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "FK_ADDRESS_ID")
     private Address address;
 
-    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @ToString.Exclude
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "FK_CUSTOMER_ID")
     private Customer customer;
-
-    public Advertisement() {
-    }
-
-    public Advertisement(String subject,
-                         String description,
-                         String price,
-                         Date startDate,
-                         Date endDate,
-                         ServiceType serviceType,
-                         Category category,
-                         Customer customer,
-                         Address address) {
-        this.subject = subject;
-        this.description = description;
-        this.price = new BigDecimal(price);
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.serviceType = serviceType;
-        this.category = category;
-        this.customer = customer;
-        this.address = address;
-
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getSubject() {
-        return subject;
-    }
-
-    public void setSubject(String subject) {
-        this.subject = subject;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(String price) {
-        this.price = new BigDecimal(price);
-    }
-
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
-    public ServiceType getServiceType() {
-        return serviceType;
-    }
-
-    public void setServiceType(ServiceType serviceType) {
-        this.serviceType = serviceType;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public LocalDateTime getCREATED_ON() {
-        return CREATED_ON;
-    }
-
-    public LocalDateTime getUPDATED_ON() {
-        return UPDATED_ON;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
 
     public enum ServiceType {
         OFFER("Offer"),
@@ -194,25 +83,5 @@ public class Advertisement {
         public String toString() {
             return type;
         }
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Advertisement that = (Advertisement) o;
-        return Objects.equals(getSubject(), that.getSubject()) &&
-                Objects.equals(getDescription(), that.getDescription()) &&
-                Objects.equals(getStartDate(), that.getStartDate()) &&
-                Objects.equals(getEndDate(), that.getEndDate()) &&
-                getServiceType() == that.getServiceType() &&
-                Objects.equals(getCategory(), that.getCategory()) &&
-                Objects.equals(getAddress(), that.getAddress()) &&
-                Objects.equals(getCustomer(), that.getCustomer());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getSubject(), getDescription(), getStartDate(), getEndDate(), getServiceType(), getCategory(), getAddress(), getCustomer());
     }
 }

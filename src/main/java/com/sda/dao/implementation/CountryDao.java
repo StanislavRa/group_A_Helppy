@@ -1,10 +1,12 @@
 package com.sda.dao.implementation;
 
 import com.sda.dao.Dao;
-import com.sda.entity.City;
 import com.sda.entity.Country;
-import com.sda.util.SessionUtil;
+import com.sda.util.HibernateUtil;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -13,87 +15,81 @@ import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CountryDao extends SessionUtil implements Dao<Country> {
+public class CountryDao implements Dao<Country> {
 
-    public CountryDao(String hibernateConfigurationFilePath) {
-        super(hibernateConfigurationFilePath);
-    }
+    private static final Logger logger = LoggerFactory.getLogger(CountryDao.class);
 
     @Override
     public Country get(Long id) {
 
-        openTransactionAndSession();
-        return getSession().get(Country.class, id);
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        Country country = session.get(Country.class, id);
+        transaction.commit();
+        return country;
     }
 
     @Override
     public List<Country> getAll() {
 
-        openTransactionAndSession();
-        Session session = getSession();
-
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
         CriteriaBuilder cb = session.getCriteriaBuilder();
         CriteriaQuery<Country> cq = cb.createQuery(Country.class);
         Root<Country> rootEntry = cq.from(Country.class);
         CriteriaQuery<Country> all = cq.select(rootEntry);
-
         TypedQuery<Country> allQuery = session.createQuery(all);
-        return allQuery.getResultList();
+        List<Country> countries = allQuery.getResultList();
+        transaction.commit();
+        return countries;
     }
 
     @Override
     public void save(Country country) {
 
+            Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+            Transaction transaction = session.beginTransaction();
         try {
-            openTransactionAndSession();
-            Session session = getSession();
             session.save(country);
-
-            closeTransactionAndSession();
-
+            transaction.commit();
         } catch (Exception e) {
-
-            if (getTransaction() != null) {
-                getTransaction().rollback();
+            if (transaction!= null) {
+                transaction.rollback();
             }
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
     }
 
     @Override
     public void update(Country country) {
 
+            Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+            Transaction transaction = session.beginTransaction();
         try {
-            openTransactionAndSession();
-            Session session = getSession();
             session.merge(country);
-
-            closeTransactionAndSession();
+            transaction.commit();
 
         } catch (Exception e) {
-
-            if (getTransaction() != null) {
-                getTransaction().rollback();
+            if (transaction!= null) {
+                transaction.rollback();
             }
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
     }
 
     @Override
     public void delete(Country country) {
 
+            Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+            Transaction transaction = session.beginTransaction();
         try {
-            Session session = getSession();
             session.delete(country);
-
-            closeTransactionAndSession();
-
+            transaction.commit();
         } catch (Exception e) {
-
-            if (getTransaction() != null) {
-                getTransaction().rollback();
+            if (transaction != null) {
+                transaction.rollback();
             }
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
     }
 
@@ -110,21 +106,19 @@ public class CountryDao extends SessionUtil implements Dao<Country> {
     public void deleteAll() {
 
         List<Country> countryList = getAll();
-
-        Session session = getSession();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
         try {
             for (Country country : countryList) {
 
                 session.delete(country);
             }
-            closeTransactionAndSession();
-
+            transaction.commit();
         } catch (Exception e) {
-
-            if (getTransaction() != null) {
-                getTransaction().rollback();
+            if (transaction != null) {
+                transaction.rollback();
             }
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
     }
 }
